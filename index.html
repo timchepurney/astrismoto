@@ -1,107 +1,190 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Astris Moto</title>
+
+<title>Astris</title>
 
 <style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#050505;
-color:white;
+  background:#fff;
+  color:#111;
 }
 
 header{
-padding:25px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+  height:80px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 35px;
+  border-bottom:1px solid #eee;
 }
 
 .logo{
-font-size:28px;
-font-weight:bold;
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:2px;
 }
 
 .menu{
-font-size:32px;
-cursor:pointer;
-}
-
-nav{
-display:none;
-background:#111;
-padding:20px;
-}
-
-nav a{
-display:block;
-color:white;
-text-decoration:none;
-padding:15px;
-font-size:20px;
+  font-size:30px;
+  cursor:pointer;
 }
 
 .hero{
-padding:60px 25px;
-text-align:center;
+  height:85vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:40px;
+  background:
+  linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),
+  url("https://images.unsplash.com/photo-1558981806-ec527fa84c39");
+  background-size:cover;
+  background-position:center;
+  color:white;
 }
 
 .hero h1{
-font-size:50px;
+  font-size:55px;
+  max-width:600px;
+}
+
+.hero p{
+  margin:20px 0;
+  font-size:18px;
+}
+
+.button{
+  width:max-content;
+  background:white;
+  color:black;
+  padding:15px 30px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.products{
+  padding:50px 30px;
+}
+
+.products h2{
+  font-size:35px;
+  margin-bottom:30px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
 }
 
 .card{
-margin:20px;
-padding:25px;
-background:#151515;
-border-radius:20px;
+  background:#f5f5f5;
+  border-radius:20px;
+  padding:30px;
+  height:220px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  transition:.2s;
 }
 
-button{
-background:white;
-border:none;
-padding:15px 25px;
-border-radius:30px;
+.card:hover{
+  transform:translateY(-5px);
 }
+
+.card h3{
+  font-size:22px;
+}
+
+.card p{
+  color:#666;
+}
+
+footer{
+  padding:30px;
+  text-align:center;
+  background:#111;
+  color:white;
+}
+
 </style>
-
-<script>
-function menu(){
-let x=document.getElementById("nav");
-x.style.display = x.style.display=="block" ? "none":"block";
-}
-</script>
-
 </head>
+
 
 <body>
 
 <header>
-<div class="logo">ASTRIS</div>
-<div class="menu" onclick="menu()">☰</div>
+
+<div class="logo">
+ASTRIS
+</div>
+
+<div class="menu">
+☰
+</div>
+
 </header>
 
-<nav id="nav">
-<a href="#">E-Motos</a>
-<a href="#">Dirt Bikes</a>
-<a href="#">Accessories</a>
-<a href="#">Parts</a>
-</nav>
 
 <section class="hero">
-<h1>Ride Different.</h1>
-<p>Premium parts, upgrades, and gear.</p>
-<button>Shop Now</button>
+
+<h1>
+Ride Different.
+Built For The Streets.
+</h1>
+
+<p>
+Premium eMoto accessories, gear, and lifestyle.
+</p>
+
+<a class="button" href="#shop">
+Shop Now
+</a>
+
 </section>
 
+
+<section class="products" id="shop">
+
+<h2>Shop</h2>
+
+<div class="grid">
+
 <div class="card">
-<h2>Featured</h2>
-<p>⚡ E-Moto upgrades</p>
-<p>🔧 Performance parts</p>
-<p>🪖 Riding gear</p>
+<h3>Accessories</h3>
+<p>Upgrade your ride</p>
 </div>
+
+<div class="card">
+<h3>Apparel</h3>
+<p>Clean street style</p>
+</div>
+
+<div class="card">
+<h3>Parts</h3>
+<p>Ride essentials</p>
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+© 2026 ASTRIS
+</footer>
+
 
 </body>
 </html>
