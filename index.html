@@ -45,7 +45,6 @@ cursor:pointer;
 }
 
 
-
 .page{
 display:none;
 padding:50px;
@@ -58,23 +57,49 @@ display:block;
 }
 
 
+/* HOME */
 
 .hero h1{
-font-size:90px;
+font-size:110px;
+letter-spacing:5px;
+line-height:.85;
 }
 
 
 .hero p{
 color:#aaa;
 font-size:24px;
-margin-top:20px;
+margin-top:25px;
+max-width:650px;
+}
+
+
+.heroBox{
+
+margin-top:40px;
+background:#111;
+border:1px solid #222;
+padding:35px;
+border-radius:25px;
+max-width:600px;
+
+}
+
+
+.heroBox h2{
+font-size:35px;
+}
+
+
+.heroBox p{
+font-size:18px;
 }
 
 
 
 button{
-margin-top:30px;
-padding:18px 40px;
+margin-top:35px;
+padding:20px 50px;
 border-radius:40px;
 border:none;
 cursor:pointer;
@@ -84,14 +109,19 @@ font-size:18px;
 
 .shop{
 background:white;
+color:black;
 }
 
 
+/* PRODUCTS */
+
 
 .cards{
+
 display:flex;
-gap:20px;
+gap:25px;
 flex-wrap:wrap;
+
 }
 
 
@@ -106,16 +136,20 @@ width:280px;
 }
 
 
-
-.back{
-
-background:#222;
-color:white;
-
+.card h2{
+font-size:28px;
 }
 
 
+.card p{
+color:#aaa;
+margin-top:15px;
+}
+
+
+
 /* MENU */
+
 
 #sideMenu{
 
@@ -127,7 +161,7 @@ height:100%;
 background:#111;
 padding:35px;
 transition:.3s;
-z-index:5;
+z-index:10;
 
 }
 
@@ -152,11 +186,17 @@ cursor:pointer;
 }
 
 
+.back{
+
+background:#222;
+color:white;
+
+}
+
+
 </style>
 
-
 </head>
-
 
 
 <body>
@@ -164,11 +204,18 @@ cursor:pointer;
 
 <header>
 
-<div class="logo">ASTRIS</div>
+<div class="logo">
+ASTRIS
+</div>
 
-<div class="menu" onclick="toggleMenu()">☰</div>
+
+<div class="menu" onclick="toggleMenu()">
+☰
+</div>
+
 
 </header>
+
 
 
 
@@ -187,13 +234,35 @@ cursor:pointer;
 
 
 
+
 <div id="home" class="page active hero">
 
-<h1>Ride Different.</h1>
+
+<h1>
+ASTRIS<br>
+MOTO
+</h1>
+
 
 <p>
-Premium accessories and style for electric riders.
+Electric ride accessories. Clean style. Built for riders.
 </p>
+
+
+
+<div class="heroBox">
+
+<h2>
+Upgrade your setup.
+</h2>
+
+<p>
+Shop accessories, clothing, and parts made for electric riders.
+</p>
+
+
+</div>
+
 
 
 <button class="shop" onclick="showPage('accessories')">
@@ -207,21 +276,34 @@ Shop Now
 
 
 
+
+
 <div id="accessories" class="page">
+
 
 <h1>Accessories</h1>
 
+
 <div class="cards">
 
-<div class="card">
-<h2>Bike Gear</h2>
-<p>Clean upgrades for your ride.</p>
-</div>
 
 <div class="card">
-<h2>Extras</h2>
-<p>Make your setup yours.</p>
+<h2>Grip Set</h2>
+<p>Clean upgrades for your bars.</p>
 </div>
+
+
+<div class="card">
+<h2>Stickers</h2>
+<p>Make your bike yours.</p>
+</div>
+
+
+<div class="card">
+<h2>Mounts</h2>
+<p>Useful ride add-ons.</p>
+</div>
+
 
 </div>
 
@@ -237,9 +319,13 @@ Shop Now
 
 
 
+
+
 <div id="clothing" class="page">
 
+
 <h1>Clothing</h1>
+
 
 <div class="cards">
 
@@ -247,6 +333,7 @@ Shop Now
 <h2>Hoodies</h2>
 <p>Astris street style.</p>
 </div>
+
 
 <div class="card">
 <h2>Tees</h2>
@@ -267,16 +354,21 @@ Shop Now
 
 
 
+
+
 <div id="parts" class="page">
+
 
 <h1>Parts</h1>
 
-<div class="cards">
 
 <div class="card">
-<h2>Upgrades</h2>
-<p>Build your setup.</p>
-</div>
+
+<h2>Bike Upgrades</h2>
+
+<p>
+Build your perfect setup.
+</p>
 
 </div>
 
