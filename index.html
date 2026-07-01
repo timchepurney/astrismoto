@@ -4,9 +4,184 @@
 
 <title>Astris Moto</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#000;
+color:white;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+
+header{
+height:110px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 7%;
+background:#000;
+}
+
+
+.logo{
+font-size:45px;
+font-weight:900;
+letter-spacing:12px;
+}
+
+
+nav{
+display:flex;
+gap:35px;
+}
+
+
+nav a{
+color:#aaa;
+text-decoration:none;
+font-size:20px;
+}
+
+
+.menu{
+font-size:45px;
+}
+
+
+.hero{
+height:80vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+
+.hero h1{
+font-size:120px;
+letter-spacing:20px;
+}
+
+
+.hero p{
+font-size:25px;
+color:#777;
+margin:30px;
+}
+
+
+button{
+padding:20px 60px;
+border-radius:40px;
+border:none;
+font-size:20px;
+}
+
+
+.shop{
+padding:80px 7%;
+}
+
+
+h2{
+font-size:55px;
+margin-bottom:40px;
+}
+
+
+.cards{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+}
+
+
+.card{
+height:330px;
+background:#111;
+border:1px solid #222;
+border-radius:30px;
+padding:30px;
+display:flex;
+flex-direction:column;
+justify-content:end;
+}
+
+
+.card h3{
+font-size:35px;
+}
+
+
+.card p{
+color:#888;
+font-size:22px;
+}
+
+
+.regular{
+margin-top:90px;
+}
+
+
+
+@media(max-width:800px){
+
+header{
+height:100px;
+padding:0 20px;
+}
+
+
+.logo{
+font-size:32px;
+letter-spacing:7px;
+}
+
+
+nav{
+display:none;
+}
+
+
+.menu{
+font-size:40px;
+}
+
+
+.hero h1{
+font-size:65px;
+letter-spacing:10px;
+}
+
+
+.hero p{
+font-size:18px;
+}
+
+
+.cards{
+grid-template-columns:1fr;
+}
+
+
+h2{
+font-size:40px;
+}
+
+}
+
+</style>
 
 </head>
+
 
 <body>
 
@@ -16,13 +191,17 @@
 <div class="logo">ASTRIS</div>
 
 <nav>
+
 <a href="#">Home</a>
 <a href="#">Shop</a>
 <a href="#">Accessories</a>
 <a href="#">Clothing</a>
+
 </nav>
 
+
 <div class="menu">☰</div>
+
 
 </header>
 
@@ -40,7 +219,6 @@
 
 
 
-
 <section class="shop">
 
 
@@ -49,17 +227,12 @@
 
 <div class="cards">
 
-
-<div class="card big">
-
+<div class="card">
 <h3>Foot Locks</h3>
 <p>$40</p>
-
 </div>
 
-
 </div>
-
 
 
 
@@ -76,12 +249,10 @@
 </div>
 
 
-
 <div class="card">
 <h3>Stickers</h3>
 <p>$10</p>
 </div>
-
 
 
 <div class="card">
@@ -90,12 +261,10 @@
 </div>
 
 
-
 <div class="card">
 <h3>Hoodies</h3>
 <p>$70</p>
 </div>
-
 
 
 <div class="card">
@@ -108,11 +277,6 @@
 
 
 </section>
-
-
-
-
-<script src="script.js"></script>
 
 
 </body>
