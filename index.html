@@ -1,114 +1,153 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Astris Moto</title>
 
 <style>
-* {
+
+*{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial, Helvetica, sans-serif;
 }
 
-body {
+body{
 background:#000;
 color:white;
+overflow-x:hidden;
 }
 
-header {
-height:80px;
+
+header{
+height:100px;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:0 40px;
+padding:0 60px;
 border-bottom:1px solid #222;
 }
 
-.logo {
-font-size:28px;
-font-weight:800;
-letter-spacing:3px;
+
+.logo{
+font-size:42px;
+font-weight:900;
+letter-spacing:5px;
 }
 
-.menu {
-font-size:30px;
+
+.menu{
+font-size:42px;
 cursor:pointer;
 }
 
-.hero {
-height:calc(100vh - 80px);
+
+.hero{
+min-height:90vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
-padding:40px;
+padding:60px;
 }
 
-.hero h1 {
-font-size:70px;
-line-height:1;
+
+.hero h1{
+font-size:100px;
+line-height:.9;
+max-width:800px;
 }
 
-.hero p {
-margin-top:20px;
+
+.hero p{
+margin-top:25px;
+font-size:25px;
 color:#aaa;
-font-size:20px;
+max-width:600px;
 }
 
-button {
-margin-top:30px;
-padding:15px 35px;
-border-radius:30px;
+
+button{
+margin-top:40px;
+padding:22px 55px;
+border-radius:40px;
 border:none;
+font-size:20px;
 cursor:pointer;
 }
 
-.shop {
+
+.shop{
 background:white;
 color:black;
 }
 
-.cards {
+
+.cards{
 display:flex;
-gap:20px;
-padding:40px;
+gap:25px;
+padding:60px;
 flex-wrap:wrap;
 }
 
-.card {
+
+.card{
 background:#111;
-padding:30px;
-border-radius:20px;
-width:250px;
+border:1px solid #222;
+border-radius:25px;
+padding:40px;
+width:330px;
 }
 
-.card p {
+
+.card h2{
+font-size:32px;
+}
+
+
+.card p{
 color:#aaa;
-margin-top:10px;
+margin-top:15px;
+font-size:18px;
 }
 
 
-/* MENU */
 
-#sideMenu {
+/* SIDE MENU */
+
+
+#sideMenu{
+
 position:fixed;
 top:0;
-right:-280px;
+right:-320px;
 height:100%;
-width:280px;
-background:#111;
-padding:40px;
+width:320px;
+background:#0a0a0a;
+padding:50px;
 transition:.3s;
-z-index:10;
+z-index:20;
+
 }
 
-#sideMenu a {
+
+#sideMenu h2{
+font-size:35px;
+}
+
+
+#sideMenu a{
+
 display:block;
 color:white;
 text-decoration:none;
-margin:25px 0;
-font-size:20px;
+font-size:25px;
+margin-top:35px;
+
 }
+
 
 </style>
 
@@ -133,8 +172,11 @@ font-size:20px;
 <h2>ASTRIS</h2>
 
 <a href="#">Accessories</a>
+
 <a href="#">Clothing</a>
+
 <a href="#">Parts</a>
+
 <a href="#">Contact</a>
 
 </div>
@@ -143,17 +185,23 @@ font-size:20px;
 
 <section class="hero">
 
-<h1>Ride Different.</h1>
+<h1>
+Ride Different.
+</h1>
+
 
 <p>
-Premium accessories and style for electric riders.
+Premium accessories and street style for electric riders.
 </p>
+
 
 <button class="shop">
 Shop Now
 </button>
 
+
 </section>
+
 
 
 
@@ -161,20 +209,37 @@ Shop Now
 
 
 <div class="card">
+
 <h2>Accessories</h2>
-<p>Upgrade your ride.</p>
+
+<p>
+Upgrade your ride with clean gear.
+</p>
+
 </div>
 
 
+
 <div class="card">
+
 <h2>Clothing</h2>
-<p>Clean rider style.</p>
+
+<p>
+Simple fits for riders.
+</p>
+
 </div>
 
 
+
 <div class="card">
+
 <h2>Parts</h2>
-<p>Built for performance.</p>
+
+<p>
+Built for your setup.
+</p>
+
 </div>
 
 
@@ -186,19 +251,24 @@ Shop Now
 
 function openMenu(){
 
-let menu = document.getElementById("sideMenu");
+let menu=document.getElementById("sideMenu");
 
-if(menu.style.right === "0px"){
-menu.style.right="-280px";
+if(menu.style.right==="0px"){
+
+menu.style.right="-320px";
+
 }
 
 else{
+
 menu.style.right="0px";
+
 }
 
 }
 
 </script>
+
 
 
 </body>
