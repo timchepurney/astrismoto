@@ -1,17 +1,7 @@
 const menu = document.querySelector(".menu");
-const nav = document.querySelector("nav");
 
+menu.onclick = () => {
 
-menu.addEventListener("click", () => {
+alert("Menu coming soon");
 
-    if(nav.style.display === "flex"){
-
-        nav.style.display = "none";
-
-    } else {
-
-        nav.style.display = "flex";
-
-    }
-
-});
+};
