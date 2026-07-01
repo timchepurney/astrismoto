@@ -3,226 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASTRIS Moto</title>
 
-    <link rel="stylesheet" href="style.css">
+    <title>Astris Moto</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <header>
-
-    <div class="logo">
-        <a href="index.html">ASTRIS</a>
-    </div>
+    <div class="logo">ASTRIS</div>
 
     <nav>
-
         <a href="index.html">Home</a>
-
         <a href="shop.html">Shop</a>
-
-        <a href="#featured">Featured</a>
-
-        <a href="#about">About</a>
-
-        <a href="cart.html" class="cart-button">
-            🛒
-            <span id="cart-count">0</span>
-        </a>
-
+        <a href="#">Accessories</a>
+        <a href="#">Clothing</a>
     </nav>
 
-    <button id="menuBtn">
-        ☰
-    </button>
-
+    <div class="menu">☰</div>
 </header>
 
-<div id="mobileMenu">
-
-    <a href="index.html">Home</a>
-
-    <a href="shop.html">Shop</a>
-
-    <a href="#featured">Featured</a>
-
-    <a href="#about">About</a>
-
-    <a href="cart.html">
-        🛒 Cart
-    </a>
-
-</div>
 
 <section class="hero">
 
-    <div class="hero-content">
-
-        <p class="small-text">
-            PREMIUM MOTO ACCESSORIES
-        </p>
+    <div class="hero-text">
 
         <h1>
-            Ride Different.
+            RIDE DIFFERENT.
         </h1>
 
-        <p class="hero-description">
-
-            Premium pegs, grips, foot locks,
-            apparel and more.
-
+        <p>
+            Premium moto accessories & streetwear built for riders.
         </p>
 
-        <div class="hero-buttons">
-
-            <a href="shop.html" class="primary">
-                Shop Now
-            </a>
-
-            <a href="#featured" class="secondary">
-                Explore
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section id="featured">
-
-    <h2>
-        Featured Products
-    </h2>
-
-    <div class="products">
-
-        <div class="card">
-
-            <img src="IMG_6375.jpeg">
-
-            <h3>Foot Pegs</h3>
-
-            <p class="price">$49.99</p>
-
-            <button onclick="addToCart('Foot Pegs',49.99)">
-                🛒 Add to Cart
-            </button>
-
-        </div>
-
-        <div class="card">
-
-            <img src="IMG_6375.jpeg">
-
-            <h3>Moto Grips</h3>
-
-            <p class="price">$24.99</p>
-
-            <button onclick="addToCart('Moto Grips',24.99)">
-                🛒 Add to Cart
-            </button>
-
-        </div>
-
-        <div class="card">
-
-            <img src="IMG_6375.jpeg">
-
-            <h3>ASTRIS Hoodie</h3>
-
-            <p class="price">$59.99</p>
-
-            <button onclick="addToCart('ASTRIS Hoodie',59.99)">
-                🛒 Add to Cart
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-<section class="categories">
-
-    <h2>Shop By Category</h2>
-
-    <div class="category-grid">
-
-        <a href="shop.html" class="category-card">
-            <h3>Accessories</h3>
-            <p>Grips • Pegs • Foot Locks</p>
-        </a>
-
-        <a href="shop.html" class="category-card">
-            <h3>Clothing</h3>
-            <p>Tees • Hoodies • Hats</p>
-        </a>
-
-        <a href="shop.html" class="category-card">
-            <h3>Stickers</h3>
-            <p>Premium Decals</p>
+        <a class="button" href="shop.html">
+            Shop Now
         </a>
 
     </div>
 
 </section>
 
-<section id="about" class="about">
 
-    <h2>About Astris</h2>
 
-    <p>
-        Astris Moto creates premium moto accessories and apparel
-        designed for riders who want clean style and quality parts.
-    </p>
+<section class="featured">
+
+<h2>Most Popular</h2>
+
+
+<div class="products">
+
+<div class="card">
+<h3>ASTRIS Grips</h3>
+<p>$25</p>
+</div>
+
+
+<div class="card">
+<h3>Foot Pegs</h3>
+<p>$40</p>
+</div>
+
+
+<div class="card">
+<h3>ASTRIS Tee</h3>
+<p>$35</p>
+</div>
+
+
+</div>
 
 </section>
 
-<section class="newsletter">
 
-    <h2>Stay Updated</h2>
-
-    <p>Be the first to know about new drops.</p>
-
-    <input
-        type="email"
-        placeholder="Email Address">
-
-    <button>
-        Join
-    </button>
-
-</section>
 
 <footer>
 
-    <h2>ASTRIS</h2>
-
-    <p>Premium Moto Accessories</p>
-
-    <div class="footer-links">
-
-        <a href="shop.html">Shop</a>
-
-        <a href="contact.html">Contact</a>
-
-        <a href="#">Shipping</a>
-
-        <a href="#">Returns</a>
-
-    </div>
-
-    <p class="copyright">
-        © 2026 Astris Moto
-    </p>
+<p>© 2026 Astris Moto</p>
 
 </footer>
 
-<script src="script.js"></script>
+
+<script src="js/script.js"></script>
 
 </body>
 </html>
