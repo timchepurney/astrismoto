@@ -5,111 +5,140 @@
 
 <style>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
 }
 
 body {
-  background: #000;
-  color: white;
+background:#000;
+color:white;
 }
 
 header {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  border-bottom: 1px solid #222;
+height:80px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 40px;
+border-bottom:1px solid #222;
 }
 
 .logo {
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: 3px;
+font-size:28px;
+font-weight:800;
+letter-spacing:3px;
 }
 
 .menu {
-  font-size: 28px;
-  cursor: pointer;
+font-size:30px;
+cursor:pointer;
 }
 
 .hero {
-  height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 40px;
+height:calc(100vh - 80px);
+display:flex;
+flex-direction:column;
+justify-content:center;
+padding:40px;
 }
 
 .hero h1 {
-  font-size: 70px;
-  max-width: 700px;
-  line-height: 1;
+font-size:70px;
+line-height:1;
 }
 
 .hero p {
-  margin-top: 20px;
-  color: #aaa;
-  font-size: 20px;
-}
-
-.buttons {
-  margin-top: 35px;
+margin-top:20px;
+color:#aaa;
+font-size:20px;
 }
 
 button {
-  padding: 15px 35px;
-  border-radius: 30px;
-  border: none;
-  margin-right: 15px;
-  cursor: pointer;
-  font-size: 16px;
+margin-top:30px;
+padding:15px 35px;
+border-radius:30px;
+border:none;
+cursor:pointer;
 }
 
 .shop {
-  background: white;
-  color: black;
-}
-
-.more {
-  background: #222;
-  color: white;
+background:white;
+color:black;
 }
 
 .cards {
-  display: flex;
-  gap: 20px;
-  padding: 40px;
+display:flex;
+gap:20px;
+padding:40px;
+flex-wrap:wrap;
 }
 
 .card {
-  background: #111;
-  padding: 30px;
-  border-radius: 20px;
-  width: 250px;
-}
-
-.card h2 {
-  margin-bottom: 10px;
+background:#111;
+padding:30px;
+border-radius:20px;
+width:250px;
 }
 
 .card p {
-  color: #aaa;
+color:#aaa;
+margin-top:10px;
 }
+
+
+/* MENU */
+
+#sideMenu {
+position:fixed;
+top:0;
+right:-280px;
+height:100%;
+width:280px;
+background:#111;
+padding:40px;
+transition:.3s;
+z-index:10;
+}
+
+#sideMenu a {
+display:block;
+color:white;
+text-decoration:none;
+margin:25px 0;
+font-size:20px;
+}
+
 </style>
 
 </head>
 
+
 <body>
 
+
 <header>
+
 <div class="logo">ASTRIS</div>
 
-<div class="menu">☰</div>
+<div class="menu" onclick="openMenu()">☰</div>
+
 </header>
+
+
+
+<div id="sideMenu">
+
+<h2>ASTRIS</h2>
+
+<a href="#">Accessories</a>
+<a href="#">Clothing</a>
+<a href="#">Parts</a>
+<a href="#">Contact</a>
+
+</div>
+
 
 
 <section class="hero">
@@ -117,35 +146,59 @@ button {
 <h1>Ride Different.</h1>
 
 <p>
-Premium accessories, style, and gear for electric riders.
+Premium accessories and style for electric riders.
 </p>
 
-<div class="buttons">
-<button class="shop">Shop Now</button>
-<button class="more">Explore</button>
-</div>
+<button class="shop">
+Shop Now
+</button>
 
 </section>
 
 
+
 <section class="cards">
+
 
 <div class="card">
 <h2>Accessories</h2>
 <p>Upgrade your ride.</p>
 </div>
 
+
 <div class="card">
 <h2>Clothing</h2>
-<p>Clean street style.</p>
+<p>Clean rider style.</p>
 </div>
+
 
 <div class="card">
 <h2>Parts</h2>
-<p>Built for riders.</p>
+<p>Built for performance.</p>
 </div>
 
+
 </section>
+
+
+
+<script>
+
+function openMenu(){
+
+let menu = document.getElementById("sideMenu");
+
+if(menu.style.right === "0px"){
+menu.style.right="-280px";
+}
+
+else{
+menu.style.right="0px";
+}
+
+}
+
+</script>
 
 
 </body>
