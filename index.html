@@ -1,189 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Astris</title>
+<title>Astris Moto</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-  background:#fff;
-  color:#111;
+body {
+  background: #000;
+  color: white;
 }
 
-header{
-  height:80px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 35px;
-  border-bottom:1px solid #eee;
+header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  border-bottom: 1px solid #222;
 }
 
-.logo{
-  font-size:26px;
-  font-weight:800;
-  letter-spacing:2px;
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 3px;
 }
 
-.menu{
-  font-size:30px;
-  cursor:pointer;
+.menu {
+  font-size: 28px;
+  cursor: pointer;
 }
 
-.hero{
-  height:85vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:40px;
-  background:
-  linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),
-  url("https://images.unsplash.com/photo-1558981806-ec527fa84c39");
-  background-size:cover;
-  background-position:center;
-  color:white;
+.hero {
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
 }
 
-.hero h1{
-  font-size:55px;
-  max-width:600px;
+.hero h1 {
+  font-size: 70px;
+  max-width: 700px;
+  line-height: 1;
 }
 
-.hero p{
-  margin:20px 0;
-  font-size:18px;
+.hero p {
+  margin-top: 20px;
+  color: #aaa;
+  font-size: 20px;
 }
 
-.button{
-  width:max-content;
-  background:white;
-  color:black;
-  padding:15px 30px;
-  border-radius:30px;
-  text-decoration:none;
-  font-weight:bold;
+.buttons {
+  margin-top: 35px;
 }
 
-.products{
-  padding:50px 30px;
+button {
+  padding: 15px 35px;
+  border-radius: 30px;
+  border: none;
+  margin-right: 15px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-.products h2{
-  font-size:35px;
-  margin-bottom:30px;
+.shop {
+  background: white;
+  color: black;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
+.more {
+  background: #222;
+  color: white;
 }
 
-.card{
-  background:#f5f5f5;
-  border-radius:20px;
-  padding:30px;
-  height:220px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  transition:.2s;
+.cards {
+  display: flex;
+  gap: 20px;
+  padding: 40px;
 }
 
-.card:hover{
-  transform:translateY(-5px);
+.card {
+  background: #111;
+  padding: 30px;
+  border-radius: 20px;
+  width: 250px;
 }
 
-.card h3{
-  font-size:22px;
+.card h2 {
+  margin-bottom: 10px;
 }
 
-.card p{
-  color:#666;
+.card p {
+  color: #aaa;
 }
-
-footer{
-  padding:30px;
-  text-align:center;
-  background:#111;
-  color:white;
-}
-
 </style>
-</head>
 
+</head>
 
 <body>
 
 <header>
+<div class="logo">ASTRIS</div>
 
-<div class="logo">
-ASTRIS
-</div>
-
-<div class="menu">
-☰
-</div>
-
+<div class="menu">☰</div>
 </header>
 
 
 <section class="hero">
 
-<h1>
-Ride Different.
-Built For The Streets.
-</h1>
+<h1>Ride Different.</h1>
 
 <p>
-Premium eMoto accessories, gear, and lifestyle.
+Premium accessories, style, and gear for electric riders.
 </p>
 
-<a class="button" href="#shop">
-Shop Now
-</a>
-
-</section>
-
-
-<section class="products" id="shop">
-
-<h2>Shop</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Accessories</h3>
-<p>Upgrade your ride</p>
-</div>
-
-<div class="card">
-<h3>Apparel</h3>
-<p>Clean street style</p>
-</div>
-
-<div class="card">
-<h3>Parts</h3>
-<p>Ride essentials</p>
-</div>
-
+<div class="buttons">
+<button class="shop">Shop Now</button>
+<button class="more">Explore</button>
 </div>
 
 </section>
 
 
-<footer>
-© 2026 ASTRIS
-</footer>
+<section class="cards">
+
+<div class="card">
+<h2>Accessories</h2>
+<p>Upgrade your ride.</p>
+</div>
+
+<div class="card">
+<h2>Clothing</h2>
+<p>Clean street style.</p>
+</div>
+
+<div class="card">
+<h2>Parts</h2>
+<p>Built for riders.</p>
+</div>
+
+</section>
 
 
 </body>
