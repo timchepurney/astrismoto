@@ -18,6 +18,7 @@ color:white;
 font-family:Arial,Helvetica,sans-serif;
 }
 
+
 #loader,#product-loader{
 
 position:fixed;
@@ -32,16 +33,13 @@ z-index:999;
 }
 
 #loader h1,#product-loader h1{
-
 font-size:50px;
 letter-spacing:12px;
-
 }
 
 .dots{
 font-size:45px;
 }
-
 
 
 header{
@@ -59,7 +57,6 @@ z-index:20;
 }
 
 
-
 .logo{
 
 font-size:60px;
@@ -67,7 +64,6 @@ font-weight:900;
 letter-spacing:14px;
 
 }
-
 
 
 nav{
@@ -78,19 +74,21 @@ gap:25px;
 }
 
 
-
 nav button,.cart{
 
 background:#111;
 color:white;
 border:1px solid #333;
+
 padding:24px 40px;
+
 border-radius:50px;
+
 font-size:22px;
+
 font-weight:900;
 
 }
-
 
 
 .section{
@@ -100,54 +98,62 @@ padding:90px 7%;
 }
 
 
-
 .title{
 
 font-size:70px;
+
 margin-bottom:50px;
 
 }
 
 
-
 .cards{
 
 display:grid;
+
 grid-template-columns:repeat(3,1fr);
+
 gap:35px;
 
 }
 
 
-
 .card{
 
 background:#111;
+
 border-radius:35px;
+
 padding:25px;
+
 opacity:0;
+
 transform:translateY(40px);
+
 transition:.5s;
+
 cursor:pointer;
 
 }
 
 
-
 .card.show{
 
 opacity:1;
+
 transform:translateY(0);
 
 }
 
 
-
 .card img{
 
 width:100%;
+
 height:250px;
+
 object-fit:cover;
+
 border-radius:25px;
 
 }
@@ -165,10 +171,15 @@ margin-top:20px;
 .add,.checkout,.back{
 
 padding:22px 45px;
+
 border:none;
+
 border-radius:50px;
+
 font-size:24px;
+
 font-weight:900;
+
 margin-top:20px;
 
 }
@@ -178,44 +189,30 @@ margin-top:20px;
 .add,.checkout{
 
 background:white;
+
 color:black;
 
 }
-
 
 
 .back{
 
 background:white;
+
 color:black;
 
 }
 
 
 
-/* PRODUCT PAGE FIX */
+
+/* PRODUCT ALIGNMENT ONLY */
 
 #product-page{
 
 display:none;
-min-height:80vh;
+
 text-align:center;
-
-}
-
-
-
-.product-center{
-
-min-height:80vh;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
 
 }
 
@@ -224,28 +221,47 @@ justify-content:center;
 #product-page img{
 
 width:500px;
-max-width:90%;
+
+max-width:100%;
+
+display:block;
+
+margin:0 auto 35px;
+
 border-radius:30px;
-margin-bottom:30px;
 
 }
 
 
 
-#product-page h1{
-
-font-size:55px;
-margin-bottom:15px;
-
-}
-
-
-
+#product-page h1,
 #product-page h2{
 
-font-size:35px;
+text-align:center;
 
 }
+
+
+
+#product-page .add,
+#product-page .checkout{
+
+display:inline-block;
+
+margin:20px 10px;
+
+}
+
+
+
+#product-page .back{
+
+display:block;
+
+margin:50px auto 0;
+
+}
+
 
 
 
@@ -330,7 +346,6 @@ padding:15px;
 
 }
 
-
 </style>
 
 </head>
@@ -359,8 +374,6 @@ padding:15px;
 
 
 
-
-
 <header>
 
 <div class="logo">ASTRIS</div>
@@ -377,15 +390,13 @@ padding:15px;
 </nav>
 
 
-<button class="cart" onclick="openCart">
+<button class="cart" onclick="openCart()">
 
-🖤 Cart
+🖤 Cart (<span id="count">0</span>)
 
 </button>
 
 </header>
-
-
 
 
 
@@ -410,7 +421,6 @@ padding:15px;
 </div>
 
 
-
 <div class="card clothes" onclick="openProduct('ASTRIS Tee',35,'Images/tee.jpg')">
 
 <img src="Images/tee.jpg">
@@ -423,9 +433,6 @@ padding:15px;
 
 
 </div>
-
-
-
 
 
 <h1 class="title">All Products</h1>
@@ -475,12 +482,7 @@ padding:15px;
 
 
 
-
-
 <div id="product-page" class="section">
-
-
-<div class="product-center">
 
 
 <img id="product-img">
@@ -491,21 +493,18 @@ padding:15px;
 <h2 id="product-price"></h2>
 
 
-
-<button class="add">
+<button class="add" onclick="addCurrent()">
 
 🖤 Add To Cart
 
 </button>
 
 
-
-<button class="checkout">
+<button class="checkout" onclick="checkout()">
 
 Checkout
 
 </button>
-
 
 
 <button class="back" onclick="back()">
@@ -518,23 +517,21 @@ Checkout
 </div>
 
 
-</div>
-
-
-
-
 
 
 <div id="cart-box">
 
+
 <h1>Your Cart</h1>
 
+
 <div id="items"></div>
+
 
 <h2>Total $<span id="total">0</span></h2>
 
 
-<button class="checkout">
+<button class="checkout" onclick="checkout()">
 
 Checkout
 
@@ -556,8 +553,120 @@ Close
 
 <script>
 
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let current={};
+
+
+function save(){
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+}
+
+
+
+function add(name,price){
+
+cart.push({name,price});
+
+save();
+
+update();
+
+}
+
+
+
+function addCurrent(){
+
+add(current.name,current.price);
+
+}
+
+
+
+function update(){
+
+document.getElementById("count").innerHTML=cart.length;
+
+
+let html="";
+
+let total=0;
+
+
+cart.forEach((x,i)=>{
+
+total+=x.price;
+
+
+html+=`
+
+<div class="cart-item">
+
+${x.name} $${x.price}
+
+<button class="remove" onclick="removeItem(${i})">
+
+X
+
+</button>
+
+</div>`;
+
+});
+
+
+document.getElementById("items").innerHTML=html;
+
+document.getElementById("total").innerHTML=total;
+
+}
+
+
+
+function removeItem(i){
+
+cart.splice(i,1);
+
+save();
+
+update();
+
+}
+
+
+
+function openCart(){
+
+document.getElementById("cart-box").style.display="block";
+
+}
+
+
+
+function closeCart(){
+
+document.getElementById("cart-box").style.display="none";
+
+}
+
+
+
+function checkout(){
+
+alert("Checkout coming soon 🖤");
+
+}
+
+
+
 
 function openProduct(name,price,img){
+
+current={name,price};
+
 
 document.getElementById("product-loader").style.display="flex";
 
@@ -570,12 +679,15 @@ document.getElementById("product-loader").style.display="none";
 
 document.getElementById("products").style.display="none";
 
+
 document.getElementById("product-page").style.display="block";
 
 
 document.getElementById("product-img").src=img;
 
+
 document.getElementById("product-name").innerHTML=name;
+
 
 document.getElementById("product-price").innerHTML="$"+price;
 
@@ -599,7 +711,11 @@ document.getElementById("products").style.display="block";
 
 function home(){
 
-document.querySelectorAll(".card").forEach(c=>c.style.display="block");
+document.querySelectorAll(".card").forEach(c=>{
+
+c.style.display="block";
+
+});
 
 window.scrollTo(0,0);
 
@@ -615,7 +731,11 @@ c.style.display=c.classList.contains(type)?"block":"none";
 
 });
 
+window.scrollTo(0,0);
+
 }
+
+
 
 
 window.onload=()=>{
@@ -627,7 +747,30 @@ document.getElementById("loader").style.display="none";
 },2000);
 
 
-};
+document.querySelectorAll(".card").forEach(card=>{
+
+
+let observer=new IntersectionObserver(e=>{
+
+
+if(e[0].isIntersecting){
+
+card.classList.add("show");
+
+}
+
+});
+
+
+observer.observe(card);
+
+
+});
+
+
+update();
+
+}
 
 
 </script>
