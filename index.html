@@ -75,7 +75,6 @@ color:#aaa;
 
 
 
-
 .popular{
 
 margin-top:45px;
@@ -83,61 +82,28 @@ background:#111;
 border:1px solid #222;
 border-radius:25px;
 padding:35px;
-max-width:600px;
 
 }
 
 
 
-.price{
+.sectionTitle{
 
-margin-top:15px;
-font-size:25px;
-
-}
-
-
-
-button{
-
-margin-top:30px;
-padding:18px 45px;
-border:none;
-border-radius:40px;
-cursor:pointer;
+margin-top:60px;
+font-size:45px;
 
 }
-
-
-
-.shopBtn{
-
-background:white;
-color:black;
-
-}
-
-
-
-.back{
-
-background:#222;
-color:white;
-
-}
-
 
 
 
 .shopGrid{
 
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:25px;
 margin-top:35px;
 
 }
-
 
 
 
@@ -159,6 +125,35 @@ margin-top:12px;
 
 }
 
+
+
+.price{
+
+margin-top:15px;
+font-size:25px;
+
+}
+
+
+
+
+button{
+
+margin-top:30px;
+padding:18px 45px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+
+}
+
+
+.back{
+
+background:#222;
+color:white;
+
+}
 
 
 
@@ -200,9 +195,11 @@ cursor:pointer;
 }
 
 
+
 </style>
 
 </head>
+
 
 
 <body>
@@ -227,28 +224,22 @@ ASTRIS
 
 
 
+
 <div id="sideMenu">
 
 
 <div class="close" onclick="toggleMenu()">✕</div>
 
 
-<a onclick="showPage('home')">
-Home
-</a>
+<a onclick="showPage('home')">Home</a>
 
+<a onclick="showPage('accessories')">Accessories</a>
 
-<a onclick="showPage('accessories')">
-Accessories
-</a>
-
-
-<a onclick="showPage('clothing')">
-Clothing
-</a>
+<a onclick="showPage('clothing')">Clothing</a>
 
 
 </div>
+
 
 
 
@@ -272,17 +263,20 @@ Electric moto accessories built for riders.
 
 
 
-<div class="popular">
 
+<div class="popular">
 
 <h2>
 Most Popular
 </h2>
 
 
-<h3 style="margin-top:20px;">
+<div class="product" style="margin-top:25px;">
+
+
+<h2>
 Foot Lock
-</h3>
+</h2>
 
 
 <p>
@@ -293,6 +287,88 @@ Wheelie accessory coming soon.
 <h3 class="price">
 $25
 </h3>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<h1 class="sectionTitle">
+All Products
+</h1>
+
+
+
+<div class="shopGrid">
+
+
+
+<div class="product">
+
+<h2>Foot Locks</h2>
+
+<p>Wheelie accessories.</p>
+
+</div>
+
+
+
+<div class="product">
+
+<h2>Grips</h2>
+
+<p>Clean rider setup.</p>
+
+</div>
+
+
+
+<div class="product">
+
+<h2>Pegs</h2>
+
+<p>Upgrade your ride.</p>
+
+</div>
+
+
+
+<div class="product">
+
+<h2>Stickers</h2>
+
+<p>Customize your bike.</p>
+
+</div>
+
+
+
+<div class="product">
+
+<h2>Tees</h2>
+
+<p>Astris street style.</p>
+
+</div>
+
+
+
+<div class="product">
+
+<h2>Hoodies</h2>
+
+<p>Clean everyday fits.</p>
+
+</div>
+
 
 
 </div>
@@ -322,57 +398,26 @@ Accessories
 
 
 <div class="product">
-
-<h2>
-Foot Locks
-</h2>
-
-<p>
-Wheelie accessories for riders.
-</p>
-
+<h2>Foot Locks</h2>
+<p>Wheelie accessories.</p>
 </div>
 
 
-
 <div class="product">
-
-<h2>
-Grips
-</h2>
-
-<p>
-Clean bike setup.
-</p>
-
+<h2>Grips</h2>
+<p>Bike upgrades.</p>
 </div>
 
 
-
 <div class="product">
-
-<h2>
-Pegs
-</h2>
-
-<p>
-Upgrade your ride.
-</p>
-
+<h2>Pegs</h2>
+<p>Rider setup parts.</p>
 </div>
 
 
-
 <div class="product">
-
-<h2>
-Stickers
-</h2>
-
-<p>
-Customize your bike.
-</p>
-
+<h2>Stickers</h2>
+<p>Custom style.</p>
 </div>
 
 
@@ -403,38 +448,24 @@ Clothing
 </h1>
 
 
-
 <div class="shopGrid">
 
 
 <div class="product">
-
-<h2>
-Tees
-</h2>
-
-<p>
-Astris rider style.
-</p>
-
+<h2>Tees</h2>
+<p>Astris rider wear.</p>
 </div>
 
 
 
 <div class="product">
-
-<h2>
-Hoodies
-</h2>
-
-<p>
-Clean everyday fits.
-</p>
-
+<h2>Hoodies</h2>
+<p>Street style fits.</p>
 </div>
 
 
 </div>
+
 
 
 
@@ -460,33 +491,28 @@ function toggleMenu(){
 
 let menu=document.getElementById("sideMenu");
 
-
 menu.style.right =
 menu.style.right==="0px"
 ? "-300px"
 : "0px";
 
-
 }
+
 
 
 
 function showPage(page){
 
-
 document.querySelectorAll(".page")
 .forEach(p=>p.classList.remove("active"));
-
 
 
 document.getElementById(page)
 .classList.add("active");
 
 
-
 document.getElementById("sideMenu")
 .style.right="-300px";
-
 
 }
 
