@@ -21,127 +21,185 @@ background:#000;
 color:white;
 }
 
+
+/* HEADER */
+
 header{
 height:90px;
 display:flex;
-justify-content:space-between;
 align-items:center;
-padding:0 40px;
+justify-content:space-between;
+padding:0 45px;
 border-bottom:1px solid #222;
+position:sticky;
+top:0;
+background:#000;
 }
+
 
 .logo{
-font-size:38px;
+font-size:34px;
 font-weight:900;
-letter-spacing:4px;
+letter-spacing:6px;
 }
 
+
 .menu{
-font-size:38px;
+font-size:35px;
 cursor:pointer;
 }
 
 
+
+/* PAGES */
+
 .page{
 display:none;
-padding:50px;
+padding:60px 45px;
 min-height:90vh;
 }
+
 
 .active{
 display:block;
 }
 
 
+
+/* HOME */
+
 .hero h1{
-font-size:90px;
-letter-spacing:4px;
-line-height:.9;
+
+font-size:95px;
+line-height:.85;
+letter-spacing:3px;
+
 }
 
 
 .hero p{
-color:#aaa;
-font-size:22px;
+
 margin-top:25px;
+font-size:22px;
+color:#aaa;
+max-width:600px;
+
 }
+
 
 
 .heroBox{
-margin-top:35px;
-background:#111;
-border:1px solid #222;
+
+margin-top:45px;
 padding:35px;
+background:#0d0d0d;
+border:1px solid #222;
 border-radius:25px;
 max-width:650px;
+
 }
+
 
 
 button{
-margin-top:30px;
+
 padding:18px 45px;
-border:none;
 border-radius:40px;
+border:none;
 cursor:pointer;
 font-size:18px;
+margin-top:35px;
+
 }
 
 
-.shop{
+.shopBtn{
+
 background:white;
 color:black;
+
 }
+
+
+.back{
+
+background:#1a1a1a;
+color:white;
+
+}
+
+
+
+/* SHOP */
 
 
 .shopGrid{
+
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:25px;
 margin-top:40px;
+
 }
+
 
 
 .product{
 
-background:#111;
+background:#0d0d0d;
 border:1px solid #222;
 border-radius:25px;
-padding:30px;
+padding:35px;
+transition:.2s;
+
+}
+
+
+.product:hover{
+
+transform:translateY(-5px);
 
 }
 
 
 .product h2{
-margin-bottom:15px;
+
+font-size:28px;
+
 }
 
 
 .product p{
+
+margin-top:15px;
 color:#aaa;
+
 }
 
 
 
-.back{
-background:#222;
-color:white;
-}
+/* SIDE MENU */
 
-
-
-/* MENU */
 
 #sideMenu{
 
 position:fixed;
+right:-320px;
 top:0;
-right:-300px;
-width:300px;
 height:100%;
-background:#111;
-padding:35px;
+width:320px;
+background:#0b0b0b;
+padding:40px;
 transition:.3s;
-z-index:10;
+z-index:20;
+
+}
+
+
+.close{
+
+font-size:35px;
+cursor:pointer;
 
 }
 
@@ -151,25 +209,21 @@ z-index:10;
 display:block;
 color:white;
 text-decoration:none;
-font-size:24px;
-margin:25px 0;
+font-size:25px;
+margin-top:35px;
 cursor:pointer;
 
-}
-
-
-.close{
-font-size:35px;
-cursor:pointer;
 }
 
 
 </style>
 
+
 </head>
 
 
 <body>
+
 
 
 <header>
@@ -195,9 +249,10 @@ ASTRIS
 
 <a onclick="showPage('home')">Home</a>
 
-<a onclick="showPage('shop')">Shop</a>
+<a onclick="showPage('shop')">Shop All</a>
 
 <a onclick="showPage('about')">About</a>
+
 
 </div>
 
@@ -206,34 +261,43 @@ ASTRIS
 
 
 
+
+<!-- HOME -->
+
+
 <div id="home" class="page active hero">
 
+
 <h1>
-ASTRIS<br>MOTO
+ASTRIS<br>
+MOTO
 </h1>
 
 
 <p>
-Clean accessories and style for electric riders.
+Premium accessories and streetwear made for electric riders.
 </p>
+
 
 
 <div class="heroBox">
 
 <h2>
-Built for riders.
+Ride Different.
 </h2>
 
 <p>
-Explore Astris gear and upgrades.
+Clean designs. Rider focused products.
 </p>
 
 </div>
 
 
-<button class="shop" onclick="showPage('shop')">
-Shop Now
+
+<button class="shopBtn" onclick="showPage('shop')">
+Shop All
 </button>
+
 
 </div>
 
@@ -242,58 +306,56 @@ Shop Now
 
 
 
+
+
+<!-- SHOP -->
+
+
 <div id="shop" class="page">
 
+
 <h1>
-Shop
+Shop All
 </h1>
+
 
 
 <div class="shopGrid">
 
 
+
 <div class="product">
 
 <h2>
-Astris Accessories
+Accessories
 </h2>
 
 <p>
-Bike upgrades, rider essentials, and custom style.
+Foot locks, grips, pegs, stickers, and custom upgrades.
 </p>
 
 </div>
 
 
 
+
 <div class="product">
 
 <h2>
-Astris Clothing
+Tee Shirts
 </h2>
 
 <p>
-Hoodies, shirts, and everyday rider fits.
+Simple Astris rider style.
 </p>
 
 </div>
 
 
 
-<div class="product">
-
-<h2>
-Astris Gear
-</h2>
-
-<p>
-Everything you need for your setup.
-</p>
-
 </div>
 
 
-</div>
 
 
 <button class="back" onclick="showPage('home')">
@@ -307,6 +369,10 @@ Everything you need for your setup.
 
 
 
+
+
+
+<!-- ABOUT -->
 
 
 <div id="about" class="page">
@@ -317,9 +383,10 @@ About Astris
 </h1>
 
 
-<p style="color:#aaa; margin-top:20px; font-size:22px;">
-A modern rider brand focused on clean design and electric moto culture.
+<p style="margin-top:25px;color:#aaa;font-size:22px;">
+Astris is built around electric moto culture, clean style, and riders who want their setup to stand out.
 </p>
+
 
 
 <button class="back" onclick="showPage('home')">
@@ -328,6 +395,7 @@ A modern rider brand focused on clean design and electric moto culture.
 
 
 </div>
+
 
 
 
@@ -342,7 +410,9 @@ function toggleMenu(){
 let menu=document.getElementById("sideMenu");
 
 menu.style.right =
-menu.style.right==="0px" ? "-300px" : "0px";
+menu.style.right==="0px"
+? "-320px"
+: "0px";
 
 }
 
@@ -353,15 +423,19 @@ function showPage(page){
 document.querySelectorAll(".page")
 .forEach(p=>p.classList.remove("active"));
 
+
 document.getElementById(page)
 .classList.add("active");
 
-document.getElementById("sideMenu").style.right="-300px";
+
+document.getElementById("sideMenu")
+.style.right="-320px";
 
 }
 
 
 </script>
+
 
 
 </body>
