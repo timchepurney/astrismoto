@@ -6,13 +6,18 @@
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
 background:#000;
 color:white;
-font-family:Arial;
+font-family:Arial, Helvetica, sans-serif;
 }
+
 
 header{
 height:120px;
@@ -26,16 +31,19 @@ background:#000;
 z-index:10;
 }
 
+
 .logo{
 font-size:55px;
 font-weight:900;
 letter-spacing:14px;
 }
 
+
 nav{
 display:flex;
 gap:20px;
 }
+
 
 nav button,.cart{
 background:#111;
@@ -47,16 +55,12 @@ font-weight:800;
 cursor:pointer;
 }
 
-.cart{
-background:white;
-color:black;
-}
-
 
 .section{
 display:none;
-padding:80px 7%;
+padding:70px 7%;
 }
+
 
 .active{
 display:block;
@@ -81,6 +85,7 @@ background:#111;
 border:1px solid #333;
 border-radius:30px;
 padding:25px;
+cursor:pointer;
 }
 
 
@@ -105,12 +110,35 @@ margin:10px 0;
 }
 
 
-.add,.back{
+.product img{
+width:400px;
+max-width:100%;
+border-radius:30px;
+}
+
+
+.product h1{
+font-size:60px;
+}
+
+
+.product p{
+font-size:30px;
+margin:20px 0;
+}
+
+
+button{
+cursor:pointer;
+}
+
+
+.buy,.add,.back{
+padding:16px 30px;
 border:none;
 border-radius:30px;
-padding:14px 25px;
 font-weight:900;
-cursor:pointer;
+margin:10px;
 }
 
 
@@ -119,11 +147,17 @@ background:white;
 }
 
 
-.back{
-background:#222;
+.buy{
+background:#333;
 color:white;
-margin-bottom:25px;
 }
+
+
+.back{
+background:#111;
+color:white;
+}
+
 
 
 #cart-box{
@@ -143,7 +177,7 @@ z-index:50;
 .cart-line{
 display:flex;
 justify-content:space-between;
-margin:20px 0;
+margin:15px 0;
 }
 
 
@@ -151,7 +185,7 @@ margin:20px 0;
 background:#222;
 color:white;
 border:none;
-padding:8px 15px;
+padding:8px;
 border-radius:20px;
 }
 
@@ -166,15 +200,6 @@ grid-template-columns:1fr;
 font-size:35px;
 }
 
-nav button{
-font-size:13px;
-padding:10px;
-}
-
-#cart-box{
-width:90%;
-}
-
 }
 
 </style>
@@ -182,26 +207,37 @@ width:90%;
 </head>
 
 
+
 <body>
 
 
 <header>
 
+
 <div class="logo">ASTRIS</div>
+
 
 <nav>
 
 <button onclick="show('home')">Home</button>
+
 <button onclick="show('accessories')">Accessories</button>
+
 <button onclick="show('clothes')">Clothing</button>
 
 </nav>
 
+
 <button class="cart" onclick="openCart()">
+
 🖤 Cart (<span id="count">0</span>)
+
 </button>
 
+
 </header>
+
+
 
 
 
@@ -209,85 +245,64 @@ width:90%;
 
 <h2>Most Popular</h2>
 
+
 <div class="cards">
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39">
+
+<div class="card" onclick="product('Foot Locks',40,'Images/footlocks.jpg')">
+
+<img src="Images/footlocks.jpg">
+
 <h3>Foot Locks</h3>
+
 <p>$40</p>
-<button class="add" onclick="add('Foot Locks',40)">🖤 Add to Cart</button>
-</div>
-
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab">
-<h3>ASTRIS Tee</h3>
-<p>$35</p>
-<button class="add" onclick="add('ASTRIS Tee',35)">🖤 Add to Cart</button>
-</div>
-
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7">
-<h3>ASTRIS Hoodie</h3>
-<p>$70</p>
-<button class="add" onclick="add('ASTRIS Hoodie',70)">🖤 Add to Cart</button>
-</div>
 
 </div>
 
 
-<h2 style="margin-top:90px">Accessories</h2>
-
-<div class="cards">
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1527281400683-1aae777175f8">
-<h3>Grips</h3>
-<p>$25</p>
-<button class="add" onclick="add('Grips',25)">🖤 Add to Cart</button>
 </div>
 
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1557683316-973673baf926">
-<h3>Stickers</h3>
-<p>$10</p>
-<button class="add" onclick="add('Stickers',10)">🖤 Add to Cart</button>
-</div>
-
-</div>
 
 </section>
+
+
+
 
 
 
 
 <section id="accessories" class="section">
 
-<button class="back" onclick="show('home')">← Back</button>
+
+<button class="back" onclick="show('home')">
+← Back
+</button>
+
 
 <h2>Accessories</h2>
 
+
 <div class="cards">
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39">
+
+<div class="card" onclick="product('Foot Locks',40,'Images/footlocks.jpg')">
+
+<img src="Images/footlocks.jpg">
+
 <h3>Foot Locks</h3>
+
 <p>$40</p>
-<button class="add" onclick="add('Foot Locks',40)">🖤 Add to Cart</button>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1527281400683-1aae777175f8">
-<h3>Grips</h3>
-<p>$25</p>
-<button class="add" onclick="add('Grips',25)">🖤 Add to Cart</button>
-</div>
 
 </div>
+
+
+</div>
+
 
 </section>
+
+
+
 
 
 
@@ -295,28 +310,74 @@ width:90%;
 
 <section id="clothes" class="section">
 
-<button class="back" onclick="show('home')">← Back</button>
+
+<button class="back" onclick="show('home')">
+← Back
+</button>
+
 
 <h2>Clothing</h2>
 
+
 <div class="cards">
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab">
-<h3>ASTRIS Tee</h3>
-<p>$35</p>
-<button class="add" onclick="add('ASTRIS Tee',35)">🖤 Add to Cart</button>
-</div>
 
+<div class="card" onclick="product('ASTRIS Hoodie',70,'Images/hoodie.jpg')">
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7">
+<img src="Images/hoodie.jpg">
+
 <h3>ASTRIS Hoodie</h3>
+
 <p>$70</p>
-<button class="add" onclick="add('ASTRIS Hoodie',70)">🖤 Add to Cart</button>
-</div>
 
 </div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<section id="product" class="section">
+
+
+<button class="back" onclick="show('home')">
+← Back
+</button>
+
+
+<div class="product">
+
+
+<img id="product-img">
+
+
+<h1 id="product-name"></h1>
+
+<p id="product-price"></p>
+
+
+<button class="add" onclick="addCurrent()">
+
+🖤 Add to Cart
+
+</button>
+
+
+<button class="buy">
+
+Buy Now
+
+</button>
+
+
+</div>
+
 
 </section>
 
@@ -326,92 +387,37 @@ width:90%;
 
 <div id="cart-box">
 
-<h2>Your Cart</h2>
+
+<h2>Cart</h2>
+
 
 <div id="items"></div>
 
-<h3>Total: $<span id="total">0</span></h3>
 
-<button class="back" onclick="checkout()">Checkout</button>
+<h3>Total $<span id="total">0</span></h3>
 
-<button class="back" onclick="closeCart()">Close</button>
+
+<button class="back" onclick="closeCart()">
+
+Close
+
+</button>
+
 
 </div>
 
 
 
 
+
+
 <script>
 
-let cart=JSON.parse(localStorage.getItem("cart"))||[];
 
+let cart=[];
 
-function save(){
-localStorage.setItem("cart",JSON.stringify(cart));
-}
+let current={};
 
-
-function add(name,price){
-
-cart.push({name,price});
-
-save();
-
-update();
-
-}
-
-
-function removeItem(i){
-
-cart.splice(i,1);
-
-save();
-
-update();
-
-}
-
-
-function update(){
-
-document.getElementById("count").innerHTML=cart.length;
-
-let html="";
-let total=0;
-
-cart.forEach((item,i)=>{
-
-total+=item.price;
-
-html+=`
-
-<div class="cart-line">
-
-${item.name} $${item.price}
-
-<button class="remove" onclick="removeItem(${i})">X</button>
-
-</div>`;
-
-});
-
-document.getElementById("items").innerHTML=html;
-
-document.getElementById("total").innerHTML=total;
-
-}
-
-
-function openCart(){
-document.getElementById("cart-box").style.display="block";
-update();
-}
-
-
-function closeCart(){
-document.getElementById("cart-box").style.display="none";
-}
 
 
 function show(page){
@@ -423,14 +429,117 @@ document.getElementById(page).classList.add("active");
 }
 
 
-function checkout(){
 
-alert("Checkout setup next 🖤");
+function product(name,price,img){
+
+current={
+name:name,
+price:price,
+img:img
+};
+
+
+document.getElementById("product-img").src=img;
+
+document.getElementById("product-name").innerHTML=name;
+
+document.getElementById("product-price").innerHTML="$"+price;
+
+
+show("product");
 
 }
 
 
+
+function addCurrent(){
+
+add(current.name,current.price);
+
+}
+
+
+
+function add(name,price){
+
+cart.push({
+name:name,
+price:price
+});
+
+
 update();
+
+}
+
+
+
+
+function update(){
+
+document.getElementById("count").innerHTML=cart.length;
+
+
+let html="";
+
+let total=0;
+
+
+cart.forEach((x,i)=>{
+
+total+=x.price;
+
+
+html+=`
+
+<div class="cart-line">
+
+${x.name} $${x.price}
+
+<button class="remove" onclick="removeItem(${i})">
+X
+</button>
+
+</div>`;
+
+});
+
+
+document.getElementById("items").innerHTML=html;
+
+document.getElementById("total").innerHTML=total;
+
+}
+
+
+
+
+function removeItem(i){
+
+cart.splice(i,1);
+
+update();
+
+}
+
+
+
+
+function openCart(){
+
+document.getElementById("cart-box").style.display="block";
+
+}
+
+
+
+function closeCart(){
+
+document.getElementById("cart-box").style.display="none";
+
+}
+
+
 
 </script>
 
