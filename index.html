@@ -24,10 +24,11 @@ height:110px;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:0 7%;
+padding:0 5%;
 background:#000;
 position:sticky;
 top:0;
+z-index:10;
 }
 
 
@@ -38,41 +39,48 @@ letter-spacing:12px;
 }
 
 
-
 nav{
 display:flex;
-gap:25px;
+gap:20px;
 }
-
 
 
 nav a{
-
 color:white;
-
 text-decoration:none;
-
-font-size:22px;
-
+font-size:20px;
 font-weight:700;
-
 background:#111;
-
-padding:14px 25px;
-
+padding:14px 22px;
 border-radius:30px;
-
 transition:.2s;
+}
 
+
+nav a:hover{
+background:white;
+color:black;
 }
 
 
 
-nav a:hover{
+.cart{
 
-background:white;
+background:#111;
 
-color:black;
+color:white;
+
+border:1px solid #333;
+
+padding:14px 22px;
+
+border-radius:30px;
+
+font-weight:bold;
+
+font-size:17px;
+
+cursor:pointer;
 
 }
 
@@ -133,8 +141,6 @@ color:black;
 font-size:24px;
 
 font-weight:900;
-
-cursor:pointer;
 
 }
 
@@ -220,11 +226,13 @@ color:black;
 
 border:none;
 
-padding:12px 25px;
+padding:14px 25px;
 
 border-radius:30px;
 
-font-weight:bold;
+font-weight:900;
+
+cursor:pointer;
 
 width:fit-content;
 
@@ -244,9 +252,13 @@ margin-top:100px;
 
 header{
 
-height:90px;
+flex-wrap:wrap;
 
-padding:0 20px;
+height:auto;
+
+padding:20px;
+
+gap:15px;
 
 }
 
@@ -269,7 +281,14 @@ nav a{
 
 font-size:14px;
 
-padding:10px 12px;
+padding:10px;
+
+}
+
+
+.cart{
+
+font-size:14px;
 
 }
 
@@ -319,11 +338,16 @@ font-size:40px;
 
 <a href="#clothes">Clothing</a>
 
-
 </nav>
 
 
+<button class="cart">
+🖤 Cart (<span id="cart-count">0</span>)
+</button>
+
+
 </header>
+
 
 
 
@@ -337,12 +361,15 @@ font-size:40px;
 
 
 <a href="#accessories">
-<button class="shop-btn">Shop Now</button>
+
+<button class="shop-btn">
+Shop Now
+</button>
+
 </a>
 
 
 </section>
-
 
 
 
@@ -358,57 +385,41 @@ font-size:40px;
 
 
 <div class="card">
-
 <h3>Foot Locks</h3>
-
 <p>$40</p>
-
-<button class="buy">Buy Now</button>
-
+<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
 </div>
 
 
 
 <div class="card">
-
 <h3>Grips</h3>
-
 <p>$25</p>
-
-<button class="buy">Buy Now</button>
-
+<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
 </div>
 
 
 
 <div class="card">
-
 <h3>Stickers</h3>
-
 <p>$10</p>
-
-<button class="buy">Buy Now</button>
-
+<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
 </div>
 
 
 
 <div class="card">
-
 <h3>Pegs</h3>
-
 <p>$45</p>
-
-<button class="buy">Buy Now</button>
-
+<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
 </div>
-
 
 
 </div>
 
 
 </section>
+
 
 
 
@@ -425,25 +436,17 @@ font-size:40px;
 
 
 <div class="card">
-
 <h3>ASTRIS Tee</h3>
-
 <p>$35</p>
-
-<button class="buy">Buy Now</button>
-
+<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
 </div>
 
 
 
 <div class="card">
-
 <h3>ASTRIS Hoodie</h3>
-
 <p>$70</p>
-
-<button class="buy">Buy Now</button>
-
+<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
 </div>
 
 
@@ -452,6 +455,25 @@ font-size:40px;
 
 
 </section>
+
+
+
+
+
+<script>
+
+let cart = 0;
+
+
+function addCart(){
+
+cart++;
+
+document.getElementById("cart-count").innerHTML = cart;
+
+}
+
+</script>
 
 
 
