@@ -90,13 +90,7 @@ font-size:20px;
 font-weight:800;
 background:white;
 color:black;
-box-shadow:0 0 25px rgba(255,255,255,.25);
 cursor:pointer;
-transition:.2s;
-}
-
-button:hover{
-transform:scale(1.05);
 }
 
 
@@ -127,6 +121,8 @@ flex-direction:column;
 justify-content:space-between;
 overflow:hidden;
 transition:.2s;
+text-decoration:none;
+color:white;
 }
 
 
@@ -181,7 +177,6 @@ padding:40px 20px;
 
 }
 
-
 </style>
 
 </head>
@@ -195,7 +190,6 @@ padding:40px 20px;
 <div class="logo">ASTRIS</div>
 
 <div class="menu" onclick="openMenu()">☰</div>
-
 
 <nav id="nav">
 
@@ -227,11 +221,10 @@ padding:40px 20px;
 
 <h2>Most Popular</h2>
 
-
 <div class="products">
 
 
-<div class="card">
+<a class="card" href="#footpegs">
 
 <img src="IMG_6375.jpeg">
 
@@ -239,11 +232,11 @@ padding:40px 20px;
 
 <p class="price">$49.99</p>
 
-</div>
+</a>
 
 
 
-<div class="card">
+<a class="card" href="#grips">
 
 <img src="grips.jpg">
 
@@ -251,11 +244,11 @@ padding:40px 20px;
 
 <p class="price">$19.99</p>
 
-</div>
+</a>
 
 
 
-<div class="card">
+<a class="card" href="#stickers">
 
 <img src="stickers.jpg">
 
@@ -263,7 +256,7 @@ padding:40px 20px;
 
 <p class="price">$9.99</p>
 
-</div>
+</a>
 
 
 </div>
@@ -278,12 +271,10 @@ padding:40px 20px;
 
 <h2>Products</h2>
 
-
 <div class="products">
 
 
-
-<div class="card">
+<a class="card" href="#pads">
 
 <img src="pads.jpg">
 
@@ -291,12 +282,11 @@ padding:40px 20px;
 
 <p class="price">$24.99</p>
 
-</div>
+</a>
 
 
 
-
-<div class="card">
+<a class="card" href="#tee">
 
 <img src="tee.jpg">
 
@@ -304,13 +294,12 @@ padding:40px 20px;
 
 <p class="price">$29.99</p>
 
-</div>
+</a>
 
 
 
 
-
-<div class="card">
+<a class="card" href="#hoodie">
 
 <img src="hoodie.jpg">
 
@@ -318,7 +307,7 @@ padding:40px 20px;
 
 <p class="price">$59.99</p>
 
-</div>
+</a>
 
 
 </div>
