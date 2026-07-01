@@ -53,13 +53,6 @@ font-weight:700;
 background:#111;
 padding:14px 22px;
 border-radius:30px;
-transition:.2s;
-}
-
-
-nav a:hover{
-background:white;
-color:black;
 }
 
 
@@ -67,19 +60,13 @@ color:black;
 .cart{
 
 background:#111;
-
 color:white;
-
 border:1px solid #333;
 
 padding:14px 22px;
-
 border-radius:30px;
 
 font-weight:bold;
-
-font-size:17px;
-
 cursor:pointer;
 
 }
@@ -89,15 +76,10 @@ cursor:pointer;
 .hero{
 
 height:80vh;
-
 display:flex;
-
 flex-direction:column;
-
 justify-content:center;
-
 align-items:center;
-
 text-align:center;
 
 }
@@ -107,7 +89,6 @@ text-align:center;
 .hero h1{
 
 font-size:120px;
-
 letter-spacing:20px;
 
 }
@@ -117,9 +98,7 @@ letter-spacing:20px;
 .hero p{
 
 font-size:25px;
-
 color:#777;
-
 margin:30px;
 
 }
@@ -129,17 +108,11 @@ margin:30px;
 .shop-btn{
 
 padding:22px 80px;
-
 border-radius:50px;
-
 border:none;
-
 background:white;
-
 color:black;
-
 font-size:24px;
-
 font-weight:900;
 
 }
@@ -157,7 +130,6 @@ padding:80px 7%;
 h2{
 
 font-size:55px;
-
 margin-bottom:40px;
 
 }
@@ -167,9 +139,7 @@ margin-bottom:40px;
 .cards{
 
 display:grid;
-
 grid-template-columns:repeat(3,1fr);
-
 gap:30px;
 
 }
@@ -189,9 +159,7 @@ border-radius:30px;
 padding:30px;
 
 display:flex;
-
 flex-direction:column;
-
 justify-content:end;
 
 }
@@ -209,9 +177,7 @@ font-size:35px;
 .card p{
 
 color:#888;
-
 font-size:22px;
-
 margin:10px 0;
 
 }
@@ -248,17 +214,72 @@ margin-top:100px;
 
 
 
+/* CART */
+
+#cart-box{
+
+display:none;
+
+position:fixed;
+
+right:20px;
+
+top:120px;
+
+width:320px;
+
+background:#111;
+
+border:1px solid #333;
+
+border-radius:25px;
+
+padding:25px;
+
+z-index:100;
+
+}
+
+
+
+.cart-item{
+
+margin:15px 0;
+
+color:#aaa;
+
+}
+
+
+
+.close{
+
+background:white;
+
+color:black;
+
+border:none;
+
+padding:12px 25px;
+
+border-radius:25px;
+
+}
+
+
+
+
 @media(max-width:800px){
 
 header{
 
-flex-wrap:wrap;
-
 height:auto;
 
-padding:20px;
+flex-wrap:wrap;
 
 gap:15px;
+
+padding:20px;
 
 }
 
@@ -286,13 +307,6 @@ padding:10px;
 }
 
 
-.cart{
-
-font-size:14px;
-
-}
-
-
 .hero h1{
 
 font-size:60px;
@@ -315,10 +329,10 @@ font-size:40px;
 
 }
 
+
 </style>
 
 </head>
-
 
 
 <body>
@@ -341,8 +355,10 @@ font-size:40px;
 </nav>
 
 
-<button class="cart">
+<button class="cart" onclick="openCart()">
+
 🖤 Cart (<span id="cart-count">0</span>)
+
 </button>
 
 
@@ -351,11 +367,11 @@ font-size:40px;
 
 
 
+
 <section class="hero" id="home">
 
 
 <h1>ASTRIS</h1>
-
 
 <p>Premium moto accessories & streetwear</p>
 
@@ -374,6 +390,7 @@ Shop Now
 
 
 
+
 <section class="shop" id="accessories">
 
 
@@ -383,11 +400,10 @@ Shop Now
 <div class="cards">
 
 
-
 <div class="card">
 <h3>Foot Locks</h3>
 <p>$40</p>
-<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
+<button class="buy" onclick="addCart('Foot Locks',40)">🖤 Add to Cart</button>
 </div>
 
 
@@ -395,7 +411,7 @@ Shop Now
 <div class="card">
 <h3>Grips</h3>
 <p>$25</p>
-<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
+<button class="buy" onclick="addCart('Grips',25)">🖤 Add to Cart</button>
 </div>
 
 
@@ -403,23 +419,14 @@ Shop Now
 <div class="card">
 <h3>Stickers</h3>
 <p>$10</p>
-<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
+<button class="buy" onclick="addCart('Stickers',10)">🖤 Add to Cart</button>
 </div>
 
 
 
-<div class="card">
-<h3>Pegs</h3>
-<p>$45</p>
-<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
 </div>
-
-
-</div>
-
 
 </section>
-
 
 
 
@@ -434,27 +441,60 @@ Shop Now
 <div class="cards">
 
 
-
 <div class="card">
+
 <h3>ASTRIS Tee</h3>
+
 <p>$35</p>
-<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
+
+<button class="buy" onclick="addCart('ASTRIS Tee',35)">
+🖤 Add to Cart
+</button>
+
 </div>
 
 
 
 <div class="card">
+
 <h3>ASTRIS Hoodie</h3>
+
 <p>$70</p>
-<button class="buy" onclick="addCart()">🖤 Add to Cart</button>
+
+<button class="buy" onclick="addCart('ASTRIS Hoodie',70)">
+🖤 Add to Cart
+</button>
+
 </div>
 
 
-
 </div>
-
 
 </section>
+
+
+
+
+<div id="cart-box">
+
+
+<h2>Your Cart</h2>
+
+
+<div id="cart-items">
+Cart is empty
+</div>
+
+
+<h3>Total: $<span id="total">0</span></h3>
+
+
+<button class="close" onclick="closeCart()">
+Close
+</button>
+
+
+</div>
 
 
 
@@ -462,16 +502,97 @@ Shop Now
 
 <script>
 
-let cart = 0;
+
+let cart=[];
+
+let total=0;
 
 
-function addCart(){
 
-cart++;
+function addCart(name,price){
 
-document.getElementById("cart-count").innerHTML = cart;
+
+cart.push({
+
+name:name,
+
+price:price
+
+});
+
+
+total += price;
+
+
+document.getElementById("cart-count").innerHTML = cart.length;
+
+
+showCart();
+
 
 }
+
+
+
+function openCart(){
+
+document.getElementById("cart-box").style.display="block";
+
+showCart();
+
+}
+
+
+
+function closeCart(){
+
+document.getElementById("cart-box").style.display="none";
+
+}
+
+
+
+function showCart(){
+
+
+let items=document.getElementById("cart-items");
+
+
+if(cart.length===0){
+
+items.innerHTML="Cart is empty";
+
+return;
+
+}
+
+
+items.innerHTML="";
+
+
+cart.forEach(item=>{
+
+
+items.innerHTML +=
+
+`
+
+<div class="cart-item">
+
+${item.name} - $${item.price}
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("total").innerHTML=total;
+
+
+}
+
 
 </script>
 
