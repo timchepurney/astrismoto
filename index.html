@@ -23,44 +23,35 @@ color:white;
 
 
 header{
-
 height:90px;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 border-bottom:1px solid #222;
 position:relative;
-background:#000;
-
 }
 
 
 .logo{
-
 font-size:38px;
 font-weight:900;
 letter-spacing:6px;
-
 }
 
 
 .menu{
-
 position:absolute;
-right:45px;
+right:40px;
 font-size:35px;
 cursor:pointer;
-
 }
 
 
 
 .page{
-
 display:none;
 padding:50px 45px;
 min-height:90vh;
-
 }
 
 
@@ -70,42 +61,16 @@ display:block;
 
 
 
-
-
-h1{
-
-font-size:50px;
-margin-bottom:30px;
-
-}
-
-
-
-.hero h2{
-
-font-size:80px;
+.hero h1{
+font-size:95px;
 letter-spacing:5px;
-
 }
-
 
 
 .hero p{
-
-color:#aaa;
-font-size:22px;
 margin-top:20px;
-
-}
-
-
-
-
-
-.section{
-
-margin-top:50px;
-
+font-size:22px;
+color:#aaa;
 }
 
 
@@ -113,10 +78,51 @@ margin-top:50px;
 
 .popular{
 
+margin-top:45px;
 background:#111;
 border:1px solid #222;
 border-radius:25px;
 padding:35px;
+max-width:600px;
+
+}
+
+
+
+.price{
+
+margin-top:15px;
+font-size:25px;
+
+}
+
+
+
+button{
+
+margin-top:30px;
+padding:18px 45px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+
+}
+
+
+
+.shopBtn{
+
+background:white;
+color:black;
+
+}
+
+
+
+.back{
+
+background:#222;
+color:white;
 
 }
 
@@ -128,6 +134,7 @@ padding:35px;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
 gap:25px;
+margin-top:35px;
 
 }
 
@@ -145,37 +152,12 @@ padding:30px;
 
 
 
-
-.productImg{
-
-width:100%;
-height:200px;
-object-fit:cover;
-border-radius:20px;
-margin-bottom:20px;
-
-}
-
-
-
-
 .product p{
 
 color:#aaa;
-margin-top:10px;
+margin-top:12px;
 
 }
-
-
-
-
-.price{
-
-margin-top:15px;
-font-size:22px;
-
-}
-
 
 
 
@@ -184,11 +166,11 @@ font-size:22px;
 #sideMenu{
 
 position:fixed;
-right:-320px;
+right:-300px;
 top:0;
 height:100%;
-width:320px;
-background:#0c0c0c;
+width:300px;
+background:#0b0b0b;
 padding:40px;
 transition:.3s;
 z-index:10;
@@ -206,7 +188,6 @@ cursor:pointer;
 
 
 
-
 #sideMenu a{
 
 display:block;
@@ -219,15 +200,13 @@ cursor:pointer;
 }
 
 
-
-
-
 </style>
 
 </head>
 
 
 <body>
+
 
 
 <header>
@@ -250,16 +229,27 @@ ASTRIS
 
 <div id="sideMenu">
 
+
 <div class="close" onclick="toggleMenu()">✕</div>
 
-<a onclick="showPage('home')">Home</a>
 
-<a onclick="showPage('shop')">Shop</a>
+<a onclick="showPage('home')">
+Home
+</a>
 
-<a onclick="showPage('about')">About</a>
+
+<a onclick="showPage('accessories')">
+Accessories
+</a>
+
+
+<a onclick="showPage('clothing')">
+Clothing
+</a>
 
 
 </div>
+
 
 
 
@@ -270,31 +260,15 @@ ASTRIS
 <div id="home" class="page active hero">
 
 
-<h2>
+<h1>
 ASTRIS
-</h2>
+</h1>
 
 
 <p>
-Electric moto accessories and rider style.
+Electric moto accessories built for riders.
 </p>
 
-
-</div>
-
-
-
-
-
-
-
-<div id="shop" class="page">
-
-
-
-<h1>
-Most Popular
-</h1>
 
 
 
@@ -302,11 +276,17 @@ Most Popular
 
 
 <h2>
-Foot Lock
+Most Popular
 </h2>
 
+
+<h3 style="margin-top:20px;">
+Foot Lock
+</h3>
+
+
 <p>
-Wheelie accessory built for riders.
+Wheelie accessory coming soon.
 </p>
 
 
@@ -319,14 +299,21 @@ $25
 
 
 
+</div>
 
 
 
-<div class="section">
+
+
+
+
+
+
+<div id="accessories" class="page">
 
 
 <h1>
-All Products
+Accessories
 </h1>
 
 
@@ -334,10 +321,21 @@ All Products
 <div class="shopGrid">
 
 
-
 <div class="product">
 
-<img src="grips.jpg" class="productImg">
+<h2>
+Foot Locks
+</h2>
+
+<p>
+Wheelie accessories for riders.
+</p>
+
+</div>
+
+
+
+<div class="product">
 
 <h2>
 Grips
@@ -347,61 +345,92 @@ Grips
 Clean bike setup.
 </p>
 
-<h3 class="price">
-$20
-</h3>
-
 </div>
-
 
 
 
 <div class="product">
 
-<img src="stickers.jpg" class="productImg">
+<h2>
+Pegs
+</h2>
+
+<p>
+Upgrade your ride.
+</p>
+
+</div>
+
+
+
+<div class="product">
 
 <h2>
 Stickers
 </h2>
 
 <p>
-Customize your ride.
+Customize your bike.
 </p>
-
-<h3 class="price">
-$10
-</h3>
 
 </div>
 
 
+</div>
+
+
+
+<button class="back" onclick="showPage('home')">
+← Back
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div id="clothing" class="page">
+
+
+<h1>
+Clothing
+</h1>
+
+
+
+<div class="shopGrid">
+
+
+<div class="product">
+
+<h2>
+Tees
+</h2>
+
+<p>
+Astris rider style.
+</p>
+
+</div>
 
 
 
 <div class="product">
 
-<img src="tee.jpg" class="productImg">
-
 <h2>
-Astris Tee
+Hoodies
 </h2>
 
 <p>
-Rider streetwear.
+Clean everyday fits.
 </p>
 
-<h3 class="price">
-$35
-</h3>
-
-</div>
-
-
-
-
-</div>
-
-
 </div>
 
 
@@ -409,23 +438,14 @@ $35
 
 
 
-
-
-
-<div id="about" class="page">
-
-
-<h1>
-About Astris
-</h1>
-
-
-<p style="color:#aaa;font-size:22px;">
-Clean products for electric riders.
-</p>
+<button class="back" onclick="showPage('home')">
+← Back
+</button>
 
 
 </div>
+
+
 
 
 
@@ -440,10 +460,12 @@ function toggleMenu(){
 
 let menu=document.getElementById("sideMenu");
 
+
 menu.style.right =
 menu.style.right==="0px"
-? "-320px"
+? "-300px"
 : "0px";
+
 
 }
 
@@ -451,21 +473,27 @@ menu.style.right==="0px"
 
 function showPage(page){
 
+
 document.querySelectorAll(".page")
 .forEach(p=>p.classList.remove("active"));
+
 
 
 document.getElementById(page)
 .classList.add("active");
 
 
+
 document.getElementById("sideMenu")
-.style.right="-320px";
+.style.right="-300px";
+
 
 }
 
 
+
 </script>
+
 
 
 </body>
