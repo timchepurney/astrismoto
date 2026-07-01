@@ -5,7 +5,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Astris Moto</title>
+<title>Astris</title>
 
 <style>
 
@@ -22,8 +22,6 @@ color:white;
 }
 
 
-/* HEADER */
-
 header{
 height:90px;
 display:flex;
@@ -34,11 +32,12 @@ border-bottom:1px solid #222;
 position:sticky;
 top:0;
 background:#000;
+z-index:5;
 }
 
 
 .logo{
-font-size:34px;
+font-size:38px;
 font-weight:900;
 letter-spacing:6px;
 }
@@ -50,12 +49,9 @@ cursor:pointer;
 }
 
 
-
-/* PAGES */
-
 .page{
 display:none;
-padding:60px 45px;
+padding:55px 45px;
 min-height:90vh;
 }
 
@@ -65,67 +61,41 @@ display:block;
 }
 
 
-
 /* HOME */
 
 .hero h1{
-
 font-size:95px;
-line-height:.85;
-letter-spacing:3px;
-
+letter-spacing:4px;
+line-height:.9;
 }
 
 
 .hero p{
-
 margin-top:25px;
-font-size:22px;
 color:#aaa;
-max-width:600px;
-
+font-size:22px;
 }
-
-
-
-.heroBox{
-
-margin-top:45px;
-padding:35px;
-background:#0d0d0d;
-border:1px solid #222;
-border-radius:25px;
-max-width:650px;
-
-}
-
 
 
 button{
-
 padding:18px 45px;
-border-radius:40px;
 border:none;
+border-radius:40px;
 cursor:pointer;
 font-size:18px;
-margin-top:35px;
-
+margin-top:30px;
 }
 
 
 .shopBtn{
-
 background:white;
 color:black;
-
 }
 
 
 .back{
-
-background:#1a1a1a;
+background:#222;
 color:white;
-
 }
 
 
@@ -133,12 +103,29 @@ color:white;
 /* SHOP */
 
 
+.sectionTitle{
+font-size:45px;
+margin-bottom:30px;
+}
+
+
+.popular{
+
+background:#111;
+border:1px solid #222;
+border-radius:25px;
+padding:35px;
+margin-bottom:50px;
+
+}
+
+
+
 .shopGrid{
 
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 gap:25px;
-margin-top:40px;
 
 }
 
@@ -146,39 +133,44 @@ margin-top:40px;
 
 .product{
 
-background:#0d0d0d;
+background:#111;
 border:1px solid #222;
 border-radius:25px;
-padding:35px;
-transition:.2s;
+padding:30px;
 
 }
 
 
-.product:hover{
 
-transform:translateY(-5px);
+.productImg{
 
-}
-
-
-.product h2{
-
-font-size:28px;
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:20px;
+margin-bottom:20px;
 
 }
+
 
 
 .product p{
+color:#aaa;
+margin-top:12px;
+}
+
+
+
+.price{
 
 margin-top:15px;
-color:#aaa;
+font-size:22px;
 
 }
 
 
 
-/* SIDE MENU */
+/* MENU */
 
 
 #sideMenu{
@@ -186,14 +178,15 @@ color:#aaa;
 position:fixed;
 right:-320px;
 top:0;
-height:100%;
 width:320px;
+height:100%;
 background:#0b0b0b;
 padding:40px;
 transition:.3s;
-z-index:20;
+z-index:10;
 
 }
+
 
 
 .close{
@@ -204,26 +197,27 @@ cursor:pointer;
 }
 
 
+
 #sideMenu a{
 
 display:block;
 color:white;
 text-decoration:none;
-font-size:25px;
+font-size:24px;
 margin-top:35px;
 cursor:pointer;
 
 }
 
 
-</style>
 
+</style>
 
 </head>
 
 
-<body>
 
+<body>
 
 
 <header>
@@ -243,6 +237,7 @@ ASTRIS
 
 
 
+
 <div id="sideMenu">
 
 <div class="close" onclick="toggleMenu()">✕</div>
@@ -253,45 +248,25 @@ ASTRIS
 
 <a onclick="showPage('about')">About</a>
 
-
 </div>
 
 
 
 
 
-
-
-<!-- HOME -->
 
 
 <div id="home" class="page active hero">
 
 
 <h1>
-ASTRIS<br>
-MOTO
+ASTRIS
 </h1>
 
 
 <p>
-Premium accessories and streetwear made for electric riders.
+Electric moto accessories and streetwear built for riders.
 </p>
-
-
-
-<div class="heroBox">
-
-<h2>
-Ride Different.
-</h2>
-
-<p>
-Clean designs. Rider focused products.
-</p>
-
-</div>
-
 
 
 <button class="shopBtn" onclick="showPage('shop')">
@@ -308,15 +283,42 @@ Shop All
 
 
 
-<!-- SHOP -->
-
-
 <div id="shop" class="page">
 
 
-<h1>
-Shop All
+<h1 class="sectionTitle">
+Most Popular
 </h1>
+
+
+
+<div class="popular">
+
+
+<h2>
+Foot Lock
+</h2>
+
+<p>
+Our rider favorite accessory.
+</p>
+
+<h3 class="price">
+$25
+</h3>
+
+
+</div>
+
+
+
+
+
+
+<h1 class="sectionTitle">
+All Products
+</h1>
+
 
 
 
@@ -326,13 +328,19 @@ Shop All
 
 <div class="product">
 
+<img src="footlock.jpg" class="productImg">
+
 <h2>
-Accessories
+Foot Lock
 </h2>
 
 <p>
-Foot locks, grips, pegs, stickers, and custom upgrades.
+Wheelie accessory.
 </p>
+
+<h3 class="price">
+$25
+</h3>
 
 </div>
 
@@ -341,20 +349,46 @@ Foot locks, grips, pegs, stickers, and custom upgrades.
 
 <div class="product">
 
+<img src="grips.jpg" class="productImg">
+
 <h2>
-Tee Shirts
+Grips
 </h2>
 
 <p>
-Simple Astris rider style.
+Clean rider setup.
 </p>
 
+<h3 class="price">
+$20
+</h3>
+
+</div>
+
+
+
+
+<div class="product">
+
+<img src="tee.jpg" class="productImg">
+
+<h2>
+Astris Tee
+</h2>
+
+<p>
+Street rider style.
+</p>
+
+<h3 class="price">
+$35
+</h3>
+
 </div>
 
 
 
 </div>
-
 
 
 
@@ -363,6 +397,7 @@ Simple Astris rider style.
 </button>
 
 
+
 </div>
 
 
@@ -371,22 +406,17 @@ Simple Astris rider style.
 
 
 
-
-<!-- ABOUT -->
-
-
 <div id="about" class="page">
 
 
 <h1>
-About Astris
+About
 </h1>
 
 
-<p style="margin-top:25px;color:#aaa;font-size:22px;">
-Astris is built around electric moto culture, clean style, and riders who want their setup to stand out.
+<p style="color:#aaa;margin-top:20px;font-size:22px;">
+Astris creates clean products for electric riders.
 </p>
-
 
 
 <button class="back" onclick="showPage('home')">
@@ -435,7 +465,6 @@ document.getElementById("sideMenu")
 
 
 </script>
-
 
 
 </body>
