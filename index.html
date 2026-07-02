@@ -1,239 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ASTRIS MOTO</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
-}
-
-body{
-background:#000;
-color:#fff;
-overflow-x:hidden;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+body{background:#000;color:#fff;overflow-x:hidden;}
 
 /* LOADER */
 #loader{
-position:fixed;
-inset:0;
-background:#000;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
+position:fixed;inset:0;background:#000;
+display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;
 }
+#loader h1{letter-spacing:8px;}
+.dots::after{content:"";animation:dots 1s infinite steps(3);}
+@keyframes dots{0%{content:"."}33%{content:".."}66%{content:"..."}}
 
-#loader h1{
-letter-spacing:8px;
-font-size:22px;
-}
-
-.dots::after{
-content:"";
-animation:dots 1s infinite steps(3);
-}
-
-@keyframes dots{
-0%{content:"."}
-33%{content:".."}
-66%{content:"..."}
-}
-
-/* HEADER */
+/* TOP BAR */
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 30px;
-position:sticky;
-top:0;
-background:#000;
-border-bottom:1px solid #111;
-z-index:1000;
+display:flex;justify-content:space-between;align-items:center;
+padding:15px 25px;
+position:sticky;top:0;background:#000;border-bottom:1px solid #111;z-index:1000;
 }
 
-.logo{
-font-size:22px;
-letter-spacing:5px;
-font-weight:bold;
-}
+.logo{letter-spacing:5px;font-weight:bold;}
+.right{display:flex;gap:10px;align-items:center;}
 
-.cart-btn{
-background:#fff;
-color:#000;
-padding:8px 14px;
-border:none;
-cursor:pointer;
-font-weight:bold;
-border-radius:6px;
+input{
+padding:8px;border-radius:6px;border:none;outline:none;
+background:#111;color:#fff;width:140px;
 }
 
 /* HERO */
 .hero{
-height:60vh;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-text-align:center;
+height:55vh;display:flex;flex-direction:column;
+justify-content:center;align-items:center;text-align:center;
 }
+.hero h1{font-size:55px;letter-spacing:8px;}
+.hero p{opacity:0.6;margin-top:10px;}
 
-.hero h1{
-font-size:55px;
-letter-spacing:8px;
+/* FILTER */
+.filters{
+display:flex;gap:10px;justify-content:center;
+padding:10px 20px;flex-wrap:wrap;
 }
-
-.hero p{
-opacity:0.6;
-margin-top:10px;
+.filters button{
+padding:6px 12px;border:none;border-radius:6px;
+cursor:pointer;background:#111;color:#fff;
 }
-
-/* SECTION TITLE */
-.section-title{
-padding:0 40px;
-margin-top:10px;
-opacity:0.7;
-letter-spacing:2px;
-}
+.filters button:hover{background:#222;}
 
 /* PRODUCTS */
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-padding:40px;
+gap:20px;padding:30px;
 }
 
 .card{
-background:#111;
-padding:15px;
-border-radius:12px;
-transition:0.3s;
-cursor:pointer;
+background:#111;padding:15px;border-radius:12px;
+transition:0.3s;cursor:pointer;position:relative;
 }
-
-.card:hover{
-transform:scale(1.05);
-}
-
-.card img{
-width:100%;
-border-radius:10px;
-}
-
-.card h3{
-margin-top:10px;
-}
-
+.card:hover{transform:scale(1.05);}
+.card img{width:100%;border-radius:10px;}
 .card button{
-margin-top:10px;
-width:100%;
-padding:10px;
-border:none;
-background:#fff;
-color:#000;
-cursor:pointer;
-font-weight:bold;
-border-radius:6px;
-}
-
-/* FADE */
-.fade{
-opacity:0;
-transform:translateY(40px);
-transition:all 0.8s ease;
-}
-
-.fade.show{
-opacity:1;
-transform:translateY(0);
+margin-top:10px;width:100%;padding:10px;
+background:#fff;border:none;color:#000;
+font-weight:bold;border-radius:6px;cursor:pointer;
 }
 
 /* CART */
 .cart{
-position:fixed;
-right:-420px;
-top:0;
-width:320px;
-height:100%;
-background:#111;
-padding:20px;
-transition:0.3s;
-overflow-y:auto;
-border-left:1px solid #222;
-z-index:2000;
+position:fixed;right:-420px;top:0;
+width:320px;height:100%;
+background:#111;padding:20px;
+transition:0.3s;overflow-y:auto;z-index:2000;
 }
-
-.cart.open{
-right:0;
-}
-
+.cart.open{right:0;}
 .item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:10px;
-padding:10px;
-background:#000;
-border-radius:8px;
+display:flex;justify-content:space-between;
+margin-bottom:10px;background:#000;
+padding:10px;border-radius:8px;
+}
+.item button{background:red;border:none;color:#fff;padding:3px 6px;cursor:pointer;border-radius:4px;}
+
+/* MODAL */
+.modal{
+position:fixed;inset:0;background:rgba(0,0,0,0.8);
+display:none;justify-content:center;align-items:center;z-index:3000;
+}
+.modal-content{
+background:#111;padding:20px;border-radius:12px;
+width:300px;text-align:center;
 }
 
-.item button{
-background:red;
-border:none;
-color:#fff;
-padding:4px 8px;
-cursor:pointer;
-border-radius:4px;
+/* TOAST */
+#toast{
+position:fixed;bottom:20px;left:50%;
+transform:translateX(-50%);
+background:#fff;color:#000;
+padding:10px 15px;border-radius:8px;
+opacity:0;transition:0.3s;
 }
 
-.close{
-background:red;
-color:#fff;
-border:none;
-padding:6px 10px;
-cursor:pointer;
-margin-bottom:10px;
-border-radius:6px;
+/* BUTTONS */
+.pay{
+margin-top:10px;width:100%;
+padding:10px;border:none;
+background:#0070ba;color:#fff;
+border-radius:6px;cursor:pointer;
 }
 
-/* PAY BUTTON */
-.pay-btn{
-margin-top:15px;
-padding:10px;
-width:100%;
-border:none;
-border-radius:6px;
-cursor:pointer;
-background:#0070ba;
-color:#fff;
-font-weight:bold;
-}
-
-/* FOOTER */
-footer{
-padding:40px;
-border-top:1px solid #111;
-text-align:center;
-opacity:0.8;
-}
-
-footer a{
-color:#fff;
-}
-
-/* MOBILE */
-@media(max-width:600px){
-.hero h1{font-size:38px;}
-}
+/* FADE */
+.fade{opacity:0;transform:translateY(30px);transition:0.6s;}
+.fade.show{opacity:1;transform:translateY(0);}
 </style>
 </head>
 
@@ -247,144 +129,167 @@ color:#fff;
 
 <header>
 <div class="logo">ASTRIS</div>
-<button class="cart-btn" onclick="toggleCart()">CART 🛒</button>
+
+<div class="right">
+<input id="search" placeholder="search..." oninput="filter()"/>
+<button onclick="toggleCart()">🛒</button>
+</div>
 </header>
 
-<section class="hero fade">
+<div class="hero fade">
 <h1>ASTRIS MOTO</h1>
 <p>built for riders. not followers.</p>
-</section>
+</div>
 
-<h2 class="section-title fade">🔥 BEST SELLERS</h2>
+<div class="filters fade">
+<button onclick="showAll()">All</button>
+<button onclick="filterCat('gear')">Gear</button>
+<button onclick="filterCat('accessories')">Accessories</button>
+</div>
 
-<section class="products">
+<section class="products" id="products">
 
-<div class="card fade">
-<img src="https://via.placeholder.com/300" />
+<div class="card fade" data-name="foot locks" data-cat="gear">
+<img src="https://via.placeholder.com/300"/>
 <h3>Foot Locks</h3>
 <p>$15</p>
-<button onclick="addToCart('Foot Locks',15)">Add</button>
+<button onclick="add('Foot Locks',15)">Add</button>
 </div>
 
-<div class="card fade">
-<img src="https://via.placeholder.com/300" />
+<div class="card fade" data-name="grips" data-cat="gear">
+<img src="https://via.placeholder.com/300"/>
 <h3>Grips</h3>
 <p>$10</p>
-<button onclick="addToCart('Grips',10)">Add</button>
+<button onclick="add('Grips',10)">Add</button>
 </div>
 
-<div class="card fade">
-<img src="https://via.placeholder.com/300" />
+<div class="card fade" data-name="pegs" data-cat="gear">
+<img src="https://via.placeholder.com/300"/>
 <h3>Pegs</h3>
 <p>$18</p>
-<button onclick="addToCart('Pegs',18)">Add</button>
+<button onclick="add('Pegs',18)">Add</button>
 </div>
 
-<div class="card fade">
-<img src="https://via.placeholder.com/300" />
+<div class="card fade" data-name="stickers" data-cat="accessories">
+<img src="https://via.placeholder.com/300"/>
 <h3>Sticker Pack</h3>
 <p>$5</p>
-<button onclick="addToCart('Stickers',5)">Add</button>
+<button onclick="add('Stickers',5)">Add</button>
 </div>
 
 </section>
 
 <!-- CART -->
 <div class="cart" id="cart">
-<button class="close" onclick="toggleCart()">Close</button>
-<h2>Your Cart</h2>
-
-<div id="cartItems"></div>
-
+<h3>Your Cart</h3>
+<div id="items"></div>
 <h3 id="total">Total: $0</h3>
-
-<button class="pay-btn" onclick="checkout()">
-Checkout with PayPal 💳
-</button>
+<button class="pay" onclick="checkout()">Checkout</button>
 </div>
 
-<!-- FOOTER -->
-<footer class="fade">
-<p>Payments: PayPal ready</p>
-<p>Contact: <a href="mailto:Astrismoto@gmail.com">Astrismoto@gmail.com</a></p>
-</footer>
+<!-- CHECKOUT MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<h2>Checkout 💳</h2>
+<p>Total: <span id="mTotal">$0</span></p>
+<button class="pay" onclick="pay()">Pay Now</button>
+<button onclick="closeModal()">Close</button>
+</div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
 
 <script>
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = [];
+
+function showToast(msg){
+let t=document.getElementById("toast");
+t.innerText=msg;
+t.style.opacity=1;
+setTimeout(()=>t.style.opacity=0,1200);
+}
 
 function toggleCart(){
 document.getElementById("cart").classList.toggle("open");
 }
 
-function saveCart(){
-localStorage.setItem("cart", JSON.stringify(cart));
+function add(name,price){
+cart.push({name,price});
+render();
+showToast("Added to cart 🔥");
 }
 
-function addToCart(name, price){
-cart.push({name, price});
-saveCart();
-renderCart();
-}
-
-function removeItem(i){
+function remove(i){
 cart.splice(i,1);
-saveCart();
-renderCart();
+render();
 }
 
-function renderCart(){
-let container = document.getElementById("cartItems");
-container.innerHTML = "";
+function render(){
+let c=document.getElementById("items");
+c.innerHTML="";
+let total=0;
 
-let total = 0;
-
-cart.forEach((item,i)=>{
-total += item.price;
-
-container.innerHTML += `
+cart.forEach((x,i)=>{
+total+=x.price;
+c.innerHTML+=`
 <div class="item">
-<span>${item.name} - $${item.price}</span>
-<button onclick="removeItem(${i})">X</button>
-</div>
-`;
+${x.name} $${x.price}
+<button onclick="remove(${i})">X</button>
+</div>`;
 });
 
-document.getElementById("total").innerText = "Total: $" + total;
+document.getElementById("total").innerText="Total: $"+total;
+document.getElementById("mTotal").innerText="$"+total;
 }
 
-/* PAYPAL CHECKOUT (CHANGE THIS LATER) */
 function checkout(){
-if(cart.length === 0){
-alert("Cart empty 😭");
-return;
+document.getElementById("modal").style.display="flex";
 }
 
-/* replace this with your real PayPal.Me link */
-window.location.href = "https://www.paypal.me/AstrisMoto";
+function closeModal(){
+document.getElementById("modal").style.display="none";
 }
 
-/* loader */
-window.onload = ()=>{
-setTimeout(()=>{
-document.getElementById("loader").style.display = "none";
-},2000);
+function pay(){
+window.location.href="https://www.paypal.me/AstrisMoto";
+}
 
-renderCart();
+/* SEARCH */
+function filter(){
+let v=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.dataset.name.includes(v)?"block":"none";
+});
+}
+
+/* CATEGORY */
+function filterCat(cat){
+document.querySelectorAll(".card").forEach(c=>{
+c.style.display=c.dataset.cat===cat?"block":"none";
+});
+}
+
+function showAll(){
+document.querySelectorAll(".card").forEach(c=>c.style.display="block");
+}
+
+/* FADE */
+const obs=new IntersectionObserver(e=>{
+e.forEach(x=>{
+if(x.isIntersecting)x.target.classList.add("show");
+});
+});
+
+document.querySelectorAll(".fade").forEach(x=>obs.observe(x));
+
+/* LOADER */
+window.onload=()=>{
+setTimeout(()=>document.getElementById("loader").style.display="none",2000);
+render();
 };
 
-/* fade scroll */
-const observer = new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting){
-e.target.classList.add("show");
-}
-});
-});
-
-document.querySelectorAll(".fade").forEach(el=>{
-observer.observe(el);
-});
 </script>
 
 </body>
