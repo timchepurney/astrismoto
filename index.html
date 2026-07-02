@@ -13,15 +13,13 @@ background:#000;
 color:#fff;
 overflow-x:hidden;
 opacity:0;
-transition:opacity .3s;
+transition:opacity .3s ease;
 }
 
 /* LOADER */
 #loader{
 position:fixed;
 inset:0;
-width:100vw;
-height:100vh;
 background:#000;
 display:flex;
 flex-direction:column;
@@ -69,8 +67,8 @@ display:none;
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-padding:20px;
 gap:20px;
+padding:20px;
 }
 
 .card{
@@ -166,8 +164,8 @@ border-radius:10px;
 .checkout-item img{
 width:70px;
 height:70px;
-object-fit:cover;
 border-radius:8px;
+object-fit:cover;
 }
 
 .paypal{
@@ -176,7 +174,6 @@ color:#fff;
 padding:12px;
 border:none;
 border-radius:8px;
-margin-top:10px;
 }
 
 /* FOOTER */
@@ -187,15 +184,9 @@ color:#888;
 border-top:1px solid #111;
 }
 
-/* FADE */
-.fade{
-opacity:0;
-transform:translateY(20px);
-transition:.6s;
-}
-.fade.show{
+/* FIXED VISIBILITY */
+body.ready{
 opacity:1;
-transform:translateY(0);
 }
 </style>
 </head>
@@ -216,25 +207,22 @@ transform:translateY(0);
 <!-- PRODUCTS -->
 <section class="products">
 
-<div class="card fade" onclick="openProduct('Foot Locks',15)">
+<div class="card" onclick="openProduct('Foot Locks',15)">
 <img src="https://via.placeholder.com/800"/>
 <h3>Foot Locks</h3>
 <p>$15</p>
-<button onclick="event.stopPropagation(); openProduct('Foot Locks',15)">View</button>
 </div>
 
-<div class="card fade" onclick="openProduct('Grips',10)">
+<div class="card" onclick="openProduct('Grips',10)">
 <img src="https://via.placeholder.com/800"/>
 <h3>Grips</h3>
 <p>$10</p>
-<button onclick="event.stopPropagation(); openProduct('Grips',10)">View</button>
 </div>
 
-<div class="card fade" onclick="openProduct('Aluminum Motor Cover',40)">
+<div class="card" onclick="openProduct('Aluminum Motor Cover',40)">
 <img src="https://via.placeholder.com/800"/>
 <h3>Aluminum Motor Cover</h3>
 <p>$40</p>
-<button onclick="event.stopPropagation(); openProduct('Aluminum Motor Cover',40)">View</button>
 </div>
 
 </section>
@@ -247,9 +235,8 @@ transform:translateY(0);
 <button class="paypal" onclick="openCheckout()">Checkout</button>
 </div>
 
-<!-- PRODUCT PAGE -->
+<!-- PRODUCT -->
 <div class="page" id="page">
-
 <div class="page-top">
 <button onclick="closePage()">Back</button>
 </div>
@@ -270,7 +257,6 @@ transform:translateY(0);
 
 <button onclick="add()">Add to Cart</button>
 </div>
-
 </div>
 
 <!-- CHECKOUT -->
@@ -321,7 +307,6 @@ g.innerHTML+=`<img src="https://via.placeholder.com/900"/>`;
 let v=document.getElementById("variant");
 v.innerHTML="";
 
-/* ONLY MOTOR COVER */
 if(name==="Aluminum Motor Cover"){
 v.innerHTML=`
 <button onclick="set('LBX')">Surron LBX</button>
@@ -406,7 +391,7 @@ total+=i.price*i.qty;
 
 box.innerHTML+=`
 <div class="checkout-item">
-<img src="https://via.placeholder.com/100"/>
+<img src="https://via.placeholder.com/80"/>
 <div>
 <div><b>${n}</b></div>
 <div>Qty: ${i.qty}</div>
@@ -438,13 +423,13 @@ function closePage(){
 document.getElementById("page").style.display="none";
 }
 
-/* LOAD */
+/* LOAD SAFE */
 window.onload=()=>{
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
-document.body.style.opacity="1";
-},1500);
+document.body.classList.add("ready");
 render();
+},1200);
 };
 
 </script>
