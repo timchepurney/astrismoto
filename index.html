@@ -20,6 +20,8 @@ transition:opacity .3s;
 #loader{
 position:fixed;
 inset:0;
+width:100vw;
+height:100vh;
 background:#000;
 display:flex;
 flex-direction:column;
@@ -32,6 +34,7 @@ z-index:9999;
 header{
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:15px;
 border-bottom:1px solid #111;
 position:sticky;
@@ -47,6 +50,19 @@ color:#000;
 border:none;
 padding:8px 12px;
 border-radius:6px;
+position:relative;
+}
+
+.badge{
+position:absolute;
+top:-6px;
+right:-6px;
+background:red;
+color:#fff;
+font-size:11px;
+padding:2px 6px;
+border-radius:50%;
+display:none;
 }
 
 /* PRODUCTS */
@@ -78,7 +94,7 @@ background:#fff;
 /* CART */
 .cart{
 position:fixed;
-right:-400px;
+right:-420px;
 top:0;
 width:320px;
 height:100%;
@@ -93,18 +109,20 @@ overflow-y:auto;
 .item{
 display:flex;
 justify-content:space-between;
-padding:10px;
 background:#000;
+padding:10px;
+border-radius:8px;
 margin-bottom:10px;
 }
 
-/* PAGE */
+/* PRODUCT PAGE */
 .page{
 position:fixed;
 inset:0;
 background:#000;
 display:none;
 flex-direction:column;
+overflow-y:auto;
 }
 
 .page-top{
@@ -124,10 +142,6 @@ min-width:100%;
 object-fit:cover;
 }
 
-.qty button{
-padding:8px;
-}
-
 /* CHECKOUT */
 .checkout{
 position:fixed;
@@ -136,14 +150,41 @@ background:#000;
 display:none;
 flex-direction:column;
 padding:20px;
+overflow-y:auto;
+gap:15px;
+}
+
+.checkout-item{
+display:flex;
+gap:10px;
+align-items:center;
+background:#111;
+padding:10px;
+border-radius:10px;
+}
+
+.checkout-item img{
+width:70px;
+height:70px;
+object-fit:cover;
+border-radius:8px;
 }
 
 .paypal{
 background:#0070ba;
 color:#fff;
-padding:10px;
+padding:12px;
 border:none;
+border-radius:8px;
 margin-top:10px;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:40px;
+color:#888;
+border-top:1px solid #111;
 }
 
 /* FADE */
@@ -161,6 +202,7 @@ transform:translateY(0);
 
 <body>
 
+<!-- LOADER -->
 <div id="loader">
 <h1>ASTRIS MOTO</h1>
 <div>Loading...</div>
@@ -205,8 +247,9 @@ transform:translateY(0);
 <button class="paypal" onclick="openCheckout()">Checkout</button>
 </div>
 
-<!-- PRODUCT -->
+<!-- PRODUCT PAGE -->
 <div class="page" id="page">
+
 <div class="page-top">
 <button onclick="closePage()">Back</button>
 </div>
@@ -227,21 +270,34 @@ transform:translateY(0);
 
 <button onclick="add()">Add to Cart</button>
 </div>
+
 </div>
 
 <!-- CHECKOUT -->
 <div class="checkout" id="checkout">
+
+<div style="display:flex;justify-content:space-between;align-items:center;">
 <h2>Checkout</h2>
-<div id="checkoutItems"></div>
-<h3 id="checkoutTotal"></h3>
-<button class="paypal" onclick="pay()">PayPal</button>
 <button onclick="closeCheckout()">Back</button>
 </div>
+
+<div id="checkoutItems"></div>
+
+<h3 id="checkoutTotal"></h3>
+
+<button class="paypal" onclick="pay()">PayPal 💳</button>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+<p>© 2026 ASTRIS MOTO</p>
+<p>Contact: Astrismoto@gmail.com</p>
+</footer>
 
 <script>
 
 let cart = JSON.parse(localStorage.getItem("cart")) || {};
-
 let current = {name:"",price:0,qty:1,variant:null};
 
 function save(){
@@ -251,7 +307,7 @@ localStorage.setItem("cart",JSON.stringify(cart));
 /* PRODUCT */
 function openProduct(name,price){
 
-current = {name,price,qty:1,variant:null};
+current={name,price,qty:1,variant:null};
 
 document.getElementById("pName").innerText=name;
 document.getElementById("pPrice").innerText="$"+price;
@@ -262,10 +318,10 @@ for(let i=0;i<3;i++){
 g.innerHTML+=`<img src="https://via.placeholder.com/900"/>`;
 }
 
-/* VARIANT ONLY FOR MOTOR COVER */
 let v=document.getElementById("variant");
 v.innerHTML="";
 
+/* ONLY MOTOR COVER */
 if(name==="Aluminum Motor Cover"){
 v.innerHTML=`
 <button onclick="set('LBX')">Surron LBX</button>
@@ -277,9 +333,9 @@ document.getElementById("page").style.display="flex";
 }
 
 /* VARIANT */
-function set(type){
-current.variant=type;
-current.price=(type==="LBX")?40:45;
+function set(t){
+current.variant=t;
+current.price=(t==="LBX")?40:45;
 document.getElementById("pPrice").innerText="$"+current.price;
 }
 
@@ -331,7 +387,7 @@ document.getElementById("total").innerText="Total: $"+total;
 document.getElementById("badge").innerText=count;
 }
 
-/* CART TOGGLE */
+/* CART */
 function toggleCart(){
 document.getElementById("cart").classList.toggle("open");
 }
@@ -348,7 +404,15 @@ Object.keys(cart).forEach(n=>{
 let i=cart[n];
 total+=i.price*i.qty;
 
-box.innerHTML+=`<div>${n} x${i.qty}</div>`;
+box.innerHTML+=`
+<div class="checkout-item">
+<img src="https://via.placeholder.com/100"/>
+<div>
+<div><b>${n}</b></div>
+<div>Qty: ${i.qty}</div>
+<div>$${i.price*i.qty}</div>
+</div>
+</div>`;
 });
 
 document.getElementById("checkoutTotal").innerText="Total: $"+total;
@@ -382,14 +446,6 @@ document.body.style.opacity="1";
 },1500);
 render();
 };
-
-/* FADE */
-const obs=new IntersectionObserver(e=>{
-e.forEach(x=>{
-if(x.isIntersecting)x.target.classList.add("show");
-});
-});
-document.querySelectorAll(".fade").forEach(e=>obs.observe(e));
 
 </script>
 
