@@ -25,7 +25,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-z-index:9999;
+z-index:99999;
 }
 
 /* HEADER */
@@ -47,7 +47,7 @@ background:#fff;
 color:#000;
 border:none;
 padding:8px 12px;
-border-radius:6px;
+border-radius:8px;
 position:relative;
 }
 
@@ -89,69 +89,58 @@ border-radius:6px;
 background:#fff;
 }
 
-/* CART */
-.cart{
+/* CART / PAGE / CHECKOUT */
+.panel{
 position:fixed;
-right:-420px;
-top:0;
-width:320px;
-height:100%;
-background:#111;
-padding:20px;
-transition:.3s;
+inset:0;
+background:#000;
+display:none;
+flex-direction:column;
 overflow-y:auto;
+padding:20px;
 }
 
-.cart.open{right:0;}
+.top-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
 
+.big-exit{
+background:#fff;
+color:#000;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* CART ITEMS */
 .item{
 display:flex;
 justify-content:space-between;
-background:#000;
+background:#111;
 padding:10px;
 border-radius:8px;
 margin-bottom:10px;
 }
 
-/* PRODUCT PAGE */
-.page{
-position:fixed;
-inset:0;
-background:#000;
-display:none;
-flex-direction:column;
-overflow-y:auto;
-}
-
-.page-top{
-display:flex;
-justify-content:space-between;
-padding:15px;
-}
-
+/* GALLERY */
 .gallery{
 display:flex;
 overflow-x:auto;
-height:300px;
+height:280px;
+gap:10px;
 }
 
 .gallery img{
 min-width:100%;
+border-radius:8px;
 object-fit:cover;
 }
 
-/* CHECKOUT */
-.checkout{
-position:fixed;
-inset:0;
-background:#000;
-display:none;
-flex-direction:column;
-padding:20px;
-overflow-y:auto;
-gap:15px;
-}
-
+/* CHECKOUT ITEM */
 .checkout-item{
 display:flex;
 gap:10px;
@@ -159,6 +148,7 @@ align-items:center;
 background:#111;
 padding:10px;
 border-radius:10px;
+margin-bottom:10px;
 }
 
 .checkout-item img{
@@ -168,12 +158,14 @@ border-radius:8px;
 object-fit:cover;
 }
 
+/* PAYPAL */
 .paypal{
 background:#0070ba;
 color:#fff;
 padding:12px;
 border:none;
 border-radius:8px;
+margin-top:10px;
 }
 
 /* FOOTER */
@@ -184,9 +176,9 @@ color:#888;
 border-top:1px solid #111;
 }
 
-/* FIXED VISIBILITY */
-body.ready{
-opacity:1;
+footer a{
+color:#fff;
+text-decoration:none;
 }
 </style>
 </head>
@@ -201,7 +193,7 @@ opacity:1;
 
 <header>
 <div class="logo">ASTRIS</div>
-<button class="cart-btn" onclick="toggleCart()">🛒 <span id="badge"></span></button>
+<button class="cart-btn" onclick="openCart()">🛒 <span id="badge"></span></button>
 </header>
 
 <!-- PRODUCTS -->
@@ -228,22 +220,27 @@ opacity:1;
 </section>
 
 <!-- CART -->
-<div class="cart" id="cart">
-<h3>Cart</h3>
+<div class="panel" id="cart">
+<div class="top-bar">
+<h2>Cart</h2>
+<button class="big-exit" onclick="closeCart()">Exit ✕</button>
+</div>
+
 <div id="items"></div>
 <h3 id="total"></h3>
+
 <button class="paypal" onclick="openCheckout()">Checkout</button>
 </div>
 
 <!-- PRODUCT -->
-<div class="page" id="page">
-<div class="page-top">
-<button onclick="closePage()">Back</button>
+<div class="panel" id="product">
+<div class="top-bar">
+<h2>Product</h2>
+<button class="big-exit" onclick="closeProduct()">Exit ✕</button>
 </div>
 
 <div class="gallery" id="gallery"></div>
 
-<div style="padding:20px">
 <h2 id="pName"></h2>
 <p id="pPrice"></p>
 
@@ -257,28 +254,30 @@ opacity:1;
 
 <button onclick="add()">Add to Cart</button>
 </div>
-</div>
 
 <!-- CHECKOUT -->
-<div class="checkout" id="checkout">
+<div class="panel" id="checkout">
 
-<div style="display:flex;justify-content:space-between;align-items:center;">
+<div class="top-bar">
 <h2>Checkout</h2>
-<button onclick="closeCheckout()">Back</button>
+<button class="big-exit" onclick="closeCheckout()">Exit ✕</button>
 </div>
 
 <div id="checkoutItems"></div>
-
 <h3 id="checkoutTotal"></h3>
 
 <button class="paypal" onclick="pay()">PayPal 💳</button>
-
 </div>
 
 <!-- FOOTER -->
 <footer>
 <p>© 2026 ASTRIS MOTO</p>
-<p>Contact: Astrismoto@gmail.com</p>
+<p>
+Contact:
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=Astrismoto@gmail.com" target="_blank">
+Astrismoto@gmail.com
+</a>
+</p>
 </footer>
 
 <script>
@@ -307,6 +306,7 @@ g.innerHTML+=`<img src="https://via.placeholder.com/900"/>`;
 let v=document.getElementById("variant");
 v.innerHTML="";
 
+/* ONLY MOTOR COVER */
 if(name==="Aluminum Motor Cover"){
 v.innerHTML=`
 <button onclick="set('LBX')">Surron LBX</button>
@@ -314,7 +314,7 @@ v.innerHTML=`
 `;
 }
 
-document.getElementById("page").style.display="flex";
+document.getElementById("product").style.display="flex";
 }
 
 /* VARIANT */
@@ -344,7 +344,7 @@ cart[name]={price:current.price,qty:current.qty};
 
 save();
 render();
-closePage();
+closeProduct();
 }
 
 /* CART */
@@ -372,9 +372,18 @@ document.getElementById("total").innerText="Total: $"+total;
 document.getElementById("badge").innerText=count;
 }
 
-/* CART */
-function toggleCart(){
-document.getElementById("cart").classList.toggle("open");
+/* CART OPEN */
+function openCart(){
+document.getElementById("cart").style.display="flex";
+render();
+}
+function closeCart(){
+document.getElementById("cart").style.display="none";
+}
+
+/* PRODUCT CLOSE */
+function closeProduct(){
+document.getElementById("product").style.display="none";
 }
 
 /* CHECKOUT */
@@ -418,16 +427,11 @@ total+=i.price*i.qty;
 window.location.href="https://www.paypal.me/AstrisMoto/"+total;
 }
 
-/* CLOSE */
-function closePage(){
-document.getElementById("page").style.display="none";
-}
-
 /* LOAD SAFE */
 window.onload=()=>{
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
-document.body.classList.add("ready");
+document.body.style.opacity="1";
 render();
 },1200);
 };
