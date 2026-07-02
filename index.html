@@ -25,10 +25,10 @@ color:#fff;
 overflow-x:hidden;
 }
 
-/* 🔥 LOADER FIX (REAL FULL SCREEN) */
+/* LOADER */
 #loader{
 position:fixed;
-top:0;left:0;
+inset:0;
 width:100vw;
 height:100vh;
 background:#000;
@@ -107,7 +107,9 @@ cursor:pointer;
 transition:.25s;
 }
 
-.card:hover{transform:scale(1.03);}
+.card:hover{
+transform:scale(1.03);
+}
 
 .card img{
 width:100%;
@@ -171,15 +173,6 @@ border-radius:8px;
 margin-bottom:10px;
 }
 
-.item button{
-background:red;
-border:none;
-color:#fff;
-padding:4px 7px;
-border-radius:4px;
-cursor:pointer;
-}
-
 /* PAYPAL */
 .paypal{
 margin-top:15px;
@@ -193,65 +186,6 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* PRODUCT PAGE */
-.page{
-position:fixed;
-inset:0;
-background:#000;
-display:none;
-flex-direction:column;
-z-index:3000;
-}
-
-.page-top{
-display:flex;
-justify-content:space-between;
-padding:15px;
-border-bottom:1px solid #111;
-}
-
-.gallery{
-display:flex;
-overflow-x:auto;
-scroll-snap-type:x mandatory;
-height:300px;
-}
-
-.gallery img{
-min-width:100%;
-height:300px;
-object-fit:cover;
-scroll-snap-align:center;
-}
-
-/* QTY */
-.qty{
-display:flex;
-align-items:center;
-gap:10px;
-margin-top:10px;
-}
-
-.qty button{
-padding:8px 12px;
-border:none;
-background:#fff;
-color:#000;
-border-radius:6px;
-}
-
-/* FADE */
-.fade{
-opacity:0;
-transform:translateY(25px);
-transition:.7s ease;
-}
-
-.fade.show{
-opacity:1;
-transform:translateY(0);
-}
-
 /* FOOTER */
 footer{
 padding:40px;
@@ -259,7 +193,19 @@ text-align:center;
 border-top:1px solid #111;
 color:var(--muted);
 }
+
 footer a{color:#fff;}
+
+/* FADE */
+.fade{
+opacity:0;
+transform:translateY(25px);
+transition:.7s ease;
+}
+.fade.show{
+opacity:1;
+transform:translateY(0);
+}
 </style>
 </head>
 
@@ -273,23 +219,48 @@ footer a{color:#fff;}
 
 <header>
 <div class="logo">ASTRIS</div>
-<button class="cart-btn" onclick="toggleCart()">🛒 <span id="badge" class="badge">0</span></button>
+
+<button class="cart-btn" onclick="toggleCart()">
+🛒 <span id="badge" class="badge">0</span>
+</button>
 </header>
 
+<!-- PRODUCTS -->
 <section class="products">
 
-<div class="card fade" onclick="openProduct('Foot Locks',15)">
+<div class="card fade" onclick="add('Foot Locks',15)">
 <img src="https://via.placeholder.com/800"/>
 <h3>Foot Locks</h3>
 <p>$15</p>
 <button onclick="event.stopPropagation(); add('Foot Locks',15)">Add</button>
 </div>
 
-<div class="card fade" onclick="openProduct('Grips',10)">
+<div class="card fade" onclick="add('Grips',10)">
 <img src="https://via.placeholder.com/800"/>
 <h3>Grips</h3>
 <p>$10</p>
 <button onclick="event.stopPropagation(); add('Grips',10)">Add</button>
+</div>
+
+<div class="card fade" onclick="add('Aluminum Motor Cover',40)">
+<img src="https://via.placeholder.com/800"/>
+<h3>Aluminum Motor Cover</h3>
+<p>$40</p>
+<button onclick="event.stopPropagation(); add('Aluminum Motor Cover',40)">Add</button>
+</div>
+
+<div class="card fade" onclick="add('Surron LBX Fitment',0)">
+<img src="https://via.placeholder.com/800"/>
+<h3>Surron LBX Fitment</h3>
+<p>select option</p>
+<button onclick="event.stopPropagation(); add('Surron LBX Fitment',0)">Select</button>
+</div>
+
+<div class="card fade" onclick="add('Talaria XXX Fitment',0)">
+<img src="https://via.placeholder.com/800"/>
+<h3>Talaria XXX Fitment</h3>
+<p>select option</p>
+<button onclick="event.stopPropagation(); add('Talaria XXX Fitment',0)">Select</button>
 </div>
 
 </section>
@@ -312,34 +283,7 @@ PayPal Checkout 💳
 
 </div>
 
-<!-- PRODUCT PAGE -->
-<div class="page" id="page">
-
-<div class="page-top">
-<button onclick="closePage()">Back</button>
-<button onclick="toggleCart()">Cart</button>
-</div>
-
-<div class="gallery" id="gallery"></div>
-
-<div style="padding:20px">
-<h2 id="pName"></h2>
-<p id="pPrice"></p>
-
-<div class="qty">
-<button onclick="qty(-1)">-</button>
-<span id="qty">1</span>
-<button onclick="qty(1)">+</button>
-</div>
-
-<button style="margin-top:15px;width:100%;padding:12px;background:#fff;color:#000;border:none;border-radius:8px;"
-onclick="addFromPage()">Add to Cart</button>
-
-</div>
-
-</div>
-
-<!-- FOOTER (BACK LIKE YOU ASKED) -->
+<!-- FOOTER -->
 <footer class="fade">
 <p>© 2026 ASTRIS MOTO</p>
 <p>Contact: <a href="mailto:Astrismoto@gmail.com">Astrismoto@gmail.com</a></p>
@@ -347,75 +291,50 @@ onclick="addFromPage()">Add to Cart</button>
 
 <script>
 
-let cart=[];
-let current={name:"",price:0,qty:1};
+let cart = {};
+
+/* CART SYSTEM (GROUPED) */
+function add(name, price){
+
+if(cart[name]){
+cart[name].qty++;
+} else {
+cart[name] = {price:price, qty:1};
+}
+
+render();
+}
+
+function render(){
+
+let box = document.getElementById("items");
+box.innerHTML = "";
+
+let total = 0;
+let count = 0;
+
+Object.keys(cart).forEach(name=>{
+let item = cart[name];
+total += item.price * item.qty;
+count += item.qty;
+
+box.innerHTML += `
+<div class="item">
+<div>${name} x${item.qty} — $${item.price * item.qty}</div>
+<button onclick="delete cart['${name}']; render()">X</button>
+</div>`;
+});
+
+document.getElementById("total").innerText = "Total: $" + total;
+
+let b = document.getElementById("badge");
+b.innerText = count;
+b.style.display = count ? "block" : "none";
+}
 
 /* CART */
 function toggleCart(){
 document.getElementById("cart").classList.toggle("open");
-}
-
-function add(name,price){
-cart.push({name,price});
-render();
-}
-
-/* FIXED RENDER */
-function render(){
-let box=document.getElementById("items");
-box.innerHTML="";
-let total=0;
-
-cart.forEach((x,i)=>{
-total+=x.price;
-
-box.innerHTML+=`
-<div class="item">
-${x.name} $${x.price}
-<button onclick="cart.splice(${i},1);render()">X</button>
-</div>`;
-});
-
-let b=document.getElementById("badge");
-b.innerText=cart.length;
-b.style.display=cart.length?"block":"none";
-
-document.getElementById("total").innerText="Total: $"+total;
-}
-
-/* PRODUCT PAGE */
-function openProduct(name,price){
-current={name,price,qty:1};
-
-document.getElementById("pName").innerText=name;
-document.getElementById("pPrice").innerText="$"+price;
-
-let g=document.getElementById("gallery");
-g.innerHTML="";
-
-for(let i=0;i<3;i++){
-g.innerHTML+=`<img src="https://via.placeholder.com/900"/>`;
-}
-
-document.getElementById("qty").innerText=1;
-document.getElementById("page").style.display="flex";
-}
-
-function closePage(){
-document.getElementById("page").style.display="none";
-}
-
-function qty(v){
-current.qty=Math.max(1,current.qty+v);
-document.getElementById("qty").innerText=current.qty;
-}
-
-function addFromPage(){
-for(let i=0;i<current.qty;i++){
-cart.push({name:current.name,price:current.price});
-}
-render();
-closePage();
 }
 
 /* PAYPAL */
@@ -423,7 +342,7 @@ function checkout(){
 window.location.href="https://www.paypal.me/AstrisMoto";
 }
 
-/* LOADER FIX (REAL) */
+/* LOADER */
 window.onload=()=>{
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
@@ -432,9 +351,11 @@ render();
 };
 
 /* FADE */
-const obs=new IntersectionObserver(e=>{
-e.forEach(x=>{
-if(x.isIntersecting)x.target.classList.add("show");
+const obs=new IntersectionObserver(entries=>{
+entries.forEach(e=>{
+if(e.isIntersecting){
+e.target.classList.add("show");
+}
 });
 },{threshold:0.15});
 
