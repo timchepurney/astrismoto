@@ -12,12 +12,7 @@
 --muted:#9a9a9a;
 }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
 
 body{
 background:var(--bg);
@@ -107,9 +102,7 @@ cursor:pointer;
 transition:.25s;
 }
 
-.card:hover{
-transform:scale(1.03);
-}
+.card:hover{transform:scale(1.03);}
 
 .card img{
 width:100%;
@@ -186,15 +179,56 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* FOOTER */
-footer{
-padding:40px;
-text-align:center;
-border-top:1px solid #111;
-color:var(--muted);
+/* PRODUCT PAGE */
+.page{
+position:fixed;
+inset:0;
+background:#000;
+display:none;
+flex-direction:column;
+z-index:3000;
 }
 
-footer a{color:#fff;}
+.page-top{
+display:flex;
+justify-content:space-between;
+padding:15px;
+border-bottom:1px solid #111;
+}
+
+.gallery{
+display:flex;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+height:300px;
+}
+
+.gallery img{
+min-width:100%;
+height:300px;
+object-fit:cover;
+scroll-snap-align:center;
+}
+
+.details{
+padding:20px;
+}
+
+.qty{
+display:flex;
+gap:10px;
+align-items:center;
+margin-top:10px;
+}
+
+.qty button{
+padding:8px 12px;
+border:none;
+background:#fff;
+color:#000;
+border-radius:6px;
+cursor:pointer;
+}
 
 /* FADE */
 .fade{
@@ -206,6 +240,15 @@ transition:.7s ease;
 opacity:1;
 transform:translateY(0);
 }
+
+/* FOOTER */
+footer{
+padding:40px;
+text-align:center;
+border-top:1px solid #111;
+color:var(--muted);
+}
+footer a{color:#fff;}
 </style>
 </head>
 
@@ -219,48 +262,31 @@ transform:translateY(0);
 
 <header>
 <div class="logo">ASTRIS</div>
-
-<button class="cart-btn" onclick="toggleCart()">
-🛒 <span id="badge" class="badge">0</span>
-</button>
+<button class="cart-btn" onclick="toggleCart()">🛒 <span id="badge" class="badge">0</span></button>
 </header>
 
 <!-- PRODUCTS -->
 <section class="products">
 
-<div class="card fade" onclick="add('Foot Locks',15)">
+<div class="card fade" onclick="openProduct('Foot Locks',15)">
 <img src="https://via.placeholder.com/800"/>
 <h3>Foot Locks</h3>
 <p>$15</p>
-<button onclick="event.stopPropagation(); add('Foot Locks',15)">Add</button>
+<button onclick="event.stopPropagation(); openProduct('Foot Locks',15)">View</button>
 </div>
 
-<div class="card fade" onclick="add('Grips',10)">
+<div class="card fade" onclick="openProduct('Grips',10)">
 <img src="https://via.placeholder.com/800"/>
 <h3>Grips</h3>
 <p>$10</p>
-<button onclick="event.stopPropagation(); add('Grips',10)">Add</button>
+<button onclick="event.stopPropagation(); openProduct('Grips',10)">View</button>
 </div>
 
-<div class="card fade" onclick="add('Aluminum Motor Cover',40)">
+<div class="card fade" onclick="openProduct('Aluminum Motor Cover',40)">
 <img src="https://via.placeholder.com/800"/>
 <h3>Aluminum Motor Cover</h3>
 <p>$40</p>
-<button onclick="event.stopPropagation(); add('Aluminum Motor Cover',40)">Add</button>
-</div>
-
-<div class="card fade" onclick="add('Surron LBX Fitment',0)">
-<img src="https://via.placeholder.com/800"/>
-<h3>Surron LBX Fitment</h3>
-<p>select option</p>
-<button onclick="event.stopPropagation(); add('Surron LBX Fitment',0)">Select</button>
-</div>
-
-<div class="card fade" onclick="add('Talaria XXX Fitment',0)">
-<img src="https://via.placeholder.com/800"/>
-<h3>Talaria XXX Fitment</h3>
-<p>select option</p>
-<button onclick="event.stopPropagation(); add('Talaria XXX Fitment',0)">Select</button>
+<button onclick="event.stopPropagation(); openProduct('Aluminum Motor Cover',40)">View</button>
 </div>
 
 </section>
@@ -277,10 +303,39 @@ transform:translateY(0);
 
 <h3 id="total">Total: $0</h3>
 
-<button class="paypal" onclick="checkout()">
-PayPal Checkout 💳
-</button>
+<button class="paypal" onclick="checkout()">PayPal 💳</button>
 
+</div>
+
+<!-- PRODUCT PAGE -->
+<div class="page" id="page">
+
+<div class="page-top">
+<button onclick="closePage()">Back</button>
+</div>
+
+<div class="gallery" id="gallery"></div>
+
+<div class="details">
+
+<h2 id="pName"></h2>
+<p id="pPrice"></p>
+
+<div style="margin:10px 0;">
+<button onclick="setFit('LBX')">Surron LBX</button>
+<button onclick="setFit('XXX')">Talaria XXX</button>
+</div>
+
+<div class="qty">
+<button onclick="qty(-1)">-</button>
+<span id="qty">1</span>
+<button onclick="qty(1)">+</button>
+</div>
+
+<button style="margin-top:15px;width:100%;padding:12px;background:#fff;color:#000;border:none;border-radius:8px;"
+onclick="confirmAdd()">Add to Cart</button>
+
+</div>
 </div>
 
 <!-- FOOTER -->
@@ -292,49 +347,84 @@ PayPal Checkout 💳
 <script>
 
 let cart = {};
+let current = {name:"",price:0,qty:1,fit:"LBX"};
 
-/* CART SYSTEM (GROUPED) */
-function add(name, price){
-
-if(cart[name]){
-cart[name].qty++;
-} else {
-cart[name] = {price:price, qty:1};
+/* CART */
+function toggleCart(){
+document.getElementById("cart").classList.toggle("open");
 }
 
+function addToCart(name,price){
+if(cart[name]) cart[name].qty++;
+else cart[name]={price,qty:1};
 render();
 }
 
 function render(){
 
-let box = document.getElementById("items");
-box.innerHTML = "";
+let box=document.getElementById("items");
+box.innerHTML="";
 
-let total = 0;
-let count = 0;
+let total=0;
+let count=0;
 
 Object.keys(cart).forEach(name=>{
-let item = cart[name];
-total += item.price * item.qty;
-count += item.qty;
+let i=cart[name];
+total+=i.price*i.qty;
+count+=i.qty;
 
-box.innerHTML += `
+box.innerHTML+=`
 <div class="item">
-<div>${name} x${item.qty} — $${item.price * item.qty}</div>
+${name} x${i.qty} — $${i.price*i.qty}
 <button onclick="delete cart['${name}']; render()">X</button>
 </div>`;
 });
 
-document.getElementById("total").innerText = "Total: $" + total;
+document.getElementById("total").innerText="Total: $"+total;
 
-let b = document.getElementById("badge");
-b.innerText = count;
-b.style.display = count ? "block" : "none";
+let b=document.getElementById("badge");
+b.innerText=count;
+b.style.display=count?"block":"none";
 }
 
-/* CART */
-function toggleCart(){
-document.getElementById("cart").classList.toggle("open");
+/* PRODUCT */
+function openProduct(name,price){
+
+current={name,price,qty:1,fit:"LBX"};
+
+document.getElementById("pName").innerText=name;
+document.getElementById("pPrice").innerText="$"+price;
+
+let g=document.getElementById("gallery");
+g.innerHTML="";
+
+for(let i=0;i<3;i++){
+g.innerHTML+=`<img src="https://via.placeholder.com/900"/>`;
+}
+
+document.getElementById("qty").innerText=1;
+document.getElementById("page").style.display="flex";
+}
+
+function closePage(){
+document.getElementById("page").style.display="none";
+}
+
+function qty(v){
+current.qty=Math.max(1,current.qty+v);
+document.getElementById("qty").innerText=current.qty;
+}
+
+function setFit(f){
+current.fit=f;
+}
+
+function confirmAdd(){
+let final = current.name + " ("+current.fit+")";
+for(let i=0;i<current.qty;i++){
+addToCart(final,current.price);
+}
+closePage();
 }
 
 /* PAYPAL */
@@ -351,15 +441,13 @@ render();
 };
 
 /* FADE */
-const obs=new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting){
-e.target.classList.add("show");
-}
+const obs=new IntersectionObserver(e=>{
+e.forEach(x=>{
+if(x.isIntersecting)x.target.classList.add("show");
 });
 },{threshold:0.15});
 
-document.querySelectorAll(".fade").forEach(el=>obs.observe(el));
+document.querySelectorAll(".fade").forEach(e=>obs.observe(e));
 
 </script>
 
