@@ -13,7 +13,7 @@ background:#000;
 color:#fff;
 overflow-x:hidden;
 opacity:0;
-transition:opacity .3s ease;
+transition:opacity .3s;
 }
 
 /* LOADER */
@@ -25,7 +25,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-z-index:99999;
+z-index:9999;
 }
 
 /* HEADER */
@@ -89,17 +89,19 @@ border-radius:6px;
 background:#fff;
 }
 
-/* CART / PAGE / CHECKOUT */
-.panel{
+/* FULL SCREEN PAGES */
+.page{
 position:fixed;
 inset:0;
 background:#000;
 display:none;
 flex-direction:column;
 overflow-y:auto;
+z-index:999;
 padding:20px;
 }
 
+/* TOP BAR */
 .top-bar{
 display:flex;
 justify-content:space-between;
@@ -107,23 +109,12 @@ align-items:center;
 margin-bottom:15px;
 }
 
-.big-exit{
+.exit{
 background:#fff;
 color:#000;
 border:none;
-padding:10px 15px;
+padding:10px 14px;
 border-radius:8px;
-cursor:pointer;
-}
-
-/* CART ITEMS */
-.item{
-display:flex;
-justify-content:space-between;
-background:#111;
-padding:10px;
-border-radius:8px;
-margin-bottom:10px;
 }
 
 /* GALLERY */
@@ -140,15 +131,20 @@ border-radius:8px;
 object-fit:cover;
 }
 
-/* CHECKOUT ITEM */
-.checkout-item{
+/* CART ITEMS */
+.item, .checkout-item{
 display:flex;
-gap:10px;
-align-items:center;
+justify-content:space-between;
 background:#111;
 padding:10px;
-border-radius:10px;
+border-radius:8px;
 margin-bottom:10px;
+}
+
+/* CHECKOUT ITEM */
+.checkout-item{
+gap:10px;
+align-items:center;
 }
 
 .checkout-item img{
@@ -158,7 +154,7 @@ border-radius:8px;
 object-fit:cover;
 }
 
-/* PAYPAL */
+/* BUTTON */
 .paypal{
 background:#0070ba;
 color:#fff;
@@ -220,10 +216,11 @@ text-decoration:none;
 </section>
 
 <!-- CART -->
-<div class="panel" id="cart">
+<div class="page" id="cart">
+
 <div class="top-bar">
 <h2>Cart</h2>
-<button class="big-exit" onclick="closeCart()">Exit ✕</button>
+<button class="exit" onclick="closeAll()">Exit ✕</button>
 </div>
 
 <div id="items"></div>
@@ -233,10 +230,11 @@ text-decoration:none;
 </div>
 
 <!-- PRODUCT -->
-<div class="panel" id="product">
+<div class="page" id="product">
+
 <div class="top-bar">
 <h2>Product</h2>
-<button class="big-exit" onclick="closeProduct()">Exit ✕</button>
+<button class="exit" onclick="closeAll()">Exit ✕</button>
 </div>
 
 <div class="gallery" id="gallery"></div>
@@ -256,11 +254,11 @@ text-decoration:none;
 </div>
 
 <!-- CHECKOUT -->
-<div class="panel" id="checkout">
+<div class="page" id="checkout">
 
 <div class="top-bar">
 <h2>Checkout</h2>
-<button class="big-exit" onclick="closeCheckout()">Exit ✕</button>
+<button class="exit" onclick="closeAll()">Exit ✕</button>
 </div>
 
 <div id="checkoutItems"></div>
@@ -289,8 +287,16 @@ function save(){
 localStorage.setItem("cart",JSON.stringify(cart));
 }
 
+/* CLOSE ALL PAGES (🔥 FIXES YOUR BUG) */
+function closeAll(){
+document.getElementById("cart").style.display="none";
+document.getElementById("product").style.display="none";
+document.getElementById("checkout").style.display="none";
+}
+
 /* PRODUCT */
 function openProduct(name,price){
+closeAll();
 
 current={name,price,qty:1,variant:null};
 
@@ -306,7 +312,6 @@ g.innerHTML+=`<img src="https://via.placeholder.com/900"/>`;
 let v=document.getElementById("variant");
 v.innerHTML="";
 
-/* ONLY MOTOR COVER */
 if(name==="Aluminum Motor Cover"){
 v.innerHTML=`
 <button onclick="set('LBX')">Surron LBX</button>
@@ -344,10 +349,17 @@ cart[name]={price:current.price,qty:current.qty};
 
 save();
 render();
-closeProduct();
+closeAll();
 }
 
 /* CART */
+function openCart(){
+closeAll();
+document.getElementById("cart").style.display="flex";
+render();
+}
+
+/* RENDER CART */
 function render(){
 
 let box=document.getElementById("items");
@@ -364,7 +376,6 @@ count+=i.qty;
 box.innerHTML+=`
 <div class="item">
 ${n} x${i.qty} — $${i.price*i.qty}
-<button onclick="delete cart['${n}'];save();render()">X</button>
 </div>`;
 });
 
@@ -372,22 +383,9 @@ document.getElementById("total").innerText="Total: $"+total;
 document.getElementById("badge").innerText=count;
 }
 
-/* CART OPEN */
-function openCart(){
-document.getElementById("cart").style.display="flex";
-render();
-}
-function closeCart(){
-document.getElementById("cart").style.display="none";
-}
-
-/* PRODUCT CLOSE */
-function closeProduct(){
-document.getElementById("product").style.display="none";
-}
-
 /* CHECKOUT */
 function openCheckout(){
+closeAll();
 
 let box=document.getElementById("checkoutItems");
 box.innerHTML="";
@@ -402,9 +400,9 @@ box.innerHTML+=`
 <div class="checkout-item">
 <img src="https://via.placeholder.com/80"/>
 <div>
-<div><b>${n}</b></div>
-<div>Qty: ${i.qty}</div>
-<div>$${i.price*i.qty}</div>
+<b>${n}</b><br/>
+Qty: ${i.qty}<br/>
+$${i.price*i.qty}
 </div>
 </div>`;
 });
@@ -413,11 +411,7 @@ document.getElementById("checkoutTotal").innerText="Total: $"+total;
 document.getElementById("checkout").style.display="flex";
 }
 
-function closeCheckout(){
-document.getElementById("checkout").style.display="none";
-}
-
-/* PAYPAL */
+/* PAY */
 function pay(){
 let total=0;
 Object.keys(cart).forEach(n=>{
@@ -427,7 +421,7 @@ total+=i.price*i.qty;
 window.location.href="https://www.paypal.me/AstrisMoto/"+total;
 }
 
-/* LOAD SAFE */
+/* INIT */
 window.onload=()=>{
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
