@@ -18,9 +18,11 @@ body{
 background:var(--bg);
 color:#fff;
 overflow-x:hidden;
+opacity:0; /* 🔥 prevents flash behind loader */
+transition:opacity .3s ease;
 }
 
-/* LOADER */
+/* LOADER FIXED */
 #loader{
 position:fixed;
 inset:0;
@@ -210,10 +212,6 @@ object-fit:cover;
 scroll-snap-align:center;
 }
 
-.details{
-padding:20px;
-}
-
 .qty{
 display:flex;
 gap:10px;
@@ -316,7 +314,7 @@ footer a{color:#fff;}
 
 <div class="gallery" id="gallery"></div>
 
-<div class="details">
+<div style="padding:20px">
 
 <h2 id="pName"></h2>
 <p id="pPrice"></p>
@@ -346,8 +344,13 @@ onclick="confirmAdd()">Add to Cart</button>
 
 <script>
 
-let cart = {};
+/* 🔥 CART (NOW SAVES) */
+let cart = JSON.parse(localStorage.getItem("cart")) || {};
 let current = {name:"",price:0,qty:1,fit:"LBX"};
+
+function saveCart(){
+localStorage.setItem("cart", JSON.stringify(cart));
+}
 
 /* CART */
 function toggleCart(){
@@ -357,9 +360,12 @@ document.getElementById("cart").classList.toggle("open");
 function addToCart(name,price){
 if(cart[name]) cart[name].qty++;
 else cart[name]={price,qty:1};
+
+saveCart();
 render();
 }
 
+/* RENDER CART */
 function render(){
 
 let box=document.getElementById("items");
@@ -376,7 +382,7 @@ count+=i.qty;
 box.innerHTML+=`
 <div class="item">
 ${name} x${i.qty} — $${i.price*i.qty}
-<button onclick="delete cart['${name}']; render()">X</button>
+<button onclick="delete cart['${name}']; saveCart(); render()">X</button>
 </div>`;
 });
 
@@ -421,9 +427,12 @@ current.fit=f;
 
 function confirmAdd(){
 let final = current.name + " ("+current.fit+")";
+
 for(let i=0;i<current.qty;i++){
 addToCart(final,current.price);
 }
+
+saveCart();
 closePage();
 }
 
@@ -432,11 +441,13 @@ function checkout(){
 window.location.href="https://www.paypal.me/AstrisMoto";
 }
 
-/* LOADER */
+/* LOADER FIX */
 window.onload=()=>{
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
-},2000);
+document.body.style.opacity="1";
+},1500);
+
 render();
 };
 
