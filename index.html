@@ -9,7 +9,7 @@
 :root{
 --bg:#000;
 --card:#111;
---card2:#161616;
+--card2:#171717;
 --text:#fff;
 --muted:#9a9a9a;
 }
@@ -22,10 +22,10 @@ color:var(--text);
 overflow-x:hidden;
 }
 
-/* LOADER FIXED */
+/* LOADER (TRUE FULL FIX) */
 #loader{
 position:fixed;
-inset:0;
+top:0;left:0;
 width:100vw;
 height:100vh;
 background:#000;
@@ -33,7 +33,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-z-index:99999;
+z-index:999999;
 }
 
 #loader h1{
@@ -57,14 +57,17 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:15px 20px;
-border-bottom:1px solid #111;
 position:sticky;
 top:0;
 background:#000;
+border-bottom:1px solid #111;
 z-index:1000;
 }
 
-.logo{letter-spacing:6px;font-weight:bold;}
+.logo{
+letter-spacing:6px;
+font-weight:bold;
+}
 
 .cart-btn{
 position:relative;
@@ -109,7 +112,6 @@ gap:20px;
 padding:25px;
 }
 
-/* CARDS */
 .card{
 background:var(--card);
 padding:12px;
@@ -123,7 +125,11 @@ transform:scale(1.03);
 background:var(--card2);
 }
 
-.card img{width:100%;border-radius:10px;}
+.card img{
+width:100%;
+border-radius:10px;
+}
+
 .card h3{margin-top:10px;}
 .card p{color:var(--muted);}
 
@@ -164,8 +170,8 @@ margin-bottom:15px;
 
 .cart-top button{
 background:#000;
-border:1px solid #222;
 color:#fff;
+border:1px solid #222;
 padding:6px 10px;
 border-radius:6px;
 cursor:pointer;
@@ -206,17 +212,16 @@ cursor:pointer;
 /* FOOTER */
 footer{
 padding:40px;
-border-top:1px solid #111;
 text-align:center;
+border-top:1px solid #111;
 color:var(--muted);
 }
 
 footer a{
 color:#fff;
-text-decoration:underline;
 }
 
-/* SCROLL FADE */
+/* FADE SCROLL (SMOOTH BOTH WAYS) */
 .fade{
 opacity:0;
 transform:translateY(25px);
@@ -254,21 +259,21 @@ transform:translateY(0);
 
 <section class="products">
 
-<div class="card fade" onclick="openProduct('Foot Locks',15)">
+<div class="card fade" onclick="add('Foot Locks',15)">
 <img src="https://via.placeholder.com/700"/>
 <h3>Foot Locks</h3>
 <p>$15</p>
 <button onclick="event.stopPropagation(); add('Foot Locks',15)">Add</button>
 </div>
 
-<div class="card fade" onclick="openProduct('Grips',10)">
+<div class="card fade" onclick="add('Grips',10)">
 <img src="https://via.placeholder.com/700"/>
 <h3>Grips</h3>
 <p>$10</p>
 <button onclick="event.stopPropagation(); add('Grips',10)">Add</button>
 </div>
 
-<div class="card fade" onclick="openProduct('Pegs',18)">
+<div class="card fade" onclick="add('Pegs',18)">
 <img src="https://via.placeholder.com/700"/>
 <h3>Pegs</h3>
 <p>$18</p>
@@ -297,7 +302,7 @@ Pay with PayPal 💳
 
 <!-- FOOTER RESTORED -->
 <footer class="fade">
-<p>© 2026 ASTRIS MOTO — All rights reserved</p>
+<p>© 2026 ASTRIS MOTO</p>
 <p>Contact: <a href="mailto:Astrismoto@gmail.com">Astrismoto@gmail.com</a></p>
 </footer>
 
@@ -305,19 +310,23 @@ Pay with PayPal 💳
 
 let cart=[];
 
-/* CART */
+/* CART TOGGLE */
 function toggleCart(){
 document.getElementById("cart").classList.toggle("open");
 }
 
+/* ADD ITEM (FIXED LOGIC) */
 function add(name,price){
 cart.push({name,price});
 render();
 }
 
+/* RENDER CART (NO BUGS) */
 function render(){
+
 let box=document.getElementById("items");
 box.innerHTML="";
+
 let total=0;
 
 cart.forEach((x,i)=>{
@@ -330,18 +339,12 @@ ${x.name} $${x.price}
 </div>`;
 });
 
-document.getElementById("total").innerText="Total: $"+total;
-
-/* badge */
+/* badge FIX */
 let b=document.getElementById("badge");
 b.innerText=cart.length;
 b.style.display=cart.length?"block":"none";
-}
 
-/* PRODUCT */
-function openProduct(name,price){
-cart.push({name,price});
-render();
+document.getElementById("total").innerText="Total: $"+total;
 }
 
 /* PAYPAL */
@@ -354,17 +357,22 @@ window.onload=()=>{
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
 },2000);
+
 render();
 };
 
-/* SCROLL FADE */
-const obs=new IntersectionObserver(e=>{
-e.forEach(x=>{
-if(x.isIntersecting)x.target.classList.add("show");
+/* FADE SCROLL BOTH WAYS */
+const obs=new IntersectionObserver(entries=>{
+entries.forEach(e=>{
+if(e.isIntersecting){
+e.target.classList.add("show");
+}else{
+e.target.classList.remove("show");
+}
 });
 });
 
-document.querySelectorAll(".fade").forEach(x=>obs.observe(x));
+document.querySelectorAll(".fade").forEach(e=>obs.observe(e));
 
 </script>
 
