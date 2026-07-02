@@ -14,12 +14,7 @@
 --muted:#9a9a9a;
 }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
 
 body{
 background:var(--bg);
@@ -27,10 +22,10 @@ color:var(--text);
 overflow-x:hidden;
 }
 
-/* LOADER FIXED FULL SCREEN */
+/* LOADER FIXED */
 #loader{
 position:fixed;
-top:0;left:0;
+inset:0;
 width:100vw;
 height:100vh;
 background:#000;
@@ -69,10 +64,7 @@ background:#000;
 z-index:1000;
 }
 
-.logo{
-letter-spacing:6px;
-font-weight:bold;
-}
+.logo{letter-spacing:6px;font-weight:bold;}
 
 .cart-btn{
 position:relative;
@@ -106,15 +98,8 @@ align-items:center;
 text-align:center;
 }
 
-.hero h1{
-font-size:52px;
-letter-spacing:8px;
-}
-
-.hero p{
-color:var(--muted);
-margin-top:10px;
-}
+.hero h1{font-size:52px;letter-spacing:8px;}
+.hero p{color:var(--muted);margin-top:10px;}
 
 /* PRODUCTS */
 .products{
@@ -124,6 +109,7 @@ gap:20px;
 padding:25px;
 }
 
+/* CARDS */
 .card{
 background:var(--card);
 padding:12px;
@@ -137,11 +123,7 @@ transform:scale(1.03);
 background:var(--card2);
 }
 
-.card img{
-width:100%;
-border-radius:10px;
-}
-
+.card img{width:100%;border-radius:10px;}
 .card h3{margin-top:10px;}
 .card p{color:var(--muted);}
 
@@ -171,9 +153,7 @@ z-index:2000;
 overflow-y:auto;
 }
 
-.cart.open{
-right:0;
-}
+.cart.open{right:0;}
 
 .cart-top{
 display:flex;
@@ -184,8 +164,8 @@ margin-bottom:15px;
 
 .cart-top button{
 background:#000;
-color:#fff;
 border:1px solid #222;
+color:#fff;
 padding:6px 10px;
 border-radius:6px;
 cursor:pointer;
@@ -223,55 +203,29 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* PRODUCT PAGE */
-.page{
-position:fixed;
-inset:0;
-background:#000;
-display:none;
-flex-direction:column;
-z-index:3000;
+/* FOOTER */
+footer{
+padding:40px;
+border-top:1px solid #111;
+text-align:center;
+color:var(--muted);
 }
 
-.page-top{
-display:flex;
-justify-content:space-between;
-padding:15px;
-border-bottom:1px solid #111;
+footer a{
+color:#fff;
+text-decoration:underline;
 }
 
-.gallery{
-display:flex;
-overflow-x:auto;
-scroll-snap-type:x mandatory;
-height:300px;
+/* SCROLL FADE */
+.fade{
+opacity:0;
+transform:translateY(25px);
+transition:all .7s ease;
 }
 
-.gallery img{
-min-width:100%;
-height:300px;
-object-fit:cover;
-scroll-snap-align:center;
-}
-
-.details{
-padding:20px;
-}
-
-.qty{
-display:flex;
-align-items:center;
-gap:10px;
-margin-top:10px;
-}
-
-.qty button{
-padding:8px 12px;
-border:none;
-background:#fff;
-color:#000;
-border-radius:6px;
-cursor:pointer;
+.fade.show{
+opacity:1;
+transform:translateY(0);
 }
 </style>
 </head>
@@ -284,7 +238,6 @@ cursor:pointer;
 <div class="dots">Loading</div>
 </div>
 
-<!-- HEADER -->
 <header>
 <div class="logo">ASTRIS</div>
 
@@ -294,31 +247,29 @@ cursor:pointer;
 </button>
 </header>
 
-<!-- HERO -->
-<section class="hero">
+<section class="hero fade">
 <h1>ASTRIS MOTO</h1>
 <p>built for riders. not followers.</p>
 </section>
 
-<!-- PRODUCTS -->
 <section class="products">
 
-<div class="card" onclick="openProduct('Foot Locks',15)">
-<img src="https://via.placeholder.com/600"/>
+<div class="card fade" onclick="openProduct('Foot Locks',15)">
+<img src="https://via.placeholder.com/700"/>
 <h3>Foot Locks</h3>
 <p>$15</p>
 <button onclick="event.stopPropagation(); add('Foot Locks',15)">Add</button>
 </div>
 
-<div class="card" onclick="openProduct('Grips',10)">
-<img src="https://via.placeholder.com/600"/>
+<div class="card fade" onclick="openProduct('Grips',10)">
+<img src="https://via.placeholder.com/700"/>
 <h3>Grips</h3>
 <p>$10</p>
 <button onclick="event.stopPropagation(); add('Grips',10)">Add</button>
 </div>
 
-<div class="card" onclick="openProduct('Pegs',18)">
-<img src="https://via.placeholder.com/600"/>
+<div class="card fade" onclick="openProduct('Pegs',18)">
+<img src="https://via.placeholder.com/700"/>
 <h3>Pegs</h3>
 <p>$18</p>
 <button onclick="event.stopPropagation(); add('Pegs',18)">Add</button>
@@ -344,38 +295,17 @@ Pay with PayPal 💳
 
 </div>
 
-<!-- PRODUCT PAGE -->
-<div class="page" id="page">
-
-<div class="page-top">
-<button onclick="closePage()">Back</button>
-<button onclick="toggleCart()">Cart</button>
-</div>
-
-<div class="gallery" id="gallery"></div>
-
-<div class="details">
-<h2 id="pName"></h2>
-<p id="pPrice"></p>
-
-<div class="qty">
-<button onclick="changeQty(-1)">-</button>
-<span id="qty">1</span>
-<button onclick="changeQty(1)">+</button>
-</div>
-
-<button style="margin-top:15px;width:100%;padding:12px;background:#fff;color:#000;border:none;border-radius:8px;"
-onclick="addFromPage()">Add to Cart</button>
-
-</div>
-
-</div>
+<!-- FOOTER RESTORED -->
+<footer class="fade">
+<p>© 2026 ASTRIS MOTO — All rights reserved</p>
+<p>Contact: <a href="mailto:Astrismoto@gmail.com">Astrismoto@gmail.com</a></p>
+</footer>
 
 <script>
 
 let cart=[];
-let current={name:"",price:0,qty:1};
 
+/* CART */
 function toggleCart(){
 document.getElementById("cart").classList.toggle("open");
 }
@@ -386,7 +316,6 @@ render();
 }
 
 function render(){
-
 let box=document.getElementById("items");
 box.innerHTML="";
 let total=0;
@@ -404,44 +333,15 @@ ${x.name} $${x.price}
 document.getElementById("total").innerText="Total: $"+total;
 
 /* badge */
-document.getElementById("badge").innerText=cart.length;
-document.getElementById("badge").style.display=cart.length?"block":"none";
+let b=document.getElementById("badge");
+b.innerText=cart.length;
+b.style.display=cart.length?"block":"none";
 }
 
-/* PRODUCT PAGE */
+/* PRODUCT */
 function openProduct(name,price){
-
-current={name,price,qty:1};
-
-document.getElementById("pName").innerText=name;
-document.getElementById("pPrice").innerText="$"+price;
-
-let g=document.getElementById("gallery");
-g.innerHTML="";
-
-for(let i=0;i<3;i++){
-g.innerHTML+=`<img src="https://via.placeholder.com/900"/>`;
-}
-
-document.getElementById("qty").innerText=1;
-document.getElementById("page").style.display="flex";
-}
-
-function closePage(){
-document.getElementById("page").style.display="none";
-}
-
-function changeQty(v){
-current.qty=Math.max(1,current.qty+v);
-document.getElementById("qty").innerText=current.qty;
-}
-
-function addFromPage(){
-for(let i=0;i<current.qty;i++){
-cart.push({name:current.name,price:current.price});
-}
+cart.push({name,price});
 render();
-closePage();
 }
 
 /* PAYPAL */
@@ -456,6 +356,15 @@ document.getElementById("loader").style.display="none";
 },2000);
 render();
 };
+
+/* SCROLL FADE */
+const obs=new IntersectionObserver(e=>{
+e.forEach(x=>{
+if(x.isIntersecting)x.target.classList.add("show");
+});
+});
+
+document.querySelectorAll(".fade").forEach(x=>obs.observe(x));
 
 </script>
 
