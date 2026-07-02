@@ -8,22 +8,24 @@
 <style>
 :root{
 --bg:#000;
---panel:#0f0f0f;
---panel2:#151515;
+--card:#111;
+--card2:#151515;
 --text:#fff;
---muted:#aaa;
---accent:#fff;
+--muted:#9a9a9a;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
-body{background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-/* LOADER (FULL SCREEN FIXED) */
+body{
+background:var(--bg);
+color:var(--text);
+overflow-x:hidden;
+}
+
+/* LOADER FULL FIX */
 #loader{
 position:fixed;
 inset:0;
-width:100vw;
-height:100vh;
 background:#000;
 display:flex;
 flex-direction:column;
@@ -41,16 +43,22 @@ font-size:22px;
 content:"";
 animation:dots 1s infinite steps(3);
 }
-@keyframes dots{0%{content:"."}33%{content:".."}66%{content:"..."}}
+@keyframes dots{
+0%{content:"."}
+33%{content:".."}
+66%{content:"..."}
+}
 
 /* HEADER */
 header{
-position:sticky;top:0;
-display:flex;justify-content:space-between;
+display:flex;
+justify-content:space-between;
 align-items:center;
 padding:15px 20px;
-background:#000;
 border-bottom:1px solid #111;
+position:sticky;
+top:0;
+background:#000;
 z-index:1000;
 }
 
@@ -58,15 +66,20 @@ z-index:1000;
 
 .cart-btn{
 position:relative;
-background:#fff;color:#000;
-padding:8px 12px;border:none;
-border-radius:6px;cursor:pointer;
+background:#fff;
+color:#000;
+padding:8px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
 }
 
 .badge{
 position:absolute;
-top:-6px;right:-6px;
-background:red;color:#fff;
+top:-6px;
+right:-6px;
+background:red;
+color:#fff;
 font-size:11px;
 padding:2px 6px;
 border-radius:50%;
@@ -75,34 +88,49 @@ display:none;
 
 /* HERO */
 .hero{
-height:50vh;
+height:45vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
 }
-.hero h1{font-size:52px;letter-spacing:8px;}
-.hero p{opacity:.6;margin-top:10px;color:var(--muted);}
+
+.hero h1{
+font-size:50px;
+letter-spacing:8px;
+}
+
+.hero p{
+color:var(--muted);
+margin-top:10px;
+}
 
 /* PRODUCTS */
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
-padding:30px;
+padding:25px;
 }
 
 .card{
-background:var(--panel);
+background:var(--card);
 padding:12px;
 border-radius:12px;
 cursor:pointer;
 transition:.25s;
 }
-.card:hover{transform:scale(1.04);background:var(--panel2);}
-.card img{width:100%;border-radius:10px;}
+
+.card:hover{transform:scale(1.03);background:var(--card2);}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
 .card h3{margin-top:10px;}
+
 .card p{color:var(--muted);}
 
 .card button{
@@ -110,24 +138,27 @@ margin-top:10px;
 width:100%;
 padding:10px;
 border:none;
+border-radius:8px;
 background:#fff;
 color:#000;
 font-weight:bold;
-border-radius:8px;
 cursor:pointer;
 }
 
 /* CART */
 .cart{
 position:fixed;
-right:-420px;top:0;
-width:320px;height:100%;
+right:-420px;
+top:0;
+width:320px;
+height:100%;
 background:#111;
 padding:20px;
 transition:.3s;
 z-index:2000;
 overflow-y:auto;
 }
+
 .cart.open{right:0;}
 
 .item{
@@ -136,15 +167,29 @@ justify-content:space-between;
 align-items:center;
 background:#000;
 padding:10px;
-margin-bottom:10px;
 border-radius:8px;
+margin-bottom:10px;
 }
 
 .item button{
-background:red;border:none;
+background:red;
+border:none;
 color:#fff;
 padding:4px 7px;
 border-radius:4px;
+cursor:pointer;
+}
+
+/* PAYPAL */
+.paypal{
+margin-top:15px;
+width:100%;
+padding:10px;
+border:none;
+border-radius:8px;
+background:#0070ba;
+color:#fff;
+font-weight:bold;
 cursor:pointer;
 }
 
@@ -153,9 +198,9 @@ cursor:pointer;
 position:fixed;
 inset:0;
 background:#000;
-z-index:3000;
 display:none;
 flex-direction:column;
+z-index:3000;
 }
 
 .page-top{
@@ -166,11 +211,10 @@ border-bottom:1px solid #111;
 }
 
 .gallery{
-width:100%;
-height:300px;
 display:flex;
-overflow:hidden;
+overflow-x:auto;
 scroll-snap-type:x mandatory;
+height:300px;
 }
 
 .gallery img{
@@ -196,8 +240,8 @@ padding:8px 12px;
 border:none;
 background:#fff;
 color:#000;
-cursor:pointer;
 border-radius:6px;
+cursor:pointer;
 }
 
 /* LOADER DOT FIX */
@@ -220,29 +264,29 @@ border-radius:6px;
 </button>
 </header>
 
-<div class="hero">
+<section class="hero">
 <h1>ASTRIS MOTO</h1>
 <p>built for riders. not followers.</p>
-</div>
+</section>
 
 <section class="products">
 
 <div class="card" onclick="openProduct('Foot Locks',15)">
-<img src="https://via.placeholder.com/300"/>
+<img src="https://via.placeholder.com/500"/>
 <h3>Foot Locks</h3>
 <p>$15</p>
 <button onclick="event.stopPropagation(); add('Foot Locks',15)">Add</button>
 </div>
 
 <div class="card" onclick="openProduct('Grips',10)">
-<img src="https://via.placeholder.com/300"/>
+<img src="https://via.placeholder.com/500"/>
 <h3>Grips</h3>
 <p>$10</p>
 <button onclick="event.stopPropagation(); add('Grips',10)">Add</button>
 </div>
 
 <div class="card" onclick="openProduct('Pegs',18)">
-<img src="https://via.placeholder.com/300"/>
+<img src="https://via.placeholder.com/500"/>
 <h3>Pegs</h3>
 <p>$18</p>
 <button onclick="event.stopPropagation(); add('Pegs',18)">Add</button>
@@ -252,12 +296,19 @@ border-radius:6px;
 
 <!-- CART -->
 <div class="cart" id="cart">
-<h3>Cart</h3>
+<h3>Your Cart</h3>
 <div id="items"></div>
+
+<h3 id="total">Total: $0</h3>
+
+<button class="paypal" onclick="checkout()">
+Pay with PayPal 💳
+</button>
 </div>
 
 <!-- PRODUCT PAGE -->
 <div class="page" id="page">
+
 <div class="page-top">
 <button onclick="closePage()">Back</button>
 <button onclick="toggleCart()">Cart</button>
@@ -270,14 +321,15 @@ border-radius:6px;
 <p id="pPrice"></p>
 
 <div class="qty">
-<button onclick="qty(-1)">-</button>
+<button onclick="changeQty(-1)">-</button>
 <span id="qty">1</span>
-<button onclick="qty(1)">+</button>
+<button onclick="changeQty(1)">+</button>
 </div>
 
 <button style="margin-top:15px;width:100%;padding:12px;background:#fff;color:#000;border:none;border-radius:8px;"
 onclick="addFromPage()">Add to Cart</button>
 </div>
+
 </div>
 
 <script>
@@ -290,27 +342,36 @@ document.getElementById("cart").classList.toggle("open");
 }
 
 function add(name,price){
-cart.push({name,price,qty:1});
+cart.push({name,price});
 render();
 }
 
 function render(){
-let c=document.getElementById("items");
-c.innerHTML="";
+let box=document.getElementById("items");
+box.innerHTML="";
+
 let total=0;
 
 cart.forEach((x,i)=>{
 total+=x.price;
 
-c.innerHTML+=`
+box.innerHTML+=`
 <div class="item">
 ${x.name} $${x.price}
-<button onclick="cart.splice(${i},1);render()">X</button>
+<button onclick="removeItem(${i})">X</button>
 </div>`;
 });
 
+document.getElementById("total").innerText="Total: $"+total;
+
+/* badge fix */
 document.getElementById("badge").innerText=cart.length;
 document.getElementById("badge").style.display=cart.length?"block":"none";
+}
+
+function removeItem(i){
+cart.splice(i,1);
+render();
 }
 
 /* PRODUCT PAGE */
@@ -324,7 +385,7 @@ let g=document.getElementById("gallery");
 g.innerHTML="";
 
 for(let i=0;i<3;i++){
-g.innerHTML+=`<img src="https://via.placeholder.com/500"/>`;
+g.innerHTML+=`<img src="https://via.placeholder.com/800"/>`;
 }
 
 document.getElementById("qty").innerText=1;
@@ -335,22 +396,30 @@ function closePage(){
 document.getElementById("page").style.display="none";
 }
 
-function qty(v){
+function changeQty(v){
 current.qty=Math.max(1,current.qty+v);
 document.getElementById("qty").innerText=current.qty;
 }
 
 function addFromPage(){
 for(let i=0;i<current.qty;i++){
-cart.push({name:current.name,price:current.price,qty:1});
+cart.push({name:current.name,price:current.price});
 }
 render();
 closePage();
 }
 
+/* PAYPAL */
+function checkout(){
+window.location.href="https://www.paypal.me/AstrisMoto";
+}
+
 /* LOADER */
 window.onload=()=>{
-setTimeout(()=>document.getElementById("loader").style.display="none",2000);
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+},2000);
+
 render();
 };
 
