@@ -19,6 +19,34 @@ color:#fff;
 overflow-x:hidden;
 }
 
+/* LOADER */
+#loader{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+#loader h1{
+letter-spacing:6px;
+margin-bottom:20px;
+}
+
+.dots::after{
+content:"";
+animation:dots 1s infinite steps(3);
+}
+
+@keyframes dots{
+0%{content:"."}
+33%{content:".."}
+66%{content:"..."}
+}
+
 /* HEADER */
 header{
 display:flex;
@@ -74,6 +102,18 @@ gap:20px;
 padding:40px;
 }
 
+/* FADE IN */
+.fade{
+opacity:0;
+transform:translateY(30px);
+transition:all 0.8s ease;
+}
+
+.fade.show{
+opacity:1;
+transform:translateY(0);
+}
+
 .card{
 background:#111;
 padding:15px;
@@ -124,10 +164,6 @@ border-left:1px solid #222;
 right:0;
 }
 
-.cart h2{
-margin-bottom:20px;
-}
-
 .item{
 margin-bottom:10px;
 padding:10px;
@@ -143,45 +179,64 @@ padding:5px 10px;
 cursor:pointer;
 margin-bottom:10px;
 }
+
+/* FOOTER */
+footer{
+padding:40px;
+border-top:1px solid #111;
+text-align:center;
+opacity:0.8;
+}
+
+footer a{
+color:#fff;
+text-decoration:underline;
+}
 </style>
 </head>
 
 <body>
+
+<!-- LOADER -->
+<div id="loader">
+<h1>ASTRIS MOTO</h1>
+<div class="dots">Loading</div>
+</div>
 
 <header>
 <div class="logo">ASTRIS</div>
 <button class="cart-btn" onclick="toggleCart()">CART 🛒</button>
 </header>
 
-<section class="hero">
+<section class="hero fade">
 <h1>ASTRIS MOTO</h1>
 <p>built for riders. not followers.</p>
 </section>
 
-<section class="products" id="products">
+<section class="products">
 
-<div class="card">
+<div class="card fade">
 <img src="https://via.placeholder.com/300" />
 <h3>Foot Locks</h3>
 <p>$15</p>
 <button onclick="addToCart('Foot Locks',15)">Add</button>
 </div>
 
-<div class="card">
+<div class="card fade">
 <img src="https://via.placeholder.com/300" />
 <h3>Grips</h3>
 <p>$10</p>
 <button onclick="addToCart('Grips',10)">Add</button>
 </div>
 
-<div class="card">
+<div class="card fade">
 <img src="https://via.placeholder.com/300" />
 <h3>Handlebar Pegs</h3>
 <p>$18</p>
 <button onclick="addToCart('Pegs',18)">Add</button>
 </div>
 
-<div class="card">
+<div class="card fade">
 <img src="https://via.placeholder.com/300" />
 <h3>Stickers Pack</h3>
 <p>$5</p>
@@ -190,12 +245,19 @@ margin-bottom:10px;
 
 </section>
 
+<!-- CART -->
 <div class="cart" id="cart">
 <button class="close" onclick="toggleCart()">Close</button>
 <h2>Your Cart</h2>
 <div id="cartItems"></div>
 <h3 id="total">Total: $0</h3>
 </div>
+
+<!-- FOOTER -->
+<footer class="fade">
+<p>Payments: PayPal / Cash App (add later)</p>
+<p>Contact: <a href="mailto:Astrismoto@gmail.com">Astrismoto@gmail.com</a></p>
+</footer>
 
 <script>
 let cart = [];
@@ -214,9 +276,8 @@ let container = document.getElementById("cartItems");
 container.innerHTML = "";
 let total = 0;
 
-cart.forEach((item, i)=>{
+cart.forEach(item=>{
 total += item.price;
-
 container.innerHTML += `
 <div class="item">
 ${item.name} - $${item.price}
@@ -226,6 +287,26 @@ ${item.name} - $${item.price}
 
 document.getElementById("total").innerText = "Total: $" + total;
 }
+
+/* loader */
+window.onload = ()=>{
+setTimeout(()=>{
+document.getElementById("loader").style.display = "none";
+},2000);
+};
+
+/* scroll fade */
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+
+document.querySelectorAll(".fade").forEach(el=>{
+observer.observe(el);
+});
 </script>
 
 </body>
