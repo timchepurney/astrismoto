@@ -32,8 +32,14 @@ z-index:9999;
 }
 
 #loader h1{
-letter-spacing:6px;
-margin-bottom:20px;
+letter-spacing:8px;
+font-size:22px;
+animation:zoom 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes zoom{
+from{transform:scale(1);}
+to{transform:scale(1.1);}
 }
 
 .dots::after{
@@ -52,16 +58,17 @@ header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:20px 40px;
+padding:18px 30px;
 position:sticky;
 top:0;
 background:#000;
 border-bottom:1px solid #111;
+z-index:1000;
 }
 
 .logo{
-font-size:24px;
-letter-spacing:4px;
+font-size:22px;
+letter-spacing:5px;
 font-weight:bold;
 }
 
@@ -72,6 +79,7 @@ padding:8px 14px;
 border:none;
 cursor:pointer;
 font-weight:bold;
+border-radius:6px;
 }
 
 /* HERO */
@@ -85,7 +93,7 @@ text-align:center;
 }
 
 .hero h1{
-font-size:60px;
+font-size:55px;
 letter-spacing:8px;
 }
 
@@ -105,7 +113,7 @@ padding:40px;
 /* FADE IN */
 .fade{
 opacity:0;
-transform:translateY(30px);
+transform:translateY(40px);
 transition:all 0.8s ease;
 }
 
@@ -117,7 +125,7 @@ transform:translateY(0);
 .card{
 background:#111;
 padding:15px;
-border-radius:10px;
+border-radius:12px;
 transition:0.3s;
 cursor:pointer;
 }
@@ -144,20 +152,22 @@ background:#fff;
 color:#000;
 cursor:pointer;
 font-weight:bold;
+border-radius:6px;
 }
 
 /* CART */
 .cart{
 position:fixed;
-right:-400px;
+right:-420px;
 top:0;
-width:300px;
+width:320px;
 height:100%;
 background:#111;
 padding:20px;
 transition:0.3s;
 overflow-y:auto;
 border-left:1px solid #222;
+z-index:2000;
 }
 
 .cart.open{
@@ -165,19 +175,33 @@ right:0;
 }
 
 .item{
+display:flex;
+justify-content:space-between;
+align-items:center;
 margin-bottom:10px;
 padding:10px;
 background:#000;
 border-radius:8px;
+font-size:14px;
+}
+
+.item button{
+background:red;
+border:none;
+color:#fff;
+padding:4px 8px;
+cursor:pointer;
+border-radius:4px;
 }
 
 .close{
 background:red;
 color:#fff;
 border:none;
-padding:5px 10px;
+padding:6px 10px;
 cursor:pointer;
 margin-bottom:10px;
+border-radius:6px;
 }
 
 /* FOOTER */
@@ -191,6 +215,25 @@ opacity:0.8;
 footer a{
 color:#fff;
 text-decoration:underline;
+}
+
+/* PAYPAL BUTTON PLACEHOLDER */
+.pay-btn{
+margin-top:15px;
+padding:10px;
+background:#0070ba;
+color:#fff;
+border:none;
+cursor:pointer;
+border-radius:6px;
+width:100%;
+font-weight:bold;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+.hero h1{font-size:38px;}
+header{padding:15px 20px;}
 }
 </style>
 </head>
@@ -238,7 +281,7 @@ text-decoration:underline;
 
 <div class="card fade">
 <img src="https://via.placeholder.com/300" />
-<h3>Stickers Pack</h3>
+<h3>Sticker Pack</h3>
 <p>$5</p>
 <button onclick="addToCart('Stickers',5)">Add</button>
 </div>
@@ -249,13 +292,19 @@ text-decoration:underline;
 <div class="cart" id="cart">
 <button class="close" onclick="toggleCart()">Close</button>
 <h2>Your Cart</h2>
+
 <div id="cartItems"></div>
+
 <h3 id="total">Total: $0</h3>
+
+<button class="pay-btn" onclick="checkout()">
+Pay with PayPal (setup later)
+</button>
 </div>
 
 <!-- FOOTER -->
 <footer class="fade">
-<p>Payments: PayPal / Cash App (add later)</p>
+<p>Payments: PayPal (coming soon)</p>
 <p>Contact: <a href="mailto:Astrismoto@gmail.com">Astrismoto@gmail.com</a></p>
 </footer>
 
@@ -271,21 +320,32 @@ cart.push({name, price});
 renderCart();
 }
 
+function removeItem(index){
+cart.splice(index,1);
+renderCart();
+}
+
 function renderCart(){
 let container = document.getElementById("cartItems");
 container.innerHTML = "";
 let total = 0;
 
-cart.forEach(item=>{
+cart.forEach((item, i)=>{
 total += item.price;
+
 container.innerHTML += `
 <div class="item">
-${item.name} - $${item.price}
+<span>${item.name} - $${item.price}</span>
+<button onclick="removeItem(${i})">X</button>
 </div>
 `;
 });
 
 document.getElementById("total").innerText = "Total: $" + total;
+}
+
+function checkout(){
+alert("PayPal checkout coming soon — connect business account next 🔥");
 }
 
 /* loader */
@@ -295,7 +355,7 @@ document.getElementById("loader").style.display = "none";
 },2000);
 };
 
-/* scroll fade */
+/* fade scroll */
 const observer = new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
