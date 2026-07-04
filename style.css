@@ -69,24 +69,30 @@ header{
   gap:12px;
 }
 
-/* GLOBAL BUTTON FEEL */
+/* GLOBAL BUTTON RESET */
 button{
   cursor:pointer;
   transition:0.2s ease;
   border:none;
 }
 
-/* ICON BUTTONS */
+/* -----------------------
+ICON BUTTONS (BIGGER + CLEANER)
+----------------------- */
+
 .icon-btn,
 .menu-btn,
 .back-btn,
 .exit-btn{
   background:#111;
   color:#fff;
-  width:58px;
-  height:58px;
-  border-radius:14px;
-  font-size:22px;
+  width:62px;
+  height:62px;
+  border-radius:16px;
+  font-size:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .icon-btn:hover,
@@ -95,6 +101,7 @@ button{
 .exit-btn:hover{
   background:#fff;
   color:#000;
+  transform:scale(1.05);
 }
 
 /* CART COUNT */
@@ -108,7 +115,7 @@ button{
 }
 
 /* -----------------------
-FILTER BAR (NEW)
+FILTER BAR
 ----------------------- */
 
 #filters{
@@ -120,11 +127,16 @@ FILTER BAR (NEW)
 }
 
 .filter{
-  padding:10px 14px;
+  padding:10px 16px;
   background:#111;
   color:#fff;
   border-radius:999px;
   font-size:14px;
+  transition:0.2s ease;
+}
+
+.filter:hover{
+  transform:scale(1.05);
 }
 
 .filter.active{
@@ -142,7 +154,7 @@ HERO
 }
 
 .hero h2{
-  font-size:44px;
+  font-size:46px;
   margin-bottom:12px;
 }
 
@@ -155,16 +167,17 @@ HERO
 
 #shopNow{
   margin-top:25px;
-  padding:18px 50px;
+  padding:18px 52px;
   border-radius:999px;
   background:#fff;
   color:#000;
   font-weight:bold;
   font-size:16px;
+  transition:0.2s ease;
 }
 
 #shopNow:hover{
-  transform:scale(1.05);
+  transform:scale(1.06);
 }
 
 /* -----------------------
@@ -180,13 +193,13 @@ PRODUCTS
 
 .product-card{
   background:#111;
-  border-radius:18px;
+  border-radius:20px;
   overflow:hidden;
   transition:0.25s ease;
 }
 
 .product-card:hover{
-  transform:translateY(-6px);
+  transform:translateY(-8px);
 }
 
 .product-card img{
@@ -216,10 +229,15 @@ PRODUCTS
   background:#fff;
   color:#000;
   font-weight:bold;
+  transition:0.2s ease;
+}
+
+.product-info button:hover{
+  transform:scale(1.03);
 }
 
 /* -----------------------
-PRODUCT PAGE
+PAGE SYSTEM
 ----------------------- */
 
 .page{
@@ -242,7 +260,7 @@ PRODUCT PAGE
 }
 
 /* -----------------------
-SIDE MENU FIX
+SIDE MENU
 ----------------------- */
 
 #sideMenu{
@@ -268,6 +286,12 @@ SIDE MENU FIX
   color:#fff;
   text-decoration:none;
   font-size:18px;
+  padding:6px 0;
+  opacity:0.85;
+}
+
+#sideMenu a:hover{
+  opacity:1;
 }
 
 /* -----------------------
@@ -303,12 +327,12 @@ PRODUCT INFO
 }
 
 #productTitle{
-  font-size:32px;
+  font-size:34px;
   margin-bottom:10px;
 }
 
 #productPrice{
-  font-size:30px;
+  font-size:32px;
   margin:18px 0;
 }
 
@@ -324,8 +348,8 @@ QTY
 }
 
 .quantity button{
-  width:45px;
-  height:45px;
+  width:48px;
+  height:48px;
   border-radius:10px;
   background:#111;
   color:#fff;
@@ -344,6 +368,7 @@ BIG BUTTONS
   font-size:18px;
   font-weight:bold;
   margin-bottom:12px;
+  transition:0.2s ease;
 }
 
 .cart-large{
@@ -351,10 +376,18 @@ BIG BUTTONS
   color:#000;
 }
 
+.cart-large:hover{
+  transform:scale(1.03);
+}
+
 .buy-large{
   background:#222;
   color:#fff;
   border:1px solid #333;
+}
+
+.buy-large:hover{
+  transform:scale(1.03);
 }
 
 /* -----------------------
@@ -403,6 +436,11 @@ CART
   background:#fff;
   color:#000;
   font-weight:bold;
+  transition:0.2s ease;
+}
+
+#checkoutBtn:hover{
+  transform:scale(1.03);
 }
 
 /* CART ITEM BUTTONS */
@@ -412,4 +450,9 @@ CART
   color:#fff;
   padding:6px 10px;
   border-radius:8px;
+  transition:0.2s ease;
+}
+
+.cart-item button:hover{
+  transform:scale(1.1);
 }
