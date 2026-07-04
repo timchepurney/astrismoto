@@ -295,3 +295,14 @@ function closeCart(){
 document.querySelector(".closeCart").onclick=closeCart;
 
 document.getElementById("cartButton").onclick=openCart;
+const cartDrawer = document.getElementById("cartDrawer");
+const cartButton = document.getElementById("cartButton");
+const closeCart = document.querySelector(".closeCart");
+
+cartButton.onclick = () => {
+  cartDrawer.classList.add("open");
+};
+
+closeCart.onclick = () => {
+  cartDrawer.classList.remove("open");
+};
