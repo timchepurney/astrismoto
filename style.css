@@ -338,3 +338,19 @@ border-radius:12px;
 font-weight:bold;
 cursor:pointer;
 }
+#cartDrawer {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 350px;
+  height: 100vh;
+  background: #0f0f0f;
+  color: white;
+  transition: 0.3s ease;
+  z-index: 9999;
+  padding: 20px;
+}
+
+#cartDrawer.open {
+  right: 0;
+}
