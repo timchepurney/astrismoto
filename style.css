@@ -356,3 +356,33 @@ button{
   padding: 18px 48px;
   font-size: 17px;
 }
+button{
+  font-size: 16px;
+}
+
+.icon-btn,
+.menu-btn,
+.back-btn,
+.exit-btn{
+  width: 55px;
+  height: 55px;
+  font-size: 22px;
+  border-radius: 14px;
+}
+
+.cart-large,
+.buy-large,
+#checkoutBtn,
+#shopNow{
+  font-size: 18px;
+  padding: 18px;
+}
+
+.cart-item button{
+  background:#222;
+  color:white;
+  border:none;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+}
