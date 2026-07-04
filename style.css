@@ -332,3 +332,27 @@ header{
   font-weight:bold;
   cursor:pointer;
 }
+button{
+  font-size: 16px;
+}
+
+.icon-btn,
+.menu-btn,
+.back-btn,
+.exit-btn{
+  width: 55px;
+  height: 55px;
+  font-size: 22px;
+  border-radius: 14px;
+}
+
+.cart-large,
+.buy-large{
+  padding: 20px;
+  font-size: 19px;
+}
+
+#shopNow{
+  padding: 18px 48px;
+  font-size: 17px;
+}
