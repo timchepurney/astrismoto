@@ -83,10 +83,10 @@ button{
   background:#111;
   color:#fff;
   border:none;
-  width:55px;
-  height:55px;
+  width:58px;
+  height:58px;
   border-radius:14px;
-  font-size:20px;
+  font-size:22px;
 }
 
 .icon-btn:hover,
@@ -131,7 +131,7 @@ HERO
 
 #shopNow{
   margin-top:25px;
-  padding:18px 48px;
+  padding:18px 50px;
   border:none;
   border-radius:999px;
   background:#fff;
@@ -209,6 +209,7 @@ PRODUCT PAGE
   z-index:1000;
 }
 
+/* FIXED HEADER BUTTONS */
 .page-header{
   display:flex;
   justify-content:space-between;
@@ -218,6 +219,47 @@ PRODUCT PAGE
   background:#000;
   border-bottom:1px solid #151515;
 }
+
+/* -----------------------
+MENU (NEW FIX)
+----------------------- */
+
+#sideMenu{
+  position:fixed;
+  left:-320px;
+  top:0;
+  width:280px;
+  height:100vh;
+  background:#0b0b0b;
+  z-index:2000;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  transition:0.3s ease;
+}
+
+#sideMenu.open{
+  left:0;
+}
+
+#sideMenu a{
+  color:#fff;
+  text-decoration:none;
+  font-size:18px;
+}
+
+#sideMenu h2{
+  margin-bottom:10px;
+}
+
+#sideMenu button{
+  align-self:flex-end;
+}
+
+/* -----------------------
+PRODUCT GALLERY
+----------------------- */
 
 #productGallery{
   display:flex;
@@ -231,6 +273,10 @@ PRODUCT PAGE
   object-fit:cover;
   scroll-snap-align:center;
 }
+
+/* -----------------------
+PRODUCT INFO
+----------------------- */
 
 .product-info{
   padding:24px;
@@ -269,6 +315,10 @@ PRODUCT PAGE
   color:#fff;
   font-size:22px;
 }
+
+/* -----------------------
+BUTTONS
+----------------------- */
 
 .cart-large,
 .buy-large{
