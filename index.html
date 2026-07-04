@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ASTRIS MOTO</title>
 
 <link rel="stylesheet" href="style.css">
@@ -14,35 +13,34 @@
 
 <!-- LOADER -->
 <div id="loader">
-    <h1>ASTRIS MOTO</h1>
-    <p>Loading...</p>
+  <h1>ASTRIS MOTO</h1>
+  <p>Loading...</p>
+</div>
+
+<!-- ☰ SIDE MENU -->
+<div id="sideMenu">
+  <button class="exit-btn" id="closeMenu">✕</button>
+  <h2>Menu</h2>
+  <a href="#home">Home</a>
+  <a href="#products">Shop</a>
 </div>
 
 <!-- HEADER -->
 <header>
 
-<button class="menu-btn">
-☰
-</button>
+<button class="menu-btn">☰</button>
 
 <h1 class="logo">ASTRIS</h1>
 
 <div class="header-icons">
 
-<button class="icon-btn">
-🔍
-</button>
+<button class="icon-btn">🔍</button>
 
 <button class="icon-btn" id="cartButton">
-
-🛒
-
-<span id="cartCount">0</span>
-
+🛒 <span id="cartCount">0</span>
 </button>
 
 </div>
-
 </header>
 
 <!-- HOME -->
@@ -51,21 +49,14 @@
 <section class="hero">
 
 <h2>Ride Beyond Limits.</h2>
+<p>Premium Parts for Surron & Talaria.</p>
 
-<p>
-Premium Parts for Surron & Talaria.
-</p>
-
-<button id="shopNow">
-Shop Now
-</button>
+<button id="shopNow">Shop Now</button>
 
 </section>
 
 <section class="products" id="products">
-
 <!-- Products load here -->
-
 </section>
 
 </main>
@@ -75,13 +66,8 @@ Shop Now
 
 <div class="page-header">
 
-<button class="back-btn">
-← Back
-</button>
-
-<button class="exit-btn">
-✕
-</button>
+<button class="back-btn">← Back</button>
+<button class="exit-btn">✕</button>
 
 </div>
 
@@ -89,18 +75,12 @@ Shop Now
 
 <div class="product-info">
 
-<p class="brand">
-ASTRIS MOTO
-</p>
+<p class="brand">ASTRIS MOTO</p>
 
 <h1 id="productTitle"></h1>
 
 <div class="reviews">
-
-★★★★★
-
-<span>0 Reviews</span>
-
+★★★★★ <span>0 Reviews</span>
 </div>
 
 <h2 id="productPrice"></h2>
@@ -108,52 +88,19 @@ ASTRIS MOTO
 <div id="variantButtons"></div>
 
 <div class="quantity">
-    <button class="qty-minus">−</button>
-    <span>1</span>
-    <button class="qty-plus">+</button>
-</div>
-<button class="cart-large">
-
-Add to Cart
-
-</button>
-
-<button class="buy-large">
-
-Buy Now
-
-</button>
-
-<div class="accordion">
-
-<div class="accordion-item">
-
-<h3>Description</h3>
-
+  <button class="qty-minus">−</button>
+  <span>1</span>
+  <button class="qty-plus">+</button>
 </div>
 
-<div class="accordion-item">
-
-<h3>Fitment</h3>
-
-</div>
-
-<div class="accordion-item">
-
-<h3>Shipping</h3>
-
-</div>
-
-</div>
+<button class="cart-large">Add to Cart</button>
+<button class="buy-large">Buy Now</button>
 
 </div>
 
 <section class="related">
-
 <h2>You May Also Like</h2>
-
 <div id="relatedProducts"></div>
-
 </section>
 
 </section>
@@ -164,10 +111,7 @@ Buy Now
 <div class="drawer-header">
 
 <h2>Cart</h2>
-
-<button class="closeCart">
-✕
-</button>
+<button class="closeCart">✕</button>
 
 </div>
 
@@ -177,20 +121,14 @@ Buy Now
 
 <h3 id="cartTotal">$0.00</h3>
 
-<button id="checkoutBtn">
-
-Checkout
-
-</button>
+<button id="checkoutBtn">Checkout</button>
 
 </div>
 
 </div>
 
 <script src="products.js"></script>
-
 <script src="script.js"></script>
 
 </body>
-
 </html>
