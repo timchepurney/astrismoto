@@ -231,3 +231,18 @@ function closeCart() {
 
 cartButton.addEventListener("click", openCart);
 closeCartBtn.addEventListener("click", closeCart);
+document.addEventListener("DOMContentLoaded", () => {
+
+  const menuBtn = document.querySelector(".menu-btn");
+  const sideMenu = document.getElementById("sideMenu");
+  const closeMenu = document.getElementById("closeMenu");
+
+  menuBtn?.addEventListener("click", () => {
+    sideMenu.classList.add("open");
+  });
+
+  closeMenu?.addEventListener("click", () => {
+    sideMenu.classList.remove("open");
+  });
+
+});
