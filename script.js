@@ -1,8 +1,3 @@
-console.log("script is alive 🔥");
-// -----------------------
-// ASTRIS MOTO - CLEAN SCRIPT
-// -----------------------
-
 let cart = JSON.parse(localStorage.getItem("astris-cart")) || [];
 
 let currentProduct = null;
@@ -10,7 +5,7 @@ let currentQty = 1;
 let currentVariant = null;
 
 // -----------------------
-// LOADER (ONLY ONCE)
+// INIT
 // -----------------------
 
 window.addEventListener("load", () => {
@@ -20,9 +15,7 @@ window.addEventListener("load", () => {
     loader.style.opacity = "0";
     loader.style.pointerEvents = "none";
 
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 500);
+    setTimeout(() => loader.style.display = "none", 500);
   }, 800);
 
   loadProducts();
@@ -30,25 +23,21 @@ window.addEventListener("load", () => {
 });
 
 // -----------------------
-// LOAD PRODUCTS
+// PRODUCTS
 // -----------------------
 
 function loadProducts() {
   const container = document.getElementById("products");
   container.innerHTML = "";
 
-  products.forEach(product => {
+  products.forEach(p => {
     container.innerHTML += `
       <div class="product-card">
-        <img src="${product.image}" onclick="openProduct(${product.id})">
-
+        <img src="${p.image}" onclick="openProduct(${p.id})">
         <div class="product-info">
-          <h3>${product.name}</h3>
-          <p>$${product.price}</p>
-
-          <button onclick="openProduct(${product.id})">
-            View Product
-          </button>
+          <h3>${p.name}</h3>
+          <p>$${p.price}</p>
+          <button onclick="openProduct(${p.id})">View Product</button>
         </div>
       </div>
     `;
@@ -56,7 +45,7 @@ function loadProducts() {
 }
 
 // -----------------------
-// OPEN PRODUCT PAGE
+// OPEN PRODUCT
 // -----------------------
 
 function openProduct(id) {
@@ -79,11 +68,11 @@ function openProduct(id) {
 // -----------------------
 
 function loadGallery() {
-  const gallery = document.getElementById("productGallery");
-  gallery.innerHTML = "";
+  const g = document.getElementById("productGallery");
+  g.innerHTML = "";
 
   currentProduct.gallery.forEach(img => {
-    gallery.innerHTML += `<img src="${img}">`;
+    g.innerHTML += `<img src="${img}">`;
   });
 }
 
@@ -95,7 +84,7 @@ function loadVariants() {
   const box = document.getElementById("variantButtons");
   box.innerHTML = "";
 
-  if (!currentProduct.variants || currentProduct.variants.length === 0) return;
+  if (!currentProduct.variants) return;
 
   currentProduct.variants.forEach(v => {
     box.innerHTML += `
@@ -112,24 +101,19 @@ function selectVariant(name, price) {
 }
 
 // -----------------------
-// QUANTITY
+// QTY
 // -----------------------
 
-function increaseQty() {
-  currentQty++;
-  document.querySelector(".quantity span").innerText = currentQty;
-}
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("qty-plus")) {
+    currentQty++;
+    document.querySelector(".quantity span").innerText = currentQty;
+  }
 
-function decreaseQty() {
-  if (currentQty > 1) {
+  if (e.target.classList.contains("qty-minus") && currentQty > 1) {
     currentQty--;
     document.querySelector(".quantity span").innerText = currentQty;
   }
-}
-
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("qty-plus")) increaseQty();
-  if (e.target.classList.contains("qty-minus")) decreaseQty();
 });
 
 // -----------------------
@@ -137,21 +121,30 @@ document.addEventListener("click", (e) => {
 // -----------------------
 
 document.querySelector(".cart-large").addEventListener("click", () => {
+
   let price = currentProduct.price;
 
   if (currentVariant && currentProduct.variants) {
-    const found = currentProduct.variants.find(v => v.name === currentVariant);
-    if (found) price = found.price;
+    const v = currentProduct.variants.find(x => x.name === currentVariant);
+    if (v) price = v.price;
   }
 
-  cart.push({
-    id: currentProduct.id,
-    name: currentProduct.name,
-    variant: currentVariant,
-    qty: currentQty,
-    price: price,
-    image: currentProduct.image
-  });
+  const existing = cart.find(
+    i => i.id === currentProduct.id && i.variant === currentVariant
+  );
+
+  if (existing) {
+    existing.qty += currentQty;
+  } else {
+    cart.push({
+      id: currentProduct.id,
+      name: currentProduct.name,
+      variant: currentVariant,
+      qty: currentQty,
+      price,
+      image: currentProduct.image
+    });
+  }
 
   localStorage.setItem("astris-cart", JSON.stringify(cart));
 
@@ -160,45 +153,73 @@ document.querySelector(".cart-large").addEventListener("click", () => {
 });
 
 // -----------------------
-// UPDATE CART
+// CART UPDATE
 // -----------------------
 
 function updateCart() {
-  document.getElementById("cartCount").innerText = cart.length;
-
   const items = document.getElementById("cartItems");
   let total = 0;
 
   items.innerHTML = "";
 
-  cart.forEach(item => {
+  cart.forEach((item, index) => {
     total += item.price * item.qty;
 
     items.innerHTML += `
       <div class="cart-item">
         <img src="${item.image}" width="60">
 
-        <div>
+        <div style="flex:1">
           <h3>${item.name}</h3>
           <p>${item.variant || ""}</p>
-          <p>Qty: ${item.qty}</p>
+
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button onclick="changeQty(${index}, -1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty(${index}, 1)">+</button>
+          </div>
         </div>
 
-        <div>$${item.price * item.qty}</div>
+        <div>
+          $${item.price * item.qty}
+          <button onclick="removeItem(${index})">🗑️</button>
+        </div>
       </div>
     `;
   });
 
   document.getElementById("cartTotal").innerText = "$" + total;
+  document.getElementById("cartCount").innerText = cart.length;
+
+  localStorage.setItem("astris-cart", JSON.stringify(cart));
 }
 
 // -----------------------
-// CART DRAWER (CLEAN)
+// CART ACTIONS
+// -----------------------
+
+function changeQty(index, amount) {
+  cart[index].qty += amount;
+
+  if (cart[index].qty <= 0) {
+    cart.splice(index, 1);
+  }
+
+  updateCart();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+// -----------------------
+// CART DRAWER
 // -----------------------
 
 const cartDrawer = document.getElementById("cartDrawer");
 const cartButton = document.getElementById("cartButton");
-const closeBtn = document.querySelector(".closeCart");
+const closeCartBtn = document.querySelector(".closeCart");
 
 function openCart() {
   cartDrawer.classList.add("open");
@@ -209,66 +230,4 @@ function closeCart() {
 }
 
 cartButton.addEventListener("click", openCart);
-closeBtn.addEventListener("click", closeCart);
-document.addEventListener("DOMContentLoaded", () => {
-
-  // -----------------------
-  // MENU SYSTEM
-  // -----------------------
-
-  const menuBtn = document.querySelector(".menu-btn");
-  const sideMenu = document.getElementById("sideMenu");
-  const closeMenu = document.getElementById("closeMenu");
-
-  if (menuBtn && sideMenu) {
-    menuBtn.addEventListener("click", () => {
-      sideMenu.classList.add("open");
-    });
-  }
-
-  if (closeMenu && sideMenu) {
-    closeMenu.addEventListener("click", () => {
-      sideMenu.classList.remove("open");
-    });
-  }
-
-  // -----------------------
-  // CART (SAFE RE-BIND JUST IN CASE)
-  // -----------------------
-
-  const cartDrawer = document.getElementById("cartDrawer");
-  const cartButton = document.getElementById("cartButton");
-  const closeBtn = document.querySelector(".closeCart");
-
-  if (cartButton && cartDrawer) {
-    cartButton.addEventListener("click", () => {
-      cartDrawer.classList.add("open");
-    });
-  }
-
-  if (closeBtn && cartDrawer) {
-    closeBtn.addEventListener("click", () => {
-      cartDrawer.classList.remove("open");
-    });
-  }
-
-});
-
-// -----------------------
-// LOADER (FINAL SAFE VERSION)
-// -----------------------
-
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
-
-  if (!loader) return;
-
-  setTimeout(() => {
-    loader.style.opacity = "0";
-    loader.style.pointerEvents = "none";
-
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 500);
-  }, 800);
-});
+closeCartBtn.addEventListener("click", closeCart);
