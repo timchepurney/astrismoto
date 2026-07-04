@@ -69,20 +69,20 @@ header{
   gap:12px;
 }
 
+/* GLOBAL BUTTON FEEL */
 button{
   cursor:pointer;
   transition:0.2s ease;
+  border:none;
 }
 
 /* ICON BUTTONS */
-
 .icon-btn,
 .menu-btn,
 .back-btn,
 .exit-btn{
   background:#111;
   color:#fff;
-  border:none;
   width:58px;
   height:58px;
   border-radius:14px;
@@ -98,7 +98,6 @@ button{
 }
 
 /* CART COUNT */
-
 #cartCount{
   background:#fff;
   color:#000;
@@ -106,6 +105,31 @@ button{
   border-radius:999px;
   font-size:12px;
   margin-left:4px;
+}
+
+/* -----------------------
+FILTER BAR (NEW)
+----------------------- */
+
+#filters{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:18px;
+}
+
+.filter{
+  padding:10px 14px;
+  background:#111;
+  color:#fff;
+  border-radius:999px;
+  font-size:14px;
+}
+
+.filter.active{
+  background:#fff;
+  color:#000;
 }
 
 /* -----------------------
@@ -132,7 +156,6 @@ HERO
 #shopNow{
   margin-top:25px;
   padding:18px 50px;
-  border:none;
   border-radius:999px;
   background:#fff;
   color:#000;
@@ -189,7 +212,6 @@ PRODUCTS
 .product-info button{
   width:100%;
   padding:14px;
-  border:none;
   border-radius:12px;
   background:#fff;
   color:#000;
@@ -209,7 +231,6 @@ PRODUCT PAGE
   z-index:1000;
 }
 
-/* FIXED HEADER BUTTONS */
 .page-header{
   display:flex;
   justify-content:space-between;
@@ -221,7 +242,7 @@ PRODUCT PAGE
 }
 
 /* -----------------------
-MENU (NEW FIX)
+SIDE MENU FIX
 ----------------------- */
 
 #sideMenu{
@@ -249,16 +270,8 @@ MENU (NEW FIX)
   font-size:18px;
 }
 
-#sideMenu h2{
-  margin-bottom:10px;
-}
-
-#sideMenu button{
-  align-self:flex-end;
-}
-
 /* -----------------------
-PRODUCT GALLERY
+GALLERY
 ----------------------- */
 
 #productGallery{
@@ -299,6 +312,10 @@ PRODUCT INFO
   margin:18px 0;
 }
 
+/* -----------------------
+QTY
+----------------------- */
+
 .quantity{
   display:flex;
   align-items:center;
@@ -309,7 +326,6 @@ PRODUCT INFO
 .quantity button{
   width:45px;
   height:45px;
-  border:none;
   border-radius:10px;
   background:#111;
   color:#fff;
@@ -317,14 +333,13 @@ PRODUCT INFO
 }
 
 /* -----------------------
-BUTTONS
+BIG BUTTONS
 ----------------------- */
 
 .cart-large,
 .buy-large{
   width:100%;
   padding:18px;
-  border:none;
   border-radius:14px;
   font-size:18px;
   font-weight:bold;
@@ -384,10 +399,9 @@ CART
 #checkoutBtn{
   width:100%;
   padding:16px;
-  border:none;
+  border-radius:12px;
   background:#fff;
   color:#000;
-  border-radius:12px;
   font-weight:bold;
 }
 
@@ -396,7 +410,6 @@ CART
 .cart-item button{
   background:#222;
   color:#fff;
-  border:none;
   padding:6px 10px;
   border-radius:8px;
 }
