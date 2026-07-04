@@ -1,111 +1,59 @@
 const products = [
+  {
+    id: 1,
+    name: "Foot Locks",
+    price: 15,
+    category: "accessories",
+    image: "images/footlocks.jpg",
+    gallery: [
+      "images/footlocks.jpg",
+      "images/footlocks2.jpg",
+      "images/footlocks3.jpg"
+    ],
+    description: "CNC foot locks for locked-in riding.",
+    fitment: ["Surron LBX", "Talaria X3"],
+    variants: [
+      { name: "Black", price: 15 },
+      { name: "Silver", price: 15 }
+    ]
+  },
 
-{
-id:1,
+  {
+    id: 2,
+    name: "Grips",
+    price: 10,
+    category: "accessories",
+    image: "images/grips.jpg",
+    gallery: ["images/grips.jpg"],
+    description: "Soft grips for control + comfort.",
+    fitment: ["Surron LBX", "Talaria X3"],
+    variants: []
+  },
 
-name:"Foot Locks",
+  {
+    id: 3,
+    name: "LBX Aluminum Motor Cover",
+    price: 40,
+    category: "lbx",
+    image: "images/motorcover.jpg",
+    gallery: [
+      "images/motorcover.jpg",
+      "images/motorcover2.jpg"
+    ],
+    description: "CNC aluminum motor protection for Surron LBX.",
+    fitment: ["Surron LBX"],
+    variants: []
+  },
 
-price:15,
-
-category:"Controls",
-
-image:"images/footlocks.jpg",
-
-gallery:[
-"images/footlocks.jpg",
-"images/footlocks2.jpg",
-"images/footlocks3.jpg"
-],
-
-description:"Premium CNC foot locks built for aggressive riding and maximum grip.",
-
-fitment:[
-"Surron LBX",
-"Talaria XXX"
-],
-
-variants:[
-{
-name:"Black",
-price:15
-},
-{
-name:"Silver",
-price:15
-}
-],
-
-stock:true,
-
-featured:true
-},
-
-{
-id:2,
-
-name:"Grips",
-
-price:10,
-
-category:"Controls",
-
-image:"images/grips.jpg",
-
-gallery:[
-"images/grips.jpg"
-],
-
-description:"Soft compound grips with excellent comfort and control.",
-
-fitment:[
-"Surron",
-"Talaria"
-],
-
-variants:[],
-
-stock:true,
-
-featured:true
-},
-
-{
-id:3,
-
-name:"Aluminum Motor Cover",
-
-price:40,
-
-category:"Protection",
-
-image:"images/motorcover.jpg",
-
-gallery:[
-"images/motorcover.jpg",
-"images/motorcover2.jpg"
-],
-
-description:"CNC aluminum motor cover for added protection and premium style.",
-
-fitment:[
-"Surron LBX",
-"Talaria XXX"
-],
-
-variants:[
-{
-name:"Surron LBX",
-price:40
-},
-{
-name:"Talaria XXX",
-price:45
-}
-],
-
-stock:true,
-
-featured:true
-}
-
+  {
+    id: 4,
+    name: "X3 Aluminum Motor Cover",
+    price: 45,
+    category: "x3",
+    image: "images/motorcover2.jpg",
+    gallery: ["images/motorcover2.jpg"],
+    description: "CNC aluminum protection for Talaria X3.",
+    fitment: ["Talaria X3"],
+    variants: []
+  }
 ];
