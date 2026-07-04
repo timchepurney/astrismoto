@@ -4,10 +4,6 @@ let currentProduct = null;
 let currentQty = 1;
 let currentVariant = null;
 
-// -----------------------
-// FILTER STATE
-// -----------------------
-
 let activeFilter = "all";
 
 // -----------------------
@@ -30,25 +26,64 @@ window.addEventListener("load", () => {
 });
 
 // -----------------------
-// FILTER SYSTEM ☰
+// MENU SYSTEM ☰
 // -----------------------
 
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("filter")) {
-    activeFilter = e.target.dataset.filter || "all";
+document.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.querySelector(".menu-btn");
+  const sideMenu = document.getElementById("sideMenu");
+  const closeMenu = document.getElementById("closeMenu");
+  const backdrop = document.getElementById("backdrop");
 
-    document.querySelectorAll(".filter").forEach(btn => {
-      btn.classList.remove("active");
-    });
+  const openMenu = () => {
+    if (sideMenu) sideMenu.classList.add("open");
+    if (backdrop) backdrop.style.display = "block";
+  };
 
-    e.target.classList.add("active");
+  const closeMenuFn = () => {
+    if (sideMenu) sideMenu.classList.remove("open");
+    if (backdrop) backdrop.style.display = "none";
+  };
 
+  menuBtn?.addEventListener("click", openMenu);
+  closeMenu?.addEventListener("click", closeMenuFn);
+  backdrop?.addEventListener("click", closeMenuFn);
+
+  // NAV LINKS
+  document.querySelector(".nav-home")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    showHome();
+    closeMenuFn();
+  });
+
+  document.querySelector(".nav-shop")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    showHome();
     loadProducts();
-  }
+    closeMenuFn();
+  });
 });
 
 // -----------------------
-// PRODUCTS
+// FILTER SYSTEM
+// -----------------------
+
+document.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("filter")) return;
+
+  activeFilter = e.target.dataset.filter || "all";
+
+  document.querySelectorAll(".filter").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  e.target.classList.add("active");
+
+  loadProducts();
+});
+
+// -----------------------
+// LOAD PRODUCTS
 // -----------------------
 
 function loadProducts() {
@@ -69,11 +104,25 @@ function loadProducts() {
         <div class="product-info">
           <h3>${p.name}</h3>
           <p>$${p.price}</p>
-          <button onclick="openProduct(${p.id})">View Product</button>
+          <button onclick="openProduct(${p.id})">View</button>
         </div>
       </div>
     `;
   });
+}
+
+// -----------------------
+// PAGE SWITCH HELPERS
+// -----------------------
+
+function showHome() {
+  document.getElementById("home").style.display = "block";
+  document.getElementById("productPage").style.display = "none";
+}
+
+function showProduct() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("productPage").style.display = "block";
 }
 
 // -----------------------
@@ -87,8 +136,7 @@ function openProduct(id) {
   currentQty = 1;
   currentVariant = null;
 
-  document.getElementById("home").style.display = "none";
-  document.getElementById("productPage").style.display = "block";
+  showProduct();
 
   document.getElementById("productTitle").innerText = currentProduct.name;
   document.getElementById("productPrice").innerText = "$" + currentProduct.price;
@@ -98,13 +146,12 @@ function openProduct(id) {
 }
 
 // -----------------------
-// BACK BUTTON FIX
+// BACK BUTTON
 // -----------------------
 
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("back-btn") || e.target.id === "closeProduct") {
-    document.getElementById("productPage").style.display = "none";
-    document.getElementById("home").style.display = "block";
+    showHome();
   }
 });
 
@@ -133,7 +180,7 @@ function loadVariants() {
 
   box.innerHTML = "";
 
-  if (!currentProduct.variants || currentProduct.variants.length === 0) return;
+  if (!currentProduct.variants?.length) return;
 
   currentProduct.variants.forEach(v => {
     box.innerHTML += `
@@ -146,8 +193,7 @@ function loadVariants() {
 
 function selectVariant(name, price) {
   currentVariant = name;
-  const priceEl = document.getElementById("productPrice");
-  if (priceEl) priceEl.innerText = "$" + price;
+  document.getElementById("productPrice").innerText = "$" + price;
 }
 
 // -----------------------
@@ -156,7 +202,6 @@ function selectVariant(name, price) {
 
 document.addEventListener("click", (e) => {
   const qtyEl = document.querySelector(".quantity span");
-
   if (!qtyEl) return;
 
   if (e.target.classList.contains("qty-plus")) {
@@ -202,14 +247,12 @@ document.addEventListener("click", (e) => {
     });
   }
 
-  localStorage.setItem("astris-cart", JSON.stringify(cart));
-
   updateCart();
   openCart();
 });
 
 // -----------------------
-// CART UPDATE
+// CART
 // -----------------------
 
 function updateCart() {
@@ -220,7 +263,6 @@ function updateCart() {
   if (!items) return;
 
   let total = 0;
-
   items.innerHTML = "";
 
   cart.forEach((item, index) => {
@@ -228,7 +270,6 @@ function updateCart() {
 
     items.innerHTML += `
       <div class="cart-item" style="display:flex;gap:10px;align-items:center;margin-bottom:15px;">
-
         <img src="${item.image}" width="60" style="border-radius:10px;">
 
         <div style="flex:1">
@@ -246,7 +287,6 @@ function updateCart() {
           <div>$${item.price * item.qty}</div>
           <button onclick="removeItem(${index})">🗑️</button>
         </div>
-
       </div>
     `;
   });
@@ -287,34 +327,12 @@ const cartButton = document.getElementById("cartButton");
 const closeCartBtn = document.querySelector(".closeCart");
 
 function openCart() {
-  if (cartDrawer) cartDrawer.classList.add("open");
+  cartDrawer?.classList.add("open");
 }
 
 function closeCart() {
-  if (cartDrawer) cartDrawer.classList.remove("open");
+  cartDrawer?.classList.remove("open");
 }
 
-if (cartButton) cartButton.addEventListener("click", openCart);
-if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
-
-// -----------------------
-// MENU
-// -----------------------
-
-document.addEventListener("DOMContentLoaded", () => {
-  const menuBtn = document.querySelector(".menu-btn");
-  const sideMenu = document.getElementById("sideMenu");
-  const closeMenu = document.getElementById("closeMenu");
-
-  if (menuBtn && sideMenu) {
-    menuBtn.addEventListener("click", () => {
-      sideMenu.classList.add("open");
-    });
-  }
-
-  if (closeMenu && sideMenu) {
-    closeMenu.addEventListener("click", () => {
-      sideMenu.classList.remove("open");
-    });
-  }
-});
+cartButton?.addEventListener("click", openCart);
+closeCartBtn?.addEventListener("click", closeCart);
