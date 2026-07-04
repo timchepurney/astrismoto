@@ -354,3 +354,15 @@ cursor:pointer;
 #cartDrawer.open {
   right: 0;
 }
+#loader {
+  position: fixed;
+  inset: 0;
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: 0.5s ease;
+}
