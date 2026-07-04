@@ -17,12 +17,22 @@
   <p>Loading...</p>
 </div>
 
+<!-- BACKDROP (for menu + cart feel cleaner) -->
+<div id="backdrop"></div>
+
 <!-- ☰ SIDE MENU -->
 <div id="sideMenu">
   <button class="exit-btn" id="closeMenu">✕</button>
-  <h2>Menu</h2>
+
+  <h2>ASTRIS</h2>
+
   <a href="#home">Home</a>
-  <a href="#products">Shop</a>
+  <a href="#products">Shop All</a>
+
+  <div style="margin-top:10px;color:#777;">Accessories</div>
+
+  <a href="#products">Surron LBX Covers</a>
+  <a href="#products">Talaria X3 Covers</a>
 </div>
 
 <!-- HEADER -->
@@ -41,6 +51,7 @@
 </button>
 
 </div>
+
 </header>
 
 <!-- HOME -->
@@ -49,15 +60,13 @@
 <section class="hero">
 
 <h2>Ride Beyond Limits.</h2>
-<p>Premium Parts for Surron & Talaria.</p>
+<p>Premium Aluminum Covers for Surron & Talaria.</p>
 
-<button id="shopNow">Shop Now</button>
+<button id="shopNow">Shop All</button>
 
 </section>
 
-<section class="products" id="products">
-<!-- Products load here -->
-</section>
+<section class="products" id="products"></section>
 
 </main>
 
@@ -67,7 +76,7 @@
 <div class="page-header">
 
 <button class="back-btn">← Back</button>
-<button class="exit-btn">✕</button>
+<button class="exit-btn" id="closeProduct">✕</button>
 
 </div>
 
