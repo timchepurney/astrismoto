@@ -144,3 +144,154 @@ function selectVariant(name,price){
     document.getElementById("productPrice").innerText="$"+price;
 
 }
+// -----------------------
+// QUANTITY
+// -----------------------
+
+function increaseQty(){
+
+    currentQty++;
+
+    document.querySelector(".quantity span").innerText=currentQty;
+
+}
+
+function decreaseQty(){
+
+    if(currentQty>1){
+
+        currentQty--;
+
+        document.querySelector(".quantity span").innerText=currentQty;
+
+    }
+
+}
+
+// Connect buttons
+
+document.addEventListener("click",(e)=>{
+
+    if(e.target.classList.contains("qty-plus")){
+
+        increaseQty();
+
+    }
+
+    if(e.target.classList.contains("qty-minus")){
+
+        decreaseQty();
+
+    }
+
+});
+
+// -----------------------
+// ADD TO CART
+// -----------------------
+
+document.querySelector(".cart-large").onclick=()=>{
+
+    let price=currentProduct.price;
+
+    if(currentVariant){
+
+        const found=currentProduct.variants.find(v=>v.name===currentVariant);
+
+        if(found) price=found.price;
+
+    }
+
+    cart.push({
+
+        id:currentProduct.id,
+
+        name:currentProduct.name,
+
+        variant:currentVariant,
+
+        qty:currentQty,
+
+        price:price,
+
+        image:currentProduct.image
+
+    });
+
+    localStorage.setItem("astris-cart",JSON.stringify(cart));
+
+    updateCart();
+
+    openCart();
+
+};
+
+// -----------------------
+// UPDATE CART
+// -----------------------
+
+function updateCart(){
+
+    document.getElementById("cartCount").innerText=cart.length;
+
+    let items=document.getElementById("cartItems");
+
+    let total=0;
+
+    items.innerHTML="";
+
+    cart.forEach((item,index)=>{
+
+        total+=item.price*item.qty;
+
+        items.innerHTML+=`
+
+        <div class="cart-item">
+
+            <img src="${item.image}" width="70">
+
+            <div>
+
+                <h3>${item.name}</h3>
+
+                <p>${item.variant||""}</p>
+
+                <p>Qty ${item.qty}</p>
+
+            </div>
+
+            <div>
+
+                $${item.price*item.qty}
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById("cartTotal").innerText="$"+total;
+
+}
+
+// -----------------------
+// CART DRAWER
+// -----------------------
+
+function openCart(){
+
+    document.getElementById("cartDrawer").classList.add("open");
+
+}
+
+function closeCart(){
+
+    document.getElementById("cartDrawer").classList.remove("open");
+
+}
+
+document.querySelector(".closeCart").onclick=closeCart;
+
+document.getElementById("cartButton").onclick=openCart;
