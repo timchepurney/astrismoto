@@ -26,20 +26,21 @@
 
   <h2>ASTRIS</h2>
 
-  <a href="#home">Home</a>
-  <a href="#products">Shop All</a>
+  <a href="#" class="nav-home">Home</a>
+  <a href="#" class="nav-shop">Shop All</a>
 
   <div style="margin-top:10px; color:#777;">Categories</div>
 
-  <a href="#products" class="filter" data-filter="lbx">Surron LBX Covers</a>
-  <a href="#products" class="filter" data-filter="x3">Talaria X3 Covers</a>
-  <a href="#products" class="filter" data-filter="accessories">Accessories</a>
+  <a href="#" class="filter" data-filter="all">All Products</a>
+  <a href="#" class="filter" data-filter="lbx">Surron LBX Covers</a>
+  <a href="#" class="filter" data-filter="x3">Talaria X3 Covers</a>
+  <a href="#" class="filter" data-filter="accessories">Accessories</a>
 </div>
 
 <!-- HEADER -->
 <header>
 
-<button class="menu-btn">☰</button>
+<button class="menu-btn" id="openMenu">☰</button>
 
 <h1 class="logo">ASTRIS</h1>
 
@@ -75,9 +76,8 @@
   <button class="filter" data-filter="accessories">Accessories</button>
 </div>
 
-<section class="products" id="products">
-<!-- products render here -->
-</section>
+<!-- PRODUCTS -->
+<section class="products" id="products"></section>
 
 </main>
 
@@ -86,7 +86,7 @@
 
 <div class="page-header">
 
-<button class="back-btn">← Back</button>
+<button class="back-btn" id="backToShop">← Back</button>
 <button class="exit-btn" id="closeProduct">✕</button>
 
 </div>
