@@ -5,6 +5,12 @@ let currentQty = 1;
 let currentVariant = null;
 
 // -----------------------
+// FILTER STATE
+// -----------------------
+
+let activeFilter = "all";
+
+// -----------------------
 // INIT
 // -----------------------
 
@@ -15,13 +21,30 @@ window.addEventListener("load", () => {
     setTimeout(() => {
       loader.style.opacity = "0";
       loader.style.pointerEvents = "none";
-
       setTimeout(() => loader.style.display = "none", 500);
     }, 800);
   }
 
   loadProducts();
   updateCart();
+});
+
+// -----------------------
+// FILTER SYSTEM ☰
+// -----------------------
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("filter")) {
+    activeFilter = e.target.dataset.filter || "all";
+
+    document.querySelectorAll(".filter").forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    e.target.classList.add("active");
+
+    loadProducts();
+  }
 });
 
 // -----------------------
@@ -34,7 +57,12 @@ function loadProducts() {
 
   container.innerHTML = "";
 
-  products.forEach(p => {
+  const filtered =
+    activeFilter === "all"
+      ? products
+      : products.filter(p => p.category === activeFilter);
+
+  filtered.forEach(p => {
     container.innerHTML += `
       <div class="product-card">
         <img src="${p.image}" onclick="openProduct(${p.id})">
@@ -70,6 +98,17 @@ function openProduct(id) {
 }
 
 // -----------------------
+// BACK BUTTON FIX
+// -----------------------
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("back-btn") || e.target.id === "closeProduct") {
+    document.getElementById("productPage").style.display = "none";
+    document.getElementById("home").style.display = "block";
+  }
+});
+
+// -----------------------
 // GALLERY
 // -----------------------
 
@@ -94,7 +133,7 @@ function loadVariants() {
 
   box.innerHTML = "";
 
-  if (!currentProduct.variants) return;
+  if (!currentProduct.variants || currentProduct.variants.length === 0) return;
 
   currentProduct.variants.forEach(v => {
     box.innerHTML += `
@@ -112,20 +151,22 @@ function selectVariant(name, price) {
 }
 
 // -----------------------
-// QTY SYSTEM
+// QTY
 // -----------------------
 
 document.addEventListener("click", (e) => {
   const qtyEl = document.querySelector(".quantity span");
 
+  if (!qtyEl) return;
+
   if (e.target.classList.contains("qty-plus")) {
     currentQty++;
-    if (qtyEl) qtyEl.innerText = currentQty;
+    qtyEl.innerText = currentQty;
   }
 
   if (e.target.classList.contains("qty-minus") && currentQty > 1) {
     currentQty--;
-    if (qtyEl) qtyEl.innerText = currentQty;
+    qtyEl.innerText = currentQty;
   }
 });
 
@@ -133,42 +174,39 @@ document.addEventListener("click", (e) => {
 // ADD TO CART
 // -----------------------
 
-const addBtn = document.querySelector(".cart-large");
+document.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("cart-large")) return;
+  if (!currentProduct) return;
 
-if (addBtn) {
-  addBtn.addEventListener("click", () => {
-    if (!currentProduct) return;
+  let price = currentProduct.price;
 
-    let price = currentProduct.price;
+  if (currentVariant && currentProduct.variants) {
+    const v = currentProduct.variants.find(x => x.name === currentVariant);
+    if (v) price = v.price;
+  }
 
-    if (currentVariant && currentProduct.variants) {
-      const v = currentProduct.variants.find(x => x.name === currentVariant);
-      if (v) price = v.price;
-    }
+  const existing = cart.find(
+    i => i.id === currentProduct.id && i.variant === currentVariant
+  );
 
-    const existing = cart.find(
-      i => i.id === currentProduct.id && i.variant === currentVariant
-    );
+  if (existing) {
+    existing.qty += currentQty;
+  } else {
+    cart.push({
+      id: currentProduct.id,
+      name: currentProduct.name,
+      variant: currentVariant,
+      qty: currentQty,
+      price,
+      image: currentProduct.image
+    });
+  }
 
-    if (existing) {
-      existing.qty += currentQty;
-    } else {
-      cart.push({
-        id: currentProduct.id,
-        name: currentProduct.name,
-        variant: currentVariant,
-        qty: currentQty,
-        price,
-        image: currentProduct.image
-      });
-    }
+  localStorage.setItem("astris-cart", JSON.stringify(cart));
 
-    localStorage.setItem("astris-cart", JSON.stringify(cart));
-
-    updateCart();
-    openCart();
-  });
-}
+  updateCart();
+  openCart();
+});
 
 // -----------------------
 // CART UPDATE
