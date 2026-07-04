@@ -1,3 +1,4 @@
+console.log("script is alive 🔥");
 // -----------------------
 // ASTRIS MOTO - CLEAN SCRIPT
 // -----------------------
